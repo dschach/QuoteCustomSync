@@ -1,8 +1,8 @@
 {
-	"name": "base-sfdx",
+	"name": "quote-custom-sync",
 	"private": true,
-	"version": "0.3.2",
-	"description": "DSchach App",
+	"version": "0.0.1",
+	"description": "Quote Custom Sync builds on SalesforceLabs work and uses custom metadata types and new standard fields to work even better.",
 	"scripts": {
 		"apex:test": "rm testresults/* && sfdx force:apex:test:run -l RunLocalTests -d testresults -r human -c",
 		"initialize": ". scripts/initialize.sh",
@@ -25,8 +25,7 @@
 		"test:unit:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck -- --passWithNoTests",
 		"test:unit": "sfdx-lwc-jest --skipApiVersionCheck -- --passWithNoTests",
 		"test": "npm run test:unit",
-		"updateHighlight": ". doc-assets/updateHighlight.sh",
-		"version": "auto-changelog && git add CHANGELOG.md"
+		"updateHighlight": ". doc-assets/updateHighlight.sh"
 	},
 	"devDependencies": {
 		"@lwc/eslint-plugin-lwc": "^1.6.2",

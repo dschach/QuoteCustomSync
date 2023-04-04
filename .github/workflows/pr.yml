@@ -3,12 +3,12 @@ name: PR Validation
 # Definition when the workflow should run
 on:
   workflow_dispatch:
-  pull_request:
-    types: [edited, opened, synchronize, reopened, review_requested]
-    paths:
-      - 'force-app/**'
-      - 'pmd/**'
-      - 'package.json'
+  #pull_request:
+  #  types: [edited, opened, synchronize, reopened, review_requested]
+  #  paths:
+  #    - 'force-app/**'
+  #   - 'pmd/**'
+  #    - 'package.json'
 
 # Jobs to be executed
 jobs:
