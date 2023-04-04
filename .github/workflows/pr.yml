@@ -75,6 +75,7 @@ jobs:
       # Run PMD scan
       - name: 'Perform PMD scan with PMD action'
         uses: pmd/pmd-github-action@v1
+        id: pmd-action
         with:
           version: 'latest'
           sourcePath: 'force-app'
@@ -83,14 +84,13 @@ jobs:
           createGitHubAnnotations: 'true'
       # Check for PMD violations
       - name: 'Check for PMD violations'
-        if: steps.pmd.outputs.violations != 0
+        if: steps.pmd-action.outputs.violations != 0
         run: exit 1
 
   scratch-org-apex-tests:
-    if: !always()
     runs-on: ubuntu-latest
     needs: format-lint-lwc-tests
-    if: ${{ github.actor != 'dependabot[bot]'}}
+    if: ${{ github.actor != 'dependabot[bot]' && !always()}}
     steps:
       # Checkout the source code
       - name: 'Checkout source code'
