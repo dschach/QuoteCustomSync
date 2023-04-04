@@ -38,3 +38,18 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
+
+# PMD
+.pmdCache
+pmd/deploy.csv
+pmd/pmd.csv
+
+# metadata format files
+src
+mdconverted
+
+# Test results
+testresults
+
+# temporary files
+tmp

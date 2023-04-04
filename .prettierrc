@@ -1,13 +1,34 @@
 {
-  "trailingComma": "none",
-  "overrides": [
-    {
-      "files": "**/lwc/**/*.html",
-      "options": { "parser": "lwc" }
-    },
-    {
-      "files": "*.{cmp,page,component}",
-      "options": { "parser": "html" }
-    }
-  ]
+	"trailingComma": "none",
+	"singleQuote": true,
+	"tabWidth": 2,
+	"printWidth": 180,
+	"useTabs": true,
+	"bracketSpacing": true,
+	"apexInsertFinalNewline": false,
+	"bracketSameLine": true,
+	"overrides": [
+		{
+			"files": "**/lwc/**/*.html",
+			"options": { "parser": "lwc" }
+		},
+		{
+			"files": "*.{cmp,page,component}",
+			"options": { "parser": "html" }
+		},
+		{
+			"files": "*.{yml,yaml}",
+			"options": { "tabWidth": 2, "useTabs": false }
+		},
+		{
+			"files": "docs/*.html",
+			"options": {
+				"parser": "html",
+				"useTabs": false,
+				"printWidth": 150,
+				"htmlWhitespaceSensitivity": "css",
+				"singleQuote": false
+			}
+		}
+	]
 }

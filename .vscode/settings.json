@@ -3,5 +3,32 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/.sfdx": true
-  }
+  },
+  "salesforcedx-vscode-core.retrieve-test-code-coverage": true,
+	"apexPMD.enableCache": true,
+	"apexPMD.rulesets": [
+		"pmd/ruleset.xml"
+	],
+	"apexPMD.priorityErrorThreshold": 2,
+	"apexPMD.priorityWarnThreshold": 3,
+	"apexPMD.runOnFileChange": true,
+	"apexPMD.runOnFileOpen": true,
+	"apexPMD.runOnFileSave": true,
+	"apexPMD.showErrors": true,
+	"editor.bracketPairColorization.enabled": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.guides.bracketPairs": "active",
+	"editor.insertSpaces": false,
+	"editor.linkedEditing": true,
+	"editor.tabSize": 2,
+	"force.showApexJavadocAuthorTag": true,
+	"force.showApexJavadocContext": true,
+	"force.showApexJavadocDescriptionTag": false,
+	"html.format.maxPreserveNewLines": 2,
+	"prettier.configPath": ".prettierrc",
+	"[visualforce]": {
+		"editor.defaultFormatter": "salesforce.salesforcedx-vscode-visualforce",
+		"editor.formatOnSave": false
+	}
 }

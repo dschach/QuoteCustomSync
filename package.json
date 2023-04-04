@@ -1,41 +1,64 @@
 {
-  "name": "salesforce-app",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Salesforce App",
-  "scripts": {
-    "lint": "eslint **/{aura,lwc}/**",
-    "test": "npm run test:unit",
-    "test:unit": "sfdx-lwc-jest",
-    "test:unit:watch": "sfdx-lwc-jest --watch",
-    "test:unit:debug": "sfdx-lwc-jest --debug",
-    "test:unit:coverage": "sfdx-lwc-jest --coverage",
-    "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "postinstall": "husky install",
-    "precommit": "lint-staged"
-  },
-  "devDependencies": {
-    "@lwc/eslint-plugin-lwc": "^1.1.2",
-    "@prettier/plugin-xml": "^2.0.1",
-    "@salesforce/eslint-config-lwc": "^3.2.3",
-    "@salesforce/eslint-plugin-aura": "^2.0.0",
-    "@salesforce/eslint-plugin-lightning": "^1.0.0",
-    "@salesforce/sfdx-lwc-jest": "^1.1.0",
-    "eslint": "^8.11.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest": "^26.1.2",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.0",
-    "prettier-plugin-apex": "^1.10.0"
-  },
-  "lint-staged": {
-    "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
-      "prettier --write"
-    ],
-    "**/{aura,lwc}/**": [
-      "eslint"
-    ]
-  }
+	"name": "base-sfdx",
+	"private": true,
+	"version": "0.3.2",
+	"description": "DSchach App",
+	"scripts": {
+		"apex:test": "rm testresults/* && sfdx force:apex:test:run -l RunLocalTests -d testresults -r human -c",
+		"initialize": ". scripts/initialize.sh",
+		"lint:aura": "eslint --no-error-on-unmatched-pattern **/aura/**/*.js",
+		"lint:lwc": "eslint --no-error-on-unmatched-pattern **/lwc/**/*.js",
+		"lint": "npm run lint:lwc && npm run lint:aura",
+		"myinfo": "sf org display --verbose",
+		"pmd:scan:csv": "$HOME/pmd/bin/run.sh pmd -d force-app -R pmd/ruleset.xml -f csv -r pmd/pmd.csv --cache .pmdCache --short-names",
+		"pmd:scan:deploy:csv": "$HOME/pmd/bin/run.sh pmd -d force-app -R pmd/deployRules.xml -f csv -r pmd/deploy.csv --cache .pmdCache --short-names",
+		"precommit": "lint-staged",
+		"prepare": "husky install",
+		"prettier:apex": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
+		"prettier:docs": "prettier --write \"docs/*.html\"",
+		"prettier:verify:apex": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
+		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+		"scratchorg": ". scripts/orginit.sh",
+		"test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck -- --passWithNoTests",
+		"test:unit:debug": "sfdx-lwc-jest --debug --skipApiVersionCheck -- --passWithNoTests",
+		"test:unit:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck -- --passWithNoTests",
+		"test:unit": "sfdx-lwc-jest --skipApiVersionCheck -- --passWithNoTests",
+		"test": "npm run test:unit",
+		"updateHighlight": ". doc-assets/updateHighlight.sh",
+		"version": "auto-changelog && git add CHANGELOG.md"
+	},
+	"devDependencies": {
+		"@lwc/eslint-plugin-lwc": "^1.6.2",
+		"@prettier/plugin-xml": "^2.2.0",
+		"@salesforce/eslint-config-lwc": "^3.4.0",
+		"@salesforce/eslint-plugin-aura": "^2.1.0",
+		"@salesforce/eslint-plugin-lightning": "^1.0.0",
+		"@salesforce/sfdx-lwc-jest": "^1.3.0",
+		"eslint": "^8.37.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-jest": "^27.2.1",
+		"eslint-plugin-prettier": "^4.2.1",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.0",
+		"marked": "^4.3.0",
+		"prettier": "^2.8.7",
+		"prettier-plugin-apex": "^1.12.0",
+		"release-please": "^15.9.2"
+	},
+	"lint-staged": {
+		"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}": [
+			"prettier --write"
+		],
+		"force-app/**/{aura,lwc}/**": [
+			"eslint"
+		],
+		"docs/assets/*.css": [
+			"prettier --write"
+		],
+		"docs/*.html": [
+			"prettier --write --tab-width 2"
+		]
+	}
 }

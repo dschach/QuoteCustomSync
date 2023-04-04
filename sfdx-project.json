@@ -2,7 +2,8 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true
+      "default": true,
+      "versionNumber": "0.0.0.NEXT"
     }
   ],
   "name": "QuoteCustomSync",

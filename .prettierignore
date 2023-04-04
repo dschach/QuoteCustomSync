@@ -3,8 +3,22 @@
 #
 
 **/staticresources/**
+!**/staticresources/*.js
 .localdevserver
 .sfdx
 .vscode
 
+scripts/soql/**
+node_modules/
+
 coverage/
+doc-assets/*.js
+docs/assets/*.js
+!docs/*
+*-meta.xml
+data/
+pmd/
+
+# Exclude project config
+sfdx-project.json
+dependencies.json
