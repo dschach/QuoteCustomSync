@@ -1,7 +1,7 @@
 {
 	"packages": {
 		".": {
-			"prerelease": true
+			"package-name": ""
 		}
 	},
 	"bump-minor-pre-major": true,
@@ -9,6 +9,7 @@
 	"draft": false,
 	"changelog-path": "CHANGELOG.md",
 	"include-v-in-tag": true,
+	"prerelease": true,
 	"release-as": "0.1.0",
 	"plugins": [{ "type": "sentence-case" }],
 	"release-type": "sfdx",
