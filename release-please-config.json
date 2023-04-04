@@ -1,15 +1,16 @@
 {
 	"packages": {
 		".": {
-			"package-name": "",
-			"bump-minor-pre-major": true,
-			"bump-patch-for-minor-pre-major": true,
-			"prerelease": true,
-			"draft": false,
-			"changelog-path": "CHANGELOG.md",
-			"include-v-in-tag": true
+			"package-name": ""
 		}
 	},
+	"bump-minor-pre-major": true,
+	"bump-patch-for-minor-pre-major": true,
+	"draft": false,
+	"changelog-path": "CHANGELOG.md",
+	"include-v-in-tag": true,
+	"prerelease": true,
+	"release-as": "0.1.0",
 	"plugins": [{ "type": "sentence-case" }],
 	"release-type": "salesforce",
 	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
