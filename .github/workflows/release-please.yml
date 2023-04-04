@@ -12,3 +12,4 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: sfdx

@@ -19,6 +19,7 @@
 		"prettier:verify:apex": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
 		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --target-branch=main --dry-run --debug",
 		"scratchorg": ". scripts/orginit.sh",
 		"test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck -- --passWithNoTests",
 		"test:unit:debug": "sfdx-lwc-jest --debug --skipApiVersionCheck -- --passWithNoTests",
