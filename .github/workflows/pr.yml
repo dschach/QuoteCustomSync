@@ -64,7 +64,7 @@ jobs:
         with:
           version: 'latest'
           sourcePath: 'force-app'
-          rulesets: 'pmd/deployRules.xml'
+          rulesets: 'pmd/deployRules_prerelease.xml'
           analyzeModifiedFilesOnly: 'false'
           createGitHubAnnotations: 'true'
       # Check for PMD violations
@@ -119,8 +119,8 @@ jobs:
 
       # Deploy source to scratch org
       - name: 'Push source to scratch org'
-        #run: sfdx force:source:push
-        run: sf deploy metadata --target-org QuoteSyncOrg
+        run: sfdx force:source:push
+        #run: sf project deploy start --target-org QuoteSyncOrg
 
       # Import sample data
       #- name: 'Import sample data'
@@ -168,7 +168,7 @@ jobs:
       - name: Run SFDX Scanner - Report findings as comments
         uses: mitchspano/sfdx-scan-pull-request@v0.1.9
         with:
-          pmdconfig: 'pmd/deployRules.xml'
+          pmdconfig: 'pmd/deployRules_prerelease.xml'
           severity-threshold: 2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
