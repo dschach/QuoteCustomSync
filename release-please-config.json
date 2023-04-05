@@ -10,7 +10,6 @@
 	"changelog-path": "CHANGELOG.md",
 	"include-v-in-tag": true,
 	"prerelease": true,
-	"release-as": "0.1.0",
 	"plugins": [{ "type": "sentence-case" }],
 	"release-type": "salesforce",
 	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
