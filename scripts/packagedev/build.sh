@@ -1,10 +1,9 @@
-npm run labsdevhub
+npm run x2oddevhub
 
 echo "set managed package"
-sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"LabsActionPlans\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json
 
-sf package version create --code-coverage --path sfdx-source/LabsActionPlans --installation-key-bypass --wait 20
-#sfdx force:package:version:create --code-coverage --path sfdx-source/LabsActionPlans --installation-key-bypass --wait 20
+sf package version create --code-coverage --path force-app --installation-key-bypass --wait 20
 
 echo "unset namespace"
-sed -i "" "s|\"namespace\": \"LabsActionPlans\"|\"namespace\": \"\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json

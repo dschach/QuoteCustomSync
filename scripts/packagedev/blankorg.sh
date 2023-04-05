@@ -1,7 +1,7 @@
 # BLANK scratch org
 
 echo "Clearing namespace"
-sed -i "" "s|\"namespace\": \"LabsActionPlans\"|\"namespace\": \"\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json
 
 echo "Delete old blank org"
 sf org delete scratch --no-prompt --target-org BlankOrg

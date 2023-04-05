@@ -20,6 +20,11 @@ jobs:
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
+
+      - name: 'Install Salesforce sf CLI'
+        run: |
+          npm install @salesforce/cli --global
+          sf --version
       # Checkout the code in the pull request
       - name: 'Checkout source code'
         uses: actions/checkout@v3
@@ -33,7 +38,7 @@ jobs:
 
       # Authenticate dev hub
       - name: 'Authenticate Dev Hub'
-        run: 'sfdx force:auth:sfdxurl:store -f ./DEVHUB_SFDX_URL.txt -a devhub -d'
+        run: 'sf org login sfdx-url --sfdx-url-file ./DEVHUB_SFDX_URL.txt --alias devhub --set-default-dev-hub'
 
       # Remove auth file
       - name: Remove auth file
@@ -61,14 +66,14 @@ jobs:
         id: create-package-version
         run: |
           set +e
-          json=$(sfdx force:package:version:create -c -p ChangeMe --path force-app --installationkeybypass -w 20 --json)
+          json=$(sf package version create --code-coverage --package QuoteSyncOrg --path force-app --installationkeybypass --wait 20 --json)
           echo $json
           status=$(echo $json | jq '.status')
           if [ $status == "0" ]; then
               packageVersionId=$(echo $json | jq '.result.SubscriberPackageVersionId')
               echo "::set-output name=packageVersionId::$packageVersionId"
           else
-              echo "sfdx force:package:version:create failed"
+              echo "sf package version create failed"
           fi
           exit $status
 

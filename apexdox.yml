@@ -10,7 +10,7 @@ engine:
   title: Custom Quote Sync Documentation
   subtitle: Documentation for <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach/QuoteCustomSync">Custom Quote Sync</a>
   sortOrder: alpha
-  cleanDir: false
+  cleanDir: true
   showTOCSnippets: true
   scope:
     - global

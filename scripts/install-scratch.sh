@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set parameters
-ORG_ALIAS="ChangeMe"
+ORG_ALIAS="QuoteSyncOrg"
 
 echo ""
 echo "Installing scratch org ($ORG_ALIAS)"
@@ -9,27 +9,27 @@ echo ""
 
 # Install script
 echo "Cleaning previous scratch org..."
-sfdx force:org:delete -p -u $ORG_ALIAS &> /dev/null
+sf org delete scratch --no-prompt --target-org $ORG_ALIAS &> /dev/null
 echo ""
 
 echo "Creating scratch org..." && \
-sfdx force:org:create -s -f config/project-scratch-def.json -d 30 -a $ORG_ALIAS && \
+sf org create scratch --set-default --definition-file config/project-scratch-def.json --duration-days 30 --alias $ORG_ALIAS && \
 echo "" && \
 
 echo "Pushing source..." && \
-sfdx force:source:push && \
+sf deploy metadata && \
 echo "" && \
 
-echo "Assigning permission sets..." && \
-sfdx force:user:permset:assign -n perm_set_name && \
-echo "" && \
+#echo "Assigning permission sets..." && \
+#sf org assign permset --name Quote_Sync_Permission && \
+#echo "" && \
 
 echo "Importing sample data..." && \
-sfdx force:data:tree:import -p data/data-plan.json && \
+sf data import tree --plan data/data-plan.json && \
 echo "" && \
 
 echo "Opening org..." && \
-sfdx force:org:open && \
+sf org open && \
 echo ""
 
 EXIT_CODE="$?"

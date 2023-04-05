@@ -1,24 +1,20 @@
 <link href="assets/styling.css" rel="stylesheet" />
-<h1 id="david-schach-base-repo-for-sfdx">David Schach base repo for sfdx</h1>
-<h2 id="changelog"><a href="./assets/files/changelog.html">Changelog</a></h2>
+<p><a href="https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml"><img src="https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml/badge.svg" alt="On Push"></a>
+<a href="https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml"><img src="https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml/badge.svg" alt="PR Validation"></a>
+<a href="https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml"><img src="https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml/badge.svg" alt="Release Workflow"></a></p>
+<h1 id="custom-quote-sync">Custom Quote Sync</h1>
+<p>Metadata-driven Quote-Opportunity custom field synchronization</p>
+<p>(based on Salesforce Labs<a href="https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003Iop5EAC">Custom Quote Sync</a>)</p>
+<h2 id="changelog"><a href="./assets/changelog.html">Changelog</a></h2>
 <h2 id="todo-items">ToDo items</h2>
 <ol>
-<li>Rename ChangeMe to a better scratch org name</li>
 <li>Look at the permission set granted - you&#39;ll probably want to fix that</li>
 <li>Update API version to the latest and greatest</li>
-<li>Delete the extra Apex test class</li>
 </ol>
-<h1 id="salesforce-dx-project-next-steps">Salesforce DX Project: Next Steps</h1>
-<p>Now that you&#39;ve created a Salesforce DX project, what&#39;s next? Here are some documentation resources to get you started.</p>
-<h2 id="how-do-you-plan-to-deploy-your-changes">How Do You Plan to Deploy Your Changes?</h2>
-<p>Do you want to deploy a set of changes, or create a self-contained application? Choose a <a href="https://developer.salesforce.com/tools/vscode/en/user-guide/development-models">development model</a>.</p>
-<h2 id="configure-your-salesforce-dx-project">Configure Your Salesforce DX Project</h2>
-<p>The <code>sfdx-project.json</code> file contains useful configuration information for your project. See <a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm">Salesforce DX Project Configuration</a> in the <em>Salesforce DX Developer Guide</em> for details about this file.</p>
-<h2 id="read-all-about-it">Read All About It</h2>
-<ul>
-<li><a href="https://developer.salesforce.com/tools/vscode/">Salesforce Extensions Documentation</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm">Salesforce CLI Setup Guide</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm">Salesforce DX Developer Guide</a></li>
-<li><a href="https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm">Salesforce CLI Command Reference</a></li>
-</ul>
+<h2 id="general-description">General Description</h2>
+<p>This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and QuoteLineItem. The mapped fields will be synchronized automatically similar to the standard Quote Sync process.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="whats-included">What&#39;s Included</h3>
+<p>This package comes with some code (and installs a base trigger handler package) to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.</p>
+<p>This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (or Line Item) field names on the correct CMT and the package will do the rest.</p>
 
