@@ -65,7 +65,7 @@ jobs:
 
       # Run PMD scan
       - name: 'Run PMD scan'
-        run: ~/pmd/bin/pmd check -d force-app -R pmd/deployRules.xml -f text --cache .pmdCache --no-progress
+        run: ~/pmd/bin/pmd check -d force-app -R pmd/deployRules_prerelease.xml -f text --cache .pmdCache --no-progress
 
   pmd-analysis-action:
     runs-on: ubuntu-latest
