@@ -2,7 +2,7 @@ engine:
   source:
     - path: '${workspaceFolder}/force-app/main/default/classes'
       #sourceUrl: https://fixthis.com
-    #- path: '${workspaceFolder}/trigger-handler/main/default/classes'
+    - path: '${workspaceFolder}/trigger-handler/main/default/classes'
     #  sourceUrl: https://fixthis.com
   targetDirectory: '${workspaceFolder}/docs'
   # excludes:

@@ -1,11 +1,16 @@
 {
   "packageDirectories": [
     {
+      "path": "trigger-handler"
+    }
+    ,
+    {
       "path": "force-app",
       "default": true,
       "versionNumber": "0.1.0.NEXT"
     }
   ],
+  "pushPackageDirectoriesSequentially": true,
   "name": "QuoteCustomSync",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
