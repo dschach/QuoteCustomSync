@@ -2,12 +2,11 @@
   "packageDirectories": [
     {
       "path": "trigger-handler"
-    }
-    ,
+    },
     {
       "path": "force-app",
       "default": true,
-      "versionNumber": "0.1.0.NEXT"
+      "versionNumber": "0.1.1.NEXT"
     }
   ],
   "pushPackageDirectoriesSequentially": true,
