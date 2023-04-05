@@ -115,7 +115,6 @@ jobs:
 
       # Create scratch org
       - name: 'Create scratch org'
-        #run: sfdx force:org:create -f config/project-scratch-def.json -a QuoteSyncOrg -s -d 1 -w 20 --noancestors
         run: sf org create scratch --definition-file config/project-scratch-def.json --alias QuoteSyncOrg --set-default --no-ancestors --duration-days 1 --wait 20 --target-dev-hub devhub
 
       # Deploy source to scratch org

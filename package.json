@@ -4,10 +4,10 @@
 	"version": "0.1.0",
 	"description": "Quote Custom Sync builds on SalesforceLabs work and uses custom metadata types and new standard fields to work even better.",
 	"scripts": {
-		"apex:test": "rm testresults/* && sfdx force:apex:test:run -l RunLocalTests -d testresults -r human -c",
+		"apex:test": "rm testresults/* && sf apex run test --test-level RunLocalTests --output-dir testresults --result-format human --code-coverage",
 		"myinfo": "sf org display --verbose",
 		"pmd:scan:csv": "$HOME/pmd/bin/pmd check -d force-app -R pmd/ruleset.xml -f csv -r pmd/pmd.csv --cache .pmdCache --short-names",
-		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check -d force-app -R pmd/deployRules.xml -f csv -r pmd/deploy.csv --cache .pmdCache --short-names",
+		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/ruleset.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache --short-names",
 		"precommit": "lint-staged",
 		"prepare": "husky install",
 		"prettier:apex": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
