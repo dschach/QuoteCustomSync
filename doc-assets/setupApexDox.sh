@@ -19,9 +19,9 @@ printf '<link href="assets/styling.css" rel="stylesheet" />' > "doc-assets/main.
 echo >> "doc-assets/main.html"
 npx marked -i README.md --gfm >> "doc-assets/main.html"
 
-printf '<link href="assets/styling.css" rel="stylesheet" />' > "doc-assets/changelog.html"
-echo >> "doc-assets/changelog.html"
-npx marked -i CHANGELOG.md --gfm >> "doc-assets/changelog.html"
-sed -i "" "s|CHANGELOG.md|assets/changelog.html|" "doc-assets/main.html"
+printf '<link href="assets/styling.css" rel="stylesheet" />' > "doc-assets/files/changelog.html"
+echo >> "doc-assets/files/changelog.html"
+npx marked -i CHANGELOG.md --gfm >> "doc-assets/files/changelog.html"
+sed -i "" "s|CHANGELOG.md|assets/files/changelog.html|" "doc-assets/main.html"
 
 npm run updateHighlight

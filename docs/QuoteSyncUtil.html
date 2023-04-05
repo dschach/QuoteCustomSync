@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom Quote Sync Documentation</title>
+    <meta charset="UTF-8" />
+    <script type="module" src="./assets/index.js"></script>
+    <script type="module" src="./assets/search-idx.js"></script>
+    <script type="module" src="./assets/search.js"></script>
+    <script charset="UTF-8" src="./assets/highlight.js"></script>
+    <script charset="UTF-8" src="./assets/mark.js"></script>
+    <script charset="UTF-8" src="./assets/lunr.js"></script>
+    <link rel="stylesheet" href="./assets/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/index.css" />
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+
+  <body>
+    <div id="side-bar">
+      <div id="logo-container">
+        <div class="title">Custom Quote Sync Documentation</div>
+        <img src="assets/logo.png" />
+        <div class="subtitle">
+          Documentation for <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach/QuoteCustomSync">Custom Quote Sync</a>
+        </div>
+      </div>
+      <div id="search-wrapper">
+        <div class="search-icon"></div>
+        <input id="search-input" type="text" autocomplete="off" placeholder="Search..." />
+      </div>
+      <ul id="search-results" class=""></ul>
+      <div class="navbar">
+        <nav role="navigation">
+          <a class="nav-header" id="home" href="javascript:void(0)" onclick="goToLocation('index.html');"> Home </a>
+          <details id="Miscellaneous" class="group-name">
+            <summary id="header-Miscellaneous" class="nav-header">
+              <span>Miscellaneous</span>
+            </summary>
+            <ul>
+              <!-- menu items -->
+              <li
+                title="QuoteSyncTestSuite"
+                id="item-QuoteSyncTestSuite"
+                class="nav-item class private"
+                onclick="goToLocation('QuoteSyncTestSuite.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncTestSuite</a>
+              </li>
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
+              </li>
+              <li title="TriggerStopper" id="item-TriggerStopper" class="nav-item class public" onclick="goToLocation('TriggerStopper.html');">
+                <a tabindex="1" href="javascript:void(0)">TriggerStopper</a>
+              </li>
+            </ul>
+          </details>
+        </nav>
+      </div>
+    </div>
+    <table id="content">
+      <tr>
+        <td class="scoping-panel">
+          Show: <input type="checkbox" checked="true" id="cbx-all" onclick="toggleAllScopes(this.checked);" />
+          <label for="cbx-all">All</label>&nbsp;&nbsp;
+          <input type="checkbox" checked="true" id="cbx-global" onclick="toggleScope('global', this.checked);" />
+          <label for="cbx-global"> global </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-public"
+            onclick="toggleScope('public', this.checked);" />
+          <label for="cbx-public"> public </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-protected"
+            onclick="toggleScope('protected', this.checked);" />
+          <label for="cbx-protected"> protected </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-private"
+            onclick="toggleScope('private', this.checked);" />
+          <label for="cbx-private"> private </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-testmethod"
+            onclick="toggleScope('testmethod', this.checked);" />
+          <label for="cbx-testmethod"> testMethod </label>
+        </td>
+      </tr>
+      <tr>
+        <td class="doc-page">
+          <div class="section">
+            <h2 class="class-title top-level-type" id="QuoteSyncUtil">
+              <span>QuoteSyncUtil</span>
+            </h2>
+            <div class="class-container">
+              <div class="class-subtitle">Signature</div>
+
+              <div class="class-signature">public class QuoteSyncUtil</div>
+            </div>
+            <div class="subsection properties QuoteSyncUtil">
+              <h3 class="subsection-title properties">QuoteSyncUtil Properties</h3>
+              <table class="attributes-table properties">
+                <tr>
+                  <th>Name</th>
+                  <th>Signature</th>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>isRunningTest</span></td>
+                  <td>
+                    <div class="attribute-signature">public static boolean isRunningTest</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>newQuoteIds</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Set&lt;Id&gt; newQuoteIds</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>oppFields</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; oppFields</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>oppLineFields</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; oppLineFields</div>
+                  </td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>OppLineRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; OppLineRequiredFields</div>
+                  </td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>OppRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; OppRequiredFields</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>quoteFieldMap</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, String&gt; quoteFieldMap</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>quoteFields</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; quoteFields</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>quoteLineFieldMap</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, String&gt; quoteLineFieldMap</div>
+                  </td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>quoteLineFields</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; quoteLineFields</div>
+                  </td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>QuoteLineRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; QuoteLineRequiredFields</div>
+                  </td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>QuoteRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; QuoteRequiredFields</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="subsection methods">
+              <h3 class="subsection-title methods">QuoteSyncUtil Methods</h3>
+              <div class="methods-container">
+                <ul class="methods-toc">
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.addNewQuoteId"> addNewQuoteId (id) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.addQuoteField"> addQuoteField (quoteField, oppField) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.addQuoteLineField"> addQuoteLineField (qliField, oliField) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.clearNewQuoteIds"> clearNewQuoteIds () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.createValue"> createValue (sobj, entity, field, result, setNullOrFalse) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getCustomRequiredFields"> getCustomRequiredFields (entity) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getField"> getField (entity, field) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getNewQuoteIds"> getNewQuoteIds () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppFields"> getOppFields () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppFieldsString"> getOppFieldsString () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppLineFields"> getOppLineFields () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppLineFieldsString"> getOppLineFieldsString () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFieldMapTo"> getQuoteFieldMapTo (quoteField) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFields"> getQuoteFields () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFieldsString"> getQuoteFieldsString () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFieldMapTo"> getQuoteLineFieldMapTo (quoteLineField) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFields"> getQuoteLineFields () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFieldsString"> getQuoteLineFieldsString () </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.isNewQuote"> isNewQuote (id) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.populateRequiredFields"> populateRequiredFields (sobj) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeAllNewQuoteIds"> removeAllNewQuoteIds (ids) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeNewQuoteId"> removeNewQuoteId (id) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeQuoteField"> removeQuoteField (quoteField) </a>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeQuoteLineField"> removeQuoteLineField (qliField) </a>
+                  </li>
+                </ul>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.addNewQuoteId">
+                    <span>addNewQuoteId(id)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void addNewQuoteId(Id id)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.addQuoteField">
+                    <span>addQuoteField(quoteField, oppField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String addQuoteField(String quoteField, String oppField)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.addQuoteLineField">
+                    <span>addQuoteLineField(qliField, oliField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String addQuoteLineField(String qliField, String oliField)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.clearNewQuoteIds">
+                    <span>clearNewQuoteIds()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void clearNewQuoteIds()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.createValue">
+                    <span>createValue(sobj, entity, field, result, setNullOrFalse)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, boolean
+                    setNullOrFalse)
+                  </div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getCustomRequiredFields">
+                    <span>getCustomRequiredFields(entity)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    public static Map&lt;String, Schema.DescribeFieldResult&gt; getCustomRequiredFields(String entity)
+                  </div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getField">
+                    <span>getField(entity, field)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static Schema.DescribeFieldResult getField(String entity, String field)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getNewQuoteIds">
+                    <span>getNewQuoteIds()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static Set&lt;Id&gt; getNewQuoteIds()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getOppFields">
+                    <span>getOppFields()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static List&lt;String&gt; getOppFields()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getOppFieldsString">
+                    <span>getOppFieldsString()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getOppFieldsString()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getOppLineFields">
+                    <span>getOppLineFields()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static List&lt;String&gt; getOppLineFields()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getOppLineFieldsString">
+                    <span>getOppLineFieldsString()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getOppLineFieldsString()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteFieldMapTo">
+                    <span>getQuoteFieldMapTo(quoteField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getQuoteFieldMapTo(String quoteField)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteFields">
+                    <span>getQuoteFields()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static Set&lt;String&gt; getQuoteFields()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteFieldsString">
+                    <span>getQuoteFieldsString()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getQuoteFieldsString()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFieldMapTo">
+                    <span>getQuoteLineFieldMapTo(quoteLineField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getQuoteLineFieldMapTo(String quoteLineField)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFields">
+                    <span>getQuoteLineFields()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static Set&lt;String&gt; getQuoteLineFields()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFieldsString">
+                    <span>getQuoteLineFieldsString()</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String getQuoteLineFieldsString()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.isNewQuote">
+                    <span>isNewQuote(id)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static Boolean isNewQuote(Id id)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.populateRequiredFields">
+                    <span>populateRequiredFields(sobj)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void populateRequiredFields(SObject sobj)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.removeAllNewQuoteIds">
+                    <span>removeAllNewQuoteIds(ids)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void removeAllNewQuoteIds(Set&lt;Id&gt; ids)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.removeNewQuoteId">
+                    <span>removeNewQuoteId(id)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void removeNewQuoteId(Id id)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.removeQuoteField">
+                    <span>removeQuoteField(quoteField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String removeQuoteField(String quoteField)</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncUtil.removeQuoteLineField">
+                    <span>removeQuoteLineField(qliField)</span>
+                  </h4>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static String removeQuoteLineField(String qliField)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="footer">
+          <div>
+            <a href="https://github.com/no-stack-dub-sack/apexdox-vs-code" target="_blank" rel="noopener noreferrer"> Powered By ApexDox VS Code </a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
