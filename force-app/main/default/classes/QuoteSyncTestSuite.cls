@@ -699,7 +699,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Create quote from opp. Verify quote sync fields are copied from opp
 	 */
-	static testMethod void testCreateQuote() {
+	@isTest
+	private static void testCreateQuote() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -713,7 +714,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Create quote from opp with opp line. Verify quote line sync fields are copied from opp line
 	 */
-	static testMethod void testCreateQuoteWithQuoteLine() {
+	@isTest
+	private static void testCreateQuoteWithQuoteLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -733,7 +735,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote. Verify opp fields are sync'ed from quote
 	 */
-	static testMethod void testStartSyncQuote() {
+	@isTest
+	private static void testStartSyncQuote() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -754,7 +757,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote. Verify opp fields are sync'ed from quote
 	 */
-	static testMethod void testStartSyncQuoteSetNull() {
+	@isTest
+	private static void testStartSyncQuoteSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -772,7 +776,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote line. Verify opp line fields are sync'ed from quote line
 	 */
-	static testMethod void testStartSyncWithQuoteLine() {
+	@isTest
+	private static void testStartSyncWithQuoteLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -797,7 +802,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote line. Verify opp line fields are sync'ed from quote line
 	 */
-	static testMethod void testStartSyncWithQuoteLineSetNull() {
+	@isTest
+	private static void testStartSyncWithQuoteLineSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -821,7 +827,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from another quote. Verify opp and opp line fields are sync'ed from new quote and quote line
 	 */
-	static testMethod void testStartSyncOtherQuote() {
+	@isTest
+	private static void testStartSyncOtherQuote() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -851,7 +858,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines create new opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncInsertOppLine() {
+	@isTest
+	private static void testStartSyncInsertOppLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -873,7 +881,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines create new opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncInsertOppLineSetNull() {
+	@isTest
+	private static void testStartSyncInsertOppLineSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -895,7 +904,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines update existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncUpdateOppLine() {
+	@isTest
+	private static void testStartSyncUpdateOppLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -919,7 +929,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines update existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncUpdateOppLineSetNull() {
+	@isTest
+	private static void testStartSyncUpdateOppLineSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -943,7 +954,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_1() {
+	@isTest
+	private static void testStartSyncMatchOppLine_1() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -986,7 +998,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_1a() {
+	@isTest
+	private static void testStartSyncMatchOppLine_1a() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1029,7 +1042,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_2() {
+	@isTest
+	private static void testStartSyncMatchOppLine_2() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1058,7 +1072,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_2a() {
+	@isTest
+	private static void testStartSyncMatchOppLine_2a() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1087,7 +1102,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_3() {
+	@isTest
+	private static void testStartSyncMatchOppLine_3() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1116,7 +1132,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_3a() {
+	@isTest
+	private static void testStartSyncMatchOppLine_3a() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1160,7 +1177,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_4() {
+	@isTest
+	private static void testStartSyncMatchOppLine_4() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1192,7 +1210,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_4a() {
+	@isTest
+	private static void testStartSyncMatchOppLine_4a() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1219,7 +1238,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_5() {
+	@isTest
+	private static void testStartSyncMatchOppLine_5() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1246,7 +1266,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_6() {
+	@isTest
+	private static void testStartSyncMatchOppLine_6() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1273,7 +1294,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_7() {
+	@isTest
+	private static void testStartSyncMatchOppLine_7() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1304,7 +1326,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
 	 */
-	static testMethod void testStartSyncMatchOppLine_7a() {
+	@isTest
+	private static void testStartSyncMatchOppLine_7a() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Integer numLine = 2;
@@ -1329,7 +1352,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Stop sync on verify no changes on opp & opp line, quote & quote line fields
 	 */
-	static testMethod void testStopSync() {
+	@isTest
+	private static void testStopSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1358,7 +1382,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp sync fields.  Verify corresponding fields on quote are updated.
 	 */
-	static testMethod void testUpdateOppSync() {
+	@isTest
+	private static void testUpdateOppSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1378,7 +1403,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp sync fields.  Verify corresponding fields on quote are updated.
 	 */
-	static testMethod void testUpdateOppSyncSetNull() {
+	@isTest
+	private static void testUpdateOppSyncSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1398,7 +1424,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
 	 */
-	static testMethod void testUpdateOppLineSyncSetNull() {
+	@isTest
+	private static void testUpdateOppLineSyncSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1424,7 +1451,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
 	 */
-	static testMethod void testUpdateOppLineSync_1() {
+	@isTest
+	private static void testUpdateOppLineSync_1() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1450,7 +1478,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
 	 */
-	static testMethod void testUpdateOppLineSync_2() {
+	@isTest
+	private static void testUpdateOppLineSync_2() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1476,7 +1505,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
 	 */
-	static testMethod void testUpdateOppLineSync_3() {
+	@isTest
+	private static void testUpdateOppLineSync_3() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1502,7 +1532,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert opp line with sync fields set.  Verify corresponding fields on quote line are sync'ed.
 	 */
-	static testMethod void testInsertOppLineSync() {
+	@isTest
+	private static void testInsertOppLineSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1528,7 +1559,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote sync fields.  Verify corresponding fields on opp are updated.
 	 */
-	static testMethod void testUpdateQuoteSync() {
+	@isTest
+	private static void testUpdateQuoteSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1548,7 +1580,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote sync fields.  Verify corresponding fields on opp are updated.
 	 */
-	static testMethod void testUpdateQuoteSyncSetNull() {
+	@isTest
+	private static void testUpdateQuoteSyncSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1568,7 +1601,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
 	 */
-	static testMethod void testUpdateQuoteLineSync_1() {
+	@isTest
+	private static void testUpdateQuoteLineSync_1() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1594,7 +1628,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
 	 */
-	static testMethod void testUpdateQuoteLineSyncSetNull() {
+	@isTest
+	private static void testUpdateQuoteLineSyncSetNull() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1620,7 +1655,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
 	 */
-	static testMethod void testUpdateQuoteLineSync_2() {
+	@isTest
+	private static void testUpdateQuoteLineSync_2() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1646,7 +1682,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
 	 */
-	static testMethod void testUpdateQuoteLineSync_3() {
+	@isTest
+	private static void testUpdateQuoteLineSync_3() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1672,7 +1709,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert quote line with sync fields.  Verify corresponding fields on opp line are sync'ed.
 	 */
-	static testMethod void testInsertQuoteLineSync() {
+	@isTest
+	private static void testInsertQuoteLineSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1697,7 +1735,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp non-sync fields.  Verify fields on quote are not updated.
 	 */
-	static testMethod void testUpdateOppNoSync() {
+	@isTest
+	private static void testUpdateOppNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1717,7 +1756,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line non-sync fields.  Verify fields on quote line are not updated.
 	 */
-	static testMethod void testUpdateOppLineNoSync() {
+	@isTest
+	private static void testUpdateOppLineNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1749,7 +1789,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert opp line without sync fields.  Verify fields on quote line are sync'ed.
 	 */
-	static testMethod void testInsertOppLineNoSync() {
+	@isTest
+	private static void testInsertOppLineNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1771,7 +1812,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote non-sync fields.  Verify corresponding fields on opp are not updated.
 	 */
-	static testMethod void testUpdateQuoteNoSync() {
+	@isTest
+	private static void testUpdateQuoteNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1791,7 +1833,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line non-sync fields.  Verify corresponding fields on opp line are not updated.
 	 */
-	static testMethod void testUpdateQuoteLineNoSync() {
+	@isTest
+	private static void testUpdateQuoteLineNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1822,7 +1865,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert quote line without sync fields.  Verify corresponding fields on opp line are not sync'ed.
 	 */
-	static testMethod void testInsertQuoteLineNoSync() {
+	@isTest
+	private static void testInsertQuoteLineNoSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1844,7 +1888,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp when it's not sync with quote.
 	 */
-	static testMethod void testUpdateOppNotSync() {
+	@isTest
+	private static void testUpdateOppNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1862,7 +1907,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote when it's not sync with opp.
 	 */
-	static testMethod void testUpdateQuoteNotSync() {
+	@isTest
+	private static void testUpdateQuoteNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1880,7 +1926,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update opp line when opp not sync with quote.
 	 */
-	static testMethod void testUpdateOppLineNotSync() {
+	@isTest
+	private static void testUpdateOppLineNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1905,7 +1952,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update quote line when quote not sync with opp.
 	 */
-	static testMethod void testUpdateQuoteLineNotSync() {
+	@isTest
+	private static void testUpdateQuoteLineNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1930,7 +1978,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert opp line when opp not sync with quote.
 	 */
-	static testMethod void testInsertOppLineNotSync() {
+	@isTest
+	private static void testInsertOppLineNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1952,7 +2001,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Insert quote line when quote not sync with opp.
 	 */
-	static testMethod void testInsertQuoteLineNotSync() {
+	@isTest
+	private static void testInsertQuoteLineNotSync() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1972,7 +2022,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Create duplicate opp line with from same pricebookentry
 	 */
-	static testMethod void testCreateDuplicateOppLine() {
+	@isTest
+	private static void testCreateDuplicateOppLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -1995,7 +2046,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Create duplicate quote line with from same pricebookentry
 	 */
-	static testMethod void testCreateDuplicateQuoteLine() {
+	@isTest
+	private static void testCreateDuplicateQuoteLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -2018,7 +2070,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update duplicate opp line with from same pricebookentry
 	 */
-	static testMethod void testUpdateDuplicateOppLine() {
+	@isTest
+	private static void testUpdateDuplicateOppLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
@@ -2044,7 +2097,8 @@ private class QuoteSyncTestSuite {
 	/**
 	 * Update duplicate quote line with from same pricebookentry
 	 */
-	static testMethod void testUpdateDuplicateQuoteLine() {
+	@isTest
+	private static void testUpdateDuplicateQuoteLine() {
 		QuoteSyncUtil.isRunningTest = true;
 		try {
 			Opportunity opp = createOpp();
