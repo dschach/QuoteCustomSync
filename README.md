@@ -1,29 +1,28 @@
-# David Schach base repo for sfdx
+[![On Push](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml)
+[![PR Validation](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml)
+[![Release Workflow](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml)
+
+# Custom Quote Sync
+
+Metadata-driven Quote-Opportunity custom field synchronization
+
+(based on Salesforce Labs[Custom Quote Sync](https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003Iop5EAC))
 
 ## [Changelog](./CHANGELOG.md)
 
 ## ToDo items
 
-1. Rename ChangeMe to a better scratch org name
-2. Look at the permission set granted - you'll probably want to fix that
-3. Update API version to the latest and greatest
-4. Delete the extra Apex test class
+1. Look at the permission set granted - you'll probably want to fix that
+1. Update API version to the latest and greatest
 
-# Salesforce DX Project: Next Steps
+## General Description
 
-Now that you've created a Salesforce DX project, what's next? Here are some documentation resources to get you started.
+This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and QuoteLineItem. The mapped fields will be synchronized automatically similar to the standard Quote Sync process.
 
-## How Do You Plan to Deploy Your Changes?
+## Configuration
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+### What's Included
 
-## Configure Your Salesforce DX Project
+This package comes with some code (and installs a base trigger handler package) to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (or Line Item) field names on the correct CMT and the package will do the rest.

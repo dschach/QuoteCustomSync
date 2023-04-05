@@ -4,7 +4,7 @@
 
 ## ToDo items
 
-1. Rename ChangeMe to a better scratch org name
+1. Rename QuoteSyncOrg to a better scratch org name
 2. Look at the permission set granted - you'll probably want to fix that
 3. Update API version to the latest and greatest
 4. Delete the extra Apex test class
