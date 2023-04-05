@@ -1,6 +1,7 @@
 [![On Push](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml)
 [![PR Validation](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml)
 [![Release Workflow](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml)
+[![codecov](https://codecov.io/gh/dschach/QuoteCustomSync/branch/main/graph/badge.svg?token=H2ZFLBGGZR)](https://codecov.io/gh/dschach/QuoteCustomSync)
 
 # Custom Quote Sync
 

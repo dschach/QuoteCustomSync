@@ -4,18 +4,18 @@ name: On Push
 # Definition when the workflow should run
 on:
   workflow_dispatch:
-  #push:
-  # paths-ignore:
-  #   - 'sfdx-project.json'
-  #   - 'README.md'
-  #   - 'docs/**'
-  #   - 'doc-assets/**'
-  #   - '.vscode/**'
-  #   - '.github/**'
-  # paths:
-  #   - 'force-app/**'
-  #   - 'pmd/**'
-  #   - 'config/**'
+  push:
+    # paths-ignore:
+    #   - 'sfdx-project.json'
+    #   - 'README.md'
+    #   - 'docs/**'
+    #   - 'doc-assets/**'
+    #   - '.vscode/**'
+    #   - '.github/**'
+    paths:
+      - 'force-app/**'
+      - 'pmd/**'
+      - 'config/**'
 
 # Jobs to be executed
 jobs:
@@ -65,7 +65,7 @@ jobs:
 
       # Run PMD scan
       - name: 'Run PMD scan'
-        run: ~/pmd/bin/pmd check -d force-app -R pmd/deployRules.xml -f text --cache .pmdCache -min 2 --no-progress
+        run: ~/pmd/bin/pmd check -d force-app -R pmd/deployRules_prerelease.xml -f text --cache .pmdCache --no-progress
 
   pmd-analysis-action:
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
       - uses: pmd/pmd-github-action@v1
         id: pmd
         with:
-          rulesets: 'pmd/deployRules.xml'
+          rulesets: 'pmd/deployRules_prerelease.xml'
           analyzeModifiedFilesOnly: false
           version: 'latest'
           createGitHubAnnotations: false

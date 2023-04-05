@@ -1,5 +1,5 @@
 {
-	"orgName": "dschach",
+	"orgName": "DSchach QuoteSync",
 	"edition": "Developer",
 	"features": ["Walkthroughs", "EnableSetPasswordInApi"],
 	"settings": {
@@ -12,6 +12,9 @@
 		"userEngagementSettings": {
 			"enableOrchestrationInSandbox": true,
 			"enableShowSalesforceUserAssist": false
+		},
+		"quoteSettings": {
+			"enableQuote": true
 		}
 	}
 }
