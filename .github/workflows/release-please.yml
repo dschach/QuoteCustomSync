@@ -12,5 +12,5 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.RELEASE_TOKEN }}
-          release-type: sfdx
+          release-type: salesforce
           default-branch: main
