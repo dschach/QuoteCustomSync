@@ -10,9 +10,6 @@
 
 	<!-- COMPLEXITY -->
 	<!-- PERFORMANCE -->
-	<rule ref="category/apex/performance.xml/OperationWithLimitsInLoop" message="Avoid operations in loops that may hit governor limits">
-		<priority>2</priority>
-	</rule>
 	<rule ref="category/apex/bestpractices.xml/AvoidGlobalModifier" message="Avoid using global modifier">
 		<priority>2</priority>
 	</rule>
