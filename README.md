@@ -1,13 +1,13 @@
-[![On Push](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml)
-[![PR Validation](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml)
-[![Release Workflow](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml/badge.svg)](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml)
+[![On Push](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dschach/QuoteCustomSync/actions/workflows/ci.yml)
+[![PR Validation](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml/badge.svg?branch=main)](https://github.com/dschach/QuoteCustomSync/actions/workflows/pr.yml)
+[![Release Workflow](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml/badge.svg?branch=main)](https://github.com/dschach/QuoteCustomSync/actions/workflows/release-please.yml)
 [![codecov](https://codecov.io/gh/dschach/QuoteCustomSync/branch/main/graph/badge.svg?token=H2ZFLBGGZR)](https://codecov.io/gh/dschach/QuoteCustomSync)
 
 # Custom Quote Sync
 
 Metadata-driven Quote-Opportunity custom field synchronization
 
-(based on Salesforce Labs[Custom Quote Sync](https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003Iop5EAC))
+(based on Salesforce Labs [Custom Quote Sync](https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003Iop5EAC))
 
 ## [Changelog](./CHANGELOG.md)
 
