@@ -7,7 +7,7 @@ echo "Cleaning previous scratch org..."
 sf org delete scratch --no-prompt --target-org=ChangeMe
 
 echo "Creating new scratch org"
-sf org create scratch --definition-file config/project-scratch-def.json --durationdays 10 -a ChangeMe -s
+sf org create scratch --definition-file config/project-scratch-def.json --durationdays 10 --alias ChangeMe --nonamespace --setdefaultusername
 
 echo "Pushing metadata"
 sf deploy metadata
