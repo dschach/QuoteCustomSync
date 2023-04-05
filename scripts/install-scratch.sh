@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set parameters
-ORG_ALIAS="ChangeMe"
+ORG_ALIAS="QuoteSyncOrg"
 
 echo ""
 echo "Installing scratch org ($ORG_ALIAS)"

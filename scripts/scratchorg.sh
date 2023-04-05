@@ -1,28 +1,24 @@
-# UNMANAGED for use with scratch org
-
-# Install script
-echo "Cleaning previous scratch org..."
-sf org delete scratch --no-prompt --target-org ActionPlans
+#!/bin/bash
 
 echo "Clearing namespace"
-sed -i "" "s|\"namespace\": \"LabsActionPlans\"|\"namespace\": \"\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json
+
+echo "Cleaning previous scratch org..."
+sf org delete scratch --no-prompt --target-org=ChangeMe
 
 echo "Creating new scratch org"
-sf org create scratch --definition-file config/project-scratch-def.json --alias ActionPlans --no-namespace --set-default --no-ancestors --duration-days 7
+sf org create scratch --definition-file config/project-scratch-def.json --durationdays 10 -a ChangeMe -s
 
-echo "Deploying unmanaged main metadata"
-sf deploy metadata  --source-dir sfdx-source/LabsActionPlans
+echo "Pushing metadata"
+sf deploy metadata
 
-echo "Assigning permission set"
-sf org assign permset --name Action_Plans_Admin
+#echo "Assigning Permissions"
+#sf org assign permset --name PermSetName
 
-# To install sample action plan template
-echo "Loading sample data"
-sf apex run --file ./data/sample-data.apex
-
-# To install sample Flow and other metadata
-echo "Deploy unmanaged extra metadata"
-sf deploy metadata  --source-dir sfdx-source/unmanaged
+echo "Adding sample data"
+sf apex run --file ./data/data-plan.json
 
 echo "opening org"
 sf org open
+
+echo "Org is set up"
