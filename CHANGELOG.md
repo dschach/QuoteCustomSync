@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.1.1](https://github.com/dschach/QuoteCustomSync/compare/v0.1.0...v0.1.1) (2023-04-05)
+
+
+### Features
+
+* Include TriggerHandler and docs ([#7](https://github.com/dschach/QuoteCustomSync/issues/7)) ([7a8f26a](https://github.com/dschach/QuoteCustomSync/commit/7a8f26a2e238234e9bad00926fa90ffe0229df1a))
+
+
+### Continuous Integration
+
+* **SemVar:** Remove manual version number ([91c1687](https://github.com/dschach/QuoteCustomSync/commit/91c1687f4161a35033da139663db99f1bf8efed3))
+
+
+### Build System
+
+* Sfdx scripts and README updates ([#8](https://github.com/dschach/QuoteCustomSync/issues/8)) ([75e1d81](https://github.com/dschach/QuoteCustomSync/commit/75e1d8124c707f70623c59578e74b098d5bf3148))
+
+
+### Miscellaneous Chores
+
+* Clean Labs code to create final prerelease ([#9](https://github.com/dschach/QuoteCustomSync/issues/9)) ([8e68a17](https://github.com/dschach/QuoteCustomSync/commit/8e68a173b08464c3cc116a54db49bfed46737c36))
+
+
+### Documentation
+
+* **ApexDox:** Initialize ApexDox ([#5](https://github.com/dschach/QuoteCustomSync/issues/5)) ([6f7d4b9](https://github.com/dschach/QuoteCustomSync/commit/6f7d4b92a67630e6a5688488d869204e032c68af))
+* Update ApexDox ([7d9264b](https://github.com/dschach/QuoteCustomSync/commit/7d9264b54000e9795f95f36ab433ab8912c61c00))
+* Update CI badges to show main branch only ([349afb6](https://github.com/dschach/QuoteCustomSync/commit/349afb6400bdadc3ac2b1d19b29321076e2edb29))
+
 ## 0.1.0 (2023-04-05)
 
 
