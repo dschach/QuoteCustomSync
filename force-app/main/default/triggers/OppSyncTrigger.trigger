@@ -1,6 +1,7 @@
 trigger OppSyncTrigger on Opportunity(after update) {
-	if (TriggerStopper.stopOpp)
+	if (TriggerStopper.stopOpp) {
 		return;
+	}
 
 	TriggerStopper.stopOpp = true;
 
@@ -20,8 +21,9 @@ trigger OppSyncTrigger on Opportunity(after update) {
 			}
 			continue;
 		}
-		if (oppIds != '')
+		if (oppIds != '') {
 			oppIds += ', ';
+		}
 		oppIds += '\'' + opp.Id + '\'';
 	}
 
@@ -37,8 +39,9 @@ trigger OppSyncTrigger on Opportunity(after update) {
 		for (Opportunity opp : opps) {
 			if (opp.SyncedQuoteId != null) {
 				oppMap.put(opp.Id, opp);
-				if (quoteIds != '')
+				if (quoteIds != '') {
 					quoteIds += ', ';
+				}
 				quoteIds += '\'' + opp.SyncedQuoteId + '\'';
 			}
 		}
@@ -59,14 +62,16 @@ trigger OppSyncTrigger on Opportunity(after update) {
 					Object quoteValue = quote.get(quoteField);
 					if (oppValue != quoteValue) {
 						hasChange = true;
-						if (oppValue == null)
+						if (oppValue == null) {
 							quote.put(quoteField, null);
-						else
+						} else {
 							quote.put(quoteField, oppValue);
+						}
 					}
 				}
-				if (hasChange)
+				if (hasChange) {
 					updateQuotes.add(quote);
+				}
 			}
 			TriggerStopper.stopQuote = true;
 			Database.update(updateQuotes);
@@ -81,12 +86,14 @@ trigger OppSyncTrigger on Opportunity(after update) {
 		String syncOppIds = '';
 
 		for (Id quoteId : startSyncQuoteMap.keySet()) {
-			if (syncQuoteIds != '')
+			if (syncQuoteIds != '') {
 				syncQuoteIds += ', ';
+			}
 			syncQuoteIds += '\'' + quoteId + '\'';
 
-			if (syncOppIds != '')
+			if (syncOppIds != '') {
 				syncOppIds += ', ';
+			}
 			syncOppIds += '\'' + startSyncQuoteMap.get(quoteId) + '\'';
 		}
 
@@ -151,8 +158,9 @@ trigger OppSyncTrigger on Opportunity(after update) {
 							oli.Discount == qli.Discount &&
 							oli.SortOrder == qli.SortOrder
 						) {
-							if (updateOliSet.contains(oli))
+							if (updateOliSet.contains(oli)) {
 								continue;
+							}
 
 							//System.debug('########## qliId: ' + qli.Id + '     oliId: ' + oli.Id);
 
@@ -162,10 +170,11 @@ trigger OppSyncTrigger on Opportunity(after update) {
 								Object qliValue = qli.get(qliField);
 								if (oliValue != qliValue) {
 									hasChange = true;
-									if (qliValue == null)
+									if (qliValue == null) {
 										oli.put(oliField, null);
-									else
+									} else {
 										oli.put(oliField, qliValue);
+									}
 								}
 							}
 

@@ -8,8 +8,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 		return;
 	}
 
-	if (TriggerStopper.stopOppLine)
+	if (TriggerStopper.stopOppLine) {
 		return;
+	}
 
 	Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 	List<String> oppLineFields = QuoteSyncUtil.getOppLineFields();
@@ -20,8 +21,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 
 	String oliIds = '';
 	for (OpportunityLineItem oli : Trigger.new) {
-		if (oliIds != '')
+		if (oliIds != '') {
 			oliIds += ', ';
+		}
 		oliIds += '\'' + oli.Id + '\'';
 	}
 
@@ -52,8 +54,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 	String quoteIds = '';
 	for (Opportunity opp : opps.values()) {
 		if (opp.SyncedQuoteId != null) {
-			if (quoteIds != '')
+			if (quoteIds != '') {
 				quoteIds += ', ';
+			}
 			quoteIds += '\'' + opp.SyncedQuoteId + '\'';
 		}
 	}
@@ -87,8 +90,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 			List<QuoteLineItem> quotelines = quoteToQliMap.get(opp.SyncedQuoteId);
 
 			// for opp line insert, there will not be corresponding quote line
-			if (quotelines == null)
+			if (quotelines == null) {
 				continue;
+			}
 
 			Set<QuoteLineItem> matchedQlis = new Set<QuoteLineItem>();
 
@@ -107,8 +111,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 						oli.Discount == oldOli.Discount &&
 						oli.ServiceDate == oldOli.ServiceDate &&
 						oli.SortOrder == oldOli.SortOrder
-					)
+					) {
 						updateQli = true;
+					}
 				}
 
 				boolean hasChange = false;
@@ -123,8 +128,9 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 						oli.ServiceDate == qli.ServiceDate &&
 						oli.SortOrder == qli.SortOrder
 					) {
-						if (updateQlis.contains(qli) || matchedQlis.contains(qli))
+						if (updateQlis.contains(qli) || matchedQlis.contains(qli)) {
 							continue;
+						}
 
 						matchedQlis.add(qli);
 
@@ -135,25 +141,28 @@ trigger OppLineSyncTrigger on OpportunityLineItem(before insert, after insert, a
 
 							if (oliValue != qliValue) {
 								if (Trigger.isInsert) {
-									if (qliValue == null)
+									if (qliValue == null) {
 										oli.put(oliField, null);
-									else
+									} else {
 										oli.put(oliField, qliValue);
+									}
 									hasChange = true;
 								} else if (Trigger.isUpdate && !updateQli /*&& oldOli != null*/) {
 									//Object oldOliValue = oldOli.get(oliField);
 									//if (oliValue == oldOliValue) {
-									if (qliValue == null)
+									if (qliValue == null) {
 										oli.put(oliField, null);
-									else
+									} else {
 										oli.put(oliField, qliValue);
+									}
 									hasChange = true;
 									//}
 								} else if (Trigger.isUpdate && updateQli) {
-									if (oliValue == null)
+									if (oliValue == null) {
 										qli.put(qliField, null);
-									else
+									} else {
 										qli.put(qliField, oliValue);
+									}
 									hasChange = true;
 								}
 							}

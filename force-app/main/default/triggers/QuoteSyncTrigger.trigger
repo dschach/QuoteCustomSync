@@ -1,6 +1,7 @@
 trigger QuoteSyncTrigger on Quote(after insert, after update) {
-	if (TriggerStopper.stopQuote)
+	if (TriggerStopper.stopQuote) {
 		return;
+	}
 
 	TriggerStopper.stopQuote = true;
 
@@ -18,8 +19,9 @@ trigger QuoteSyncTrigger on Quote(after insert, after update) {
 			startSyncQuoteMap.put(quote.Id, quote.OpportunityId);
 		}
 
-		if (quoteIds != '')
+		if (quoteIds != '') {
 			quoteIds += ', ';
+		}
 		quoteIds += '\'' + quote.Id + '\'';
 	}
 
@@ -34,8 +36,9 @@ trigger QuoteSyncTrigger on Quote(after insert, after update) {
 	for (Quote quote : quotes) {
 		if (Trigger.isInsert || (Trigger.isUpdate && quote.isSyncing)) {
 			quoteMap.put(quote.OpportunityId, quote);
-			if (oppIds != '')
+			if (oppIds != '') {
 				oppIds += ', ';
+			}
 			oppIds += '\'' + quote.opportunityId + '\'';
 		}
 	}
@@ -66,10 +69,11 @@ trigger QuoteSyncTrigger on Quote(after insert, after update) {
 						quote.put(quoteField, oppValue);
 						hasChange = true;
 					} else if (Trigger.isUpdate) {
-						if (quoteValue == null)
+						if (quoteValue == null) {
 							opp.put(oppField, null);
-						else
+						} else {
 							opp.put(oppField, quoteValue);
+						}
 						hasChange = true;
 					}
 				}

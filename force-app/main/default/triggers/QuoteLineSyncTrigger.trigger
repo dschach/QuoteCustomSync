@@ -8,8 +8,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 		return;
 	}
 
-	if (TriggerStopper.stopQuoteLine)
+	if (TriggerStopper.stopQuoteLine) {
 		return;
+	}
 
 	Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 	List<String> oppLineFields = QuoteSyncUtil.getOppLineFields();
@@ -20,8 +21,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 
 	String qliIds = '';
 	for (QuoteLineItem qli : Trigger.new) {
-		if (qliIds != '')
+		if (qliIds != '') {
 			qliIds += ', ';
+		}
 		qliIds += '\'' + qli.Id + '\'';
 	}
 
@@ -54,8 +56,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 	for (Quote quote : quotes.values()) {
 		// Only sync quote line item that are inserted for a new Quote or on a isSyncing Quote
 		if ((Trigger.isInsert && QuoteSyncUtil.isNewQuote(quote.Id)) || quote.isSyncing) {
-			if (oppIds != '')
+			if (oppIds != '') {
 				oppIds += ', ';
+			}
 			oppIds += '\'' + quote.OpportunityId + '\'';
 		} else {
 			filterQuoteIds.add(quote.Id);
@@ -99,8 +102,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 			List<OpportunityLineItem> opplines = oppToOliMap.get(quote.OpportunityId);
 
 			// for quote line insert, there will not be corresponding opp line
-			if (opplines == null)
+			if (opplines == null) {
 				continue;
+			}
 
 			Set<OpportunityLineItem> matchedOlis = new Set<OpportunityLineItem>();
 
@@ -119,8 +123,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 						qli.Discount == oldQli.Discount &&
 						qli.ServiceDate == oldQli.ServiceDate &&
 						qli.SortOrder == oldQli.SortOrder
-					)
+					) {
 						updateOli = true;
+					}
 				}
 
 				boolean hasChange = false;
@@ -135,8 +140,9 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 						oli.ServiceDate == qli.ServiceDate &&
 						oli.SortOrder == qli.SortOrder
 					) {
-						if (updateOlis.contains(oli) || matchedOlis.contains(oli))
+						if (updateOlis.contains(oli) || matchedOlis.contains(oli)) {
 							continue;
+						}
 
 						matchedOlis.add(oli);
 
@@ -157,17 +163,19 @@ trigger QuoteLineSyncTrigger on QuoteLineItem(before insert, after insert, after
 								} else if (Trigger.isUpdate && !updateOli /*&& oldQli != null*/) {
 									//Object oldQliValue = oldQli.get(qliField);
 									//if (qliValue == oldQliValue) {
-									if (oliValue == null)
+									if (oliValue == null) {
 										qli.put(qliField, null);
-									else
+									} else {
 										qli.put(qliField, oliValue);
+									}
 									hasChange = true;
 									//}
 								} else if (Trigger.isUpdate && updateOli) {
-									if (qliValue == null)
+									if (qliValue == null) {
 										oli.put(oliField, null);
-									else
+									} else {
 										oli.put(oliField, qliValue);
+									}
 									hasChange = true;
 								}
 							}

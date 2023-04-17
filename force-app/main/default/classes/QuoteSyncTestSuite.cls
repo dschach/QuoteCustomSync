@@ -401,7 +401,7 @@ private class QuoteSyncTestSuite {
 
 		QuoteSyncUtil.populateRequiredFields(opp);
 
-		insert (opp);
+		insert opp;
 		return opp;
 	}
 
@@ -443,7 +443,7 @@ private class QuoteSyncTestSuite {
 
 			olis.add(oli);
 		}
-		insert (olis);
+		insert olis;
 		return olis;
 	}
 
@@ -464,7 +464,7 @@ private class QuoteSyncTestSuite {
 
 			olis.add(oli);
 		}
-		insert (olis);
+		insert olis;
 		return olis;
 	}
 
@@ -479,7 +479,7 @@ private class QuoteSyncTestSuite {
 
 		QuoteSyncUtil.populateRequiredFields(quote);
 
-		insert (quote);
+		insert quote;
 
 		String quoteFields = QuoteSyncUtil.getQuoteFieldsString();
 		//prettier-ignore
@@ -519,7 +519,7 @@ private class QuoteSyncTestSuite {
 
 			qlis.add(qli);
 		}
-		insert (qlis);
+		insert qlis;
 		return qlis;
 	}
 
@@ -540,7 +540,7 @@ private class QuoteSyncTestSuite {
 
 			qlis.add(qli);
 		}
-		insert (qlis);
+		insert qlis;
 		return qlis;
 	}
 
@@ -555,7 +555,7 @@ private class QuoteSyncTestSuite {
 		Opportunity opp = ((List<Opportunity>) Database.query(oppQuery))[0];
 		populateFields(opp, 'Opportunity', QuoteSyncUtil.getOppFields(), updateNullOrFalse);
 
-		update (opp);
+		update opp;
 		return opp;
 	}
 
@@ -570,7 +570,7 @@ private class QuoteSyncTestSuite {
 		Quote quote = ((List<Quote>) Database.query(quoteQuery))[0];
 		populateFields(quote, 'Quote', QuoteSyncUtil.getQuoteFields(), updateNullOrFalse);
 
-		update (quote);
+		update quote;
 		return quote;
 	}
 
@@ -610,7 +610,7 @@ private class QuoteSyncTestSuite {
 				populateFields(oli, 'OpportunityLineItem', QuoteSyncUtil.getOppLineFields(), updateNullOrFalse);
 			}
 		}
-		update (olis);
+		update olis;
 		return olis;
 	}
 
@@ -658,7 +658,7 @@ private class QuoteSyncTestSuite {
 		Opportunity opp = ((List<Opportunity>) Database.query(oppQuery))[0];
 		opp.CloseDate = System.today();
 
-		update (opp);
+		update opp;
 		return opp;
 	}
 
@@ -668,7 +668,7 @@ private class QuoteSyncTestSuite {
 		Quote quote = ((List<Quote>) Database.query(quoteQuery))[0];
 		quote.ExpirationDate = System.today();
 
-		update (quote);
+		update quote;
 		return quote;
 	}
 
@@ -686,7 +686,7 @@ private class QuoteSyncTestSuite {
 			for (OpportunityLineItem oli : olis) {
 				populateField(oli, 'OpportunityLineItem', field);
 			}
-			update (olis);
+			update olis;
 		}
 		return olis;
 	}
@@ -706,7 +706,7 @@ private class QuoteSyncTestSuite {
 			for (QuoteLineItem qli : qlis) {
 				populateField(qli, 'QuoteLineItem', field);
 			}
-			update (qlis);
+			update qlis;
 		}
 		return qlis;
 	}
@@ -714,13 +714,13 @@ private class QuoteSyncTestSuite {
 	private static void startSync(String oppId, String quoteId) {
 		Opportunity opp = [SELECT Id, SyncedQuoteId FROM Opportunity WHERE Id = :oppId];
 		opp.SyncedQuoteId = quoteId;
-		update (opp);
+		update opp;
 	}
 
 	private static void stopSync(String oppId) {
 		Opportunity opp = [SELECT Id, SyncedQuoteId FROM Opportunity WHERE Id = :oppId];
 		opp.SyncedQuoteId = null;
-		update (opp);
+		update opp;
 	}
 
 	/**
@@ -728,13 +728,9 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testCreateQuote() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -742,8 +738,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testCreateQuoteWithQuoteLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2, false, false);
 		System.assert(!oppLines.isEmpty());
@@ -755,8 +749,6 @@ private class QuoteSyncTestSuite {
 		//FIXME: Cannot force picklist value to be different
 		//System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		//System.assert(assertQuoteLineNotSync(opp.Id, quote.Id));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -764,8 +756,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncQuote() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -776,8 +766,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, quote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -785,8 +773,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncQuoteSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp, true);
 
@@ -794,8 +780,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, quote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -803,8 +787,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncWithQuoteLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -820,8 +802,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -829,8 +809,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncWithQuoteLineSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		//FIXME
 		//List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
@@ -844,8 +822,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -853,8 +829,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncOtherQuote() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote1 = createQuote(opp);
@@ -876,8 +850,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote2.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote2.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -885,8 +857,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -898,8 +868,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -907,8 +875,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLineSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -920,8 +886,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -929,8 +893,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -945,8 +907,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -954,8 +914,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLineSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		//List<OpportunityLineItem> oppLines =
 		createOppLines(opp, 2);
@@ -970,8 +928,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -979,8 +935,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1015,8 +969,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1024,8 +976,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1a() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1058,8 +1008,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1067,8 +1015,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1087,8 +1033,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1096,8 +1040,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2a() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1116,8 +1058,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1125,8 +1065,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1145,8 +1083,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1154,8 +1090,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3a() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1189,8 +1123,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1198,8 +1130,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1222,8 +1152,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1231,8 +1159,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4a() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1250,8 +1176,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1259,8 +1183,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine5() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1278,8 +1200,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1287,8 +1207,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine6() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1306,8 +1224,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1315,8 +1231,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1338,8 +1252,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1347,8 +1259,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7a() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
@@ -1364,8 +1274,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1373,8 +1281,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testStopSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1394,8 +1300,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1403,8 +1307,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1414,8 +1316,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertOppFields(opp.Id, updatedOpp));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1423,8 +1323,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppSyncSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1434,8 +1332,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertOppFields(opp.Id, updatedOpp));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1443,8 +1339,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineSyncSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1461,8 +1355,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1470,8 +1362,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineSync1() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1488,8 +1378,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1497,8 +1385,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineSync2() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1515,8 +1401,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1524,8 +1408,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineSync3() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1542,8 +1424,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1551,8 +1431,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertOppLineSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 
@@ -1568,8 +1446,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1577,8 +1453,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1588,8 +1462,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1597,8 +1469,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteSyncSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1608,8 +1478,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1617,8 +1485,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync1() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1635,8 +1501,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1644,8 +1508,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSyncSetNull() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1662,8 +1524,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1671,8 +1531,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync2() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1689,8 +1547,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1698,8 +1554,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync3() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1716,8 +1570,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1725,8 +1577,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertQuoteLineSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1742,8 +1592,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1751,8 +1599,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1762,8 +1608,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, quote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1771,8 +1615,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
@@ -1794,8 +1636,6 @@ private class QuoteSyncTestSuite {
 		if (field != null) {
 			QuoteSyncUtil.addQuoteLineField('description', field);
 		}
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1803,8 +1643,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertOppLineNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1816,8 +1654,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1825,8 +1661,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1836,8 +1670,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, quote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1845,8 +1677,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
@@ -1868,8 +1698,6 @@ private class QuoteSyncTestSuite {
 		if (field != null) {
 			QuoteSyncUtil.addQuoteLineField('description', field);
 		}
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1877,8 +1705,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertQuoteLineNoSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1890,8 +1716,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1899,8 +1723,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1908,8 +1730,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertOppFields(opp.Id, updatedOpp));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1917,8 +1737,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1926,8 +1744,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1935,8 +1751,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateOppLineNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1953,8 +1767,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, updatedOppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1962,8 +1774,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateQuoteLineNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1980,8 +1790,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -1989,8 +1797,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertOppLineNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 
@@ -2002,8 +1808,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id, true));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -2011,8 +1815,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testInsertQuoteLineNotSync() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -2022,8 +1824,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id, true));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -2031,8 +1831,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testCreateDuplicateOppLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -2045,8 +1843,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -2054,8 +1850,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testCreateDuplicateQuoteLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -2069,8 +1863,6 @@ private class QuoteSyncTestSuite {
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -2078,8 +1870,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateDuplicateOppLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -2096,8 +1886,6 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 
 	/**
@@ -2105,8 +1893,6 @@ private class QuoteSyncTestSuite {
 	 */
 	@isTest
 	private static void testUpdateDuplicateQuoteLine() {
-		QuoteSyncUtil.isRunningTest = true;
-
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -2122,7 +1908,5 @@ private class QuoteSyncTestSuite {
 
 		System.assert(assertQuoteFields(quote.Id, quote));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		QuoteSyncUtil.isRunningTest = false;
 	}
 }

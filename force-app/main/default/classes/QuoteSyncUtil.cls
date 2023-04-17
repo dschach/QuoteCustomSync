@@ -206,8 +206,9 @@ public class QuoteSyncUtil {
 		for (String field : fields.keySet()) {
 			Schema.DescribeFieldResult f = fields.get(field).getDescribe();
 
-			if (excludeFields.contains(field) && f.getType() != DisplayType.Boolean)
+			if (excludeFields.contains(field) && f.getType() != DisplayType.Boolean) {
 				continue;
+			}
 
 			if (f.isCustom() && f.isCreateable() && !f.isNillable() && !f.isAutoNumber() && !f.isCalculated() && (!f.isDefaultedOnCreate() || f.getType() == DisplayType.Boolean)) {
 				requiredFields.put(field, f);
@@ -235,8 +236,9 @@ public class QuoteSyncUtil {
 		}
 
 		for (String field : fields.keySet()) {
-			if (sobj.get(field) != null)
+			if (sobj.get(field) != null) {
 				continue;
+			}
 			Schema.DescribeFieldResult result = fields.get(field);
 			sobj.put(field, createValue(sobj, entity, field, result, false));
 		}
