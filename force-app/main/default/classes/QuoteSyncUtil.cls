@@ -324,19 +324,19 @@ public class QuoteSyncUtil {
 	/**
 	 * All `Quote` fields
 	 */
-	private static final Map<String, SObjectField> quoteFields = gd.get('Quote').getDescribe().fields.getMap();
+	private static final Map<String, SObjectField> QUOTE_FIELDS = gd.get('Quote').getDescribe().fields.getMap();
 	/**
 	 * All `QuoteLineItem` fields
 	 */
-	private static final Map<String, SObjectField> quoteLineFields = gd.get('QuoteLineItem').getDescribe().fields.getMap();
+	private static final Map<String, SObjectField> QUOTE_LINE_FIELDS = gd.get('QuoteLineItem').getDescribe().fields.getMap();
 	/**
 	 * All `Opportunity` fields
 	 */
-	private static final Map<String, SObjectField> oppFields = gd.get('Opportunity').getDescribe().fields.getMap();
+	private static final Map<String, SObjectField> OPP_FIELDS = gd.get('Opportunity').getDescribe().fields.getMap();
 	/**
 	 * All `OpportunityLineItem` fields
 	 */
-	private static final Map<String, SObjectField> oppLineFields = gd.get('OpportunityLineItem').getDescribe().fields.getMap();
+	private static final Map<String, SObjectField> OPP_LINE_FIELDS = gd.get('OpportunityLineItem').getDescribe().fields.getMap();
 
 	/**
 	 * @description  Given an object and field, return the DescribeFieldResult
@@ -350,16 +350,16 @@ public class QuoteSyncUtil {
 
 		switch on entity {
 			when 'Quote' {
-				f = quoteFields.get(field).getDescribe();
+				f = QUOTE_FIELDS.get(field).getDescribe();
 			}
 			when 'QuoteLineItem' {
-				f = quoteLineFields.get(field).getDescribe();
+				f = QUOTE_LINE_FIELDS.get(field).getDescribe();
 			}
 			when 'Opportunity' {
-				f = oppFields.get(field).getDescribe();
+				f = OPP_FIELDS.get(field).getDescribe();
 			}
 			when 'OpportunityLineItem' {
-				f = oppLineFields.get(field).getDescribe();
+				f = OPP_LINE_FIELDS.get(field).getDescribe();
 			}
 			when else {
 				Assert.fail('Unknown entity: ' + entity + ', field: ' + field);
@@ -398,19 +398,19 @@ public class QuoteSyncUtil {
 
 		switch on entity {
 			when 'Quote' {
-				fields = quoteFields;
+				fields = QUOTE_FIELDS;
 				excludeFields.addAll(getQuoteFields());
 			}
 			when 'QuoteLineItem' {
-				fields = quoteLineFields;
+				fields = QUOTE_LINE_FIELDS;
 				excludeFields.addAll(getQuoteLineFields());
 			}
 			when 'Opportunity' {
-				fields = oppFields;
+				fields = OPP_FIELDS;
 				excludeFields.addAll(getOppFields());
 			}
 			when 'OpportunityLineItem' {
-				fields = oppLineFields;
+				fields = OPP_LINE_FIELDS;
 				excludeFields.addAll(getOppLineFields());
 			}
 			when else {

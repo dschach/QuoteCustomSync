@@ -223,7 +223,7 @@ global without sharing class QuoteSyncHandler {
 			String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
 			//System.debug(qliQuery);
 
-			Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(qliQuery));
+			Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(String.escapeSingleQuotes(qliQuery)));
 
 			Set<QuoteLineItem> updateQlis = new Set<QuoteLineItem>();
 			Set<OpportunityLineItem> updateOlis = new Set<OpportunityLineItem>();

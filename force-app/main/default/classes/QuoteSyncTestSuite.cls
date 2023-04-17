@@ -514,7 +514,14 @@ private class QuoteSyncTestSuite {
 		}
 		insert pbesToInsert;
 		for (Integer i = 1; i <= num; i++) {
-			QuoteLineItem qli = new QuoteLineItem(QuoteId = quote.Id, UnitPrice = i * 10, Quantity = i, Discount = i, ServiceDate = System.today(), PricebookEntryId = currPbe.Id);
+			QuoteLineItem qli = new QuoteLineItem(
+				QuoteId = quote.Id,
+				UnitPrice = i * 10,
+				Quantity = i,
+				Discount = i,
+				ServiceDate = System.today(),
+				PricebookEntryId = currPbe.Id
+			);
 			populateFields(qli, 'QuoteLineItem', QuoteSyncUtil.getQuoteLineFields(), setNullOrFalse);
 
 			QuoteSyncUtil.populateRequiredFields(qli);
