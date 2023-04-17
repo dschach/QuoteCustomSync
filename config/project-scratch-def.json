@@ -12,6 +12,9 @@
 		},
 		"quoteSettings": {
 			"enableQuote": true
+		},
+		"userManagementSettings": {
+			"permsetsInFieldCreation": true
 		}
 	}
 }
