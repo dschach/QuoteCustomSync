@@ -239,8 +239,9 @@
 		<priority>3</priority>
 		<properties>
 			<property name="reportMissingDescription" value="false"></property>
-			<property name="reportPrivate" value="false"></property>
+			<property name="reportPrivate" value="true"></property>
 			<property name="reportProtected" value="true"></property>
+			<property name="reportProperty" value="false"></property>
 		</properties>
 	</rule>
 
@@ -249,32 +250,6 @@
 		<priority>4</priority>
 	</rule> -->
 
-	<!-- <rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode" /> -->
+	<rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode" />
 
-
-	<!-- VISUALFORCE RULES -->
-	<rule ref="category/vf/security.xml/VfHtmlStyleTagXss" message="Dynamic EL content within URL in style tag should be URLENCODED or JSINHTMLENCODED as appropriate">
-		<!--
-			<apex:page>
-		<style>
-				div {
-						background: url('{!XSSHere}'); // Potential XSS
-				}
-				div {
-						background: url('{!URLENCODE(XSSHere)}'); // correct encoding
-				}
-		</style>
-	</apex:page>
--->
-	<priority>2</priority>
-</rule>
-
-<rule ref="category/vf/security.xml/VfUnescapeEl" message="Avoid unescaped user controlled content in EL as it results in XSS.">
-	<!--Example <apex:outputText value="Potential XSS is {! here }" escape="false" /> -->
-	<priority>3</priority>
-	</rule>
-
-<!-- Error on apex:page action usage -->
-<!-- <apex:page controller="AcRestActionsController" action="{!csrfInitMethod}" > -->
-<rule ref="category/vf/security.xml/VfCsrf" />
 </ruleset>

@@ -10,7 +10,7 @@ echo "Creating new scratch org"
 sf org create scratch --definition-file config/project-scratch-def.json --duration-days 10 --alias QuoteSyncOrg --no-namespace --set-default
 
 echo "Pushing metadata"
-sf deploy metadata
+sf project deploy start
 
 #echo "Assigning Permissions"
 #sf org assign permset --name PermSetName

@@ -4,6 +4,12 @@
 ORG_ALIAS="QuoteSyncOrg"
 
 echo ""
+echo "Set dev hub"
+npm run x2oddevhub
+echo ""
+
+
+echo ""
 echo "Installing scratch org ($ORG_ALIAS)"
 echo ""
 
@@ -17,7 +23,11 @@ sf org create scratch --set-default --definition-file config/project-scratch-def
 echo "" && \
 
 echo "Pushing source..." && \
-sf deploy metadata && \
+sf project deploy start && \
+echo "" && \
+
+echo "Pushing unpackaged metadata..." && \
+sf project deploy start --source-dir unpackaged && \
 echo "" && \
 
 #echo "Assigning permission sets..." && \
@@ -42,4 +52,4 @@ if [ "$EXIT_CODE" -eq 0 ]; then
 else
     echo "Installation failed."
 fi
-exit $EXIT_CODE
+#exit $EXIT_CODE
