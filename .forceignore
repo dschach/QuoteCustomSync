@@ -10,3 +10,10 @@ package.xml
 
 # LWC Jest
 **/__tests__/**
+
+# Admin profile
+*.profile-meta.xml
+Admin.*
+
+# Page Layouts
+force-app/main/default/layouts/*.layout-meta.xml
