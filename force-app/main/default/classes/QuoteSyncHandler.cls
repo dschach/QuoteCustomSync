@@ -31,8 +31,9 @@ global without sharing class QuoteSyncHandler {
 
 		stopOpp = true;
 		Set<String> quoteFields = QuoteSyncUtil.getQuoteFields();
+
 		String quoteFieldsString = getStringFromFieldSet(quoteFields);
-		String oppFieldsString = getStringFromFieldList(QuoteSyncUtil.getOppFields());
+		String oppFieldsString = getStringFromFieldSet(QuoteSyncUtil.getOppFields());
 
 		Map<Id, Id> startSyncQuoteMap = new Map<Id, Id>();
 		Set<Id> syncQuoteIds = new Set<Id>();
@@ -65,7 +66,7 @@ global without sharing class QuoteSyncHandler {
 		// Check start sync quote with matching opp lines and quote lines
 		if (!startSyncQuoteMap.isEmpty()) {
 			String qliFields = getStringFromFieldSet(QuoteSyncUtil.getQuoteLineFields());
-			String oliFields = getStringFromFieldList(QuoteSyncUtil.getOppLineFields());
+			String oliFields = getStringFromFieldSet(QuoteSyncUtil.getOppLineFields());
 
 			//prettier-ignore
 			String qliQuery = 'SELECT Id, Name , (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
@@ -103,9 +104,9 @@ global without sharing class QuoteSyncHandler {
 		stopQuote = true;
 		Set<String> quoteFields = QuoteSyncUtil.getQuoteFields();
 		//List<String> oppFields = QuoteSyncUtil.getOppFields();
-		String quoteFieldsString = getStringFromFieldSet(QuoteSyncUtil.getQuoteFields());
 
-		String oppFieldsString = getStringFromFieldList(QuoteSyncUtil.getOppFields());
+		String quoteFieldsString = getStringFromFieldSet(quoteFields);
+		String oppFieldsString = getStringFromFieldSet(QuoteSyncUtil.getOppFields());
 
 		String quoteQuery = 'SELECT Id, OpportunityId, IsSyncing' + quoteFieldsString + ' FROM Quote WHERE Id IN :newRecords';
 		//System.debug(quoteQuery);
@@ -193,10 +194,10 @@ global without sharing class QuoteSyncHandler {
 			return;
 		}
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
-		List<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
-		String qliFields = getStringFromFieldSet(QuoteSyncUtil.getQuoteLineFields());
+		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
 
-		String oliFields = getStringFromFieldList(QuoteSyncUtil.getOppLineFields());
+		String qliFields = getStringFromFieldSet(quoteLineFields);
+		String oliFields = getStringFromFieldSet(oppLineFields);
 
 		Set<Id> oppIds = new Set<Id>();
 		for (OpportunityLineItem oli : newRecords) {
@@ -334,11 +335,10 @@ global without sharing class QuoteSyncHandler {
 		}
 
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
-		List<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
+		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
 
-		String qliFields = getStringFromFieldSet(QuoteSyncUtil.getQuoteLineFields());
-
-		String oliFields = getStringFromFieldList(QuoteSyncUtil.getOppLineFields());
+		String qliFields = getStringFromFieldSet(quoteLineFields);
+		String oliFields = getStringFromFieldSet(oppLineFields);
 
 		Set<Id> quoteIds = new Set<Id>();
 		for (QuoteLineItem qli : newRecords) {
@@ -550,19 +550,6 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * @description  Method that builds a string of fields separated by a comma to be put into a Database query string
-	 * @param fields List of field names
-	 * @return       `String` with the fields separated by commas
-	 */
-	private static String getStringFromFieldList(List<String> fields) {
-		Set<String> uniqueFields = new Set<String>(fields);
-		String fieldsString = uniqueFields.isEmpty() ? '' : ',';
-		fieldsString += String.join(new List<String>(uniqueFields), ',');
-
-		return fieldsString;
-	}
-
-	/**
 	 * @description Method that gets a list of opportunity Ids, a list of quote Ids and returns a list of Quotes that should be updated to be synced with their corresponding synced opportunity
 	 * @author David Schach
 	 * @since 2022
@@ -574,7 +561,13 @@ global without sharing class QuoteSyncHandler {
 	 * @param quoteFields List of quote fields in a list
 	 * @return `List<Quote>` That should be updated
 	 */
-	private static List<Quote> getQuotesToUpdate(Set<Id> oppIds, Set<Id> quoteIds, String oppFieldsString, String quoteFieldsString, Set<String> quoteFields) {
+	private static List<Quote> getQuotesToUpdate(
+		Set<Id> oppIds,
+		Set<Id> quoteIds,
+		String oppFieldsString,
+		String quoteFieldsString,
+		Set<String> quoteFields
+	) {
 		//prettier-ignore
 		String oppQuery = 'SELECT Id, SyncedQuoteId' + oppFieldsString + ' FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != null';
 		//System.debug(oppQuery);
