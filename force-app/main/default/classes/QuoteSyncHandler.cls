@@ -437,7 +437,7 @@ global without sharing class QuoteSyncHandler {
 								Object qliValue = qli.get(qliField);
 								if (oliValue != qliValue) {
 									if (Trigger.isInsert && (qliValue == null || (qliValue instanceof Boolean && !Boolean.valueOf(qliValue)))) {
-										//System.debug('Insert trigger, isSyncing: ' + quote.isSyncing + ', new quote ids: ' + QuoteSyncUtil.getNewQuoteIds());
+										System.debug('Insert trigger, isSyncing: ' + quote.isSyncing + ', new quote ids: ' + QuoteSyncUtil.getNewQuoteIds());
 
 										// If it's a newly created Quote, don't sync the "Description" field value,
 										// because it's already copied from Opportunity Line Item on create.
