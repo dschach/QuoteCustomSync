@@ -17,31 +17,39 @@ public class QuoteSyncUtil {
 
 	//prettier-ignore
 	private static Set<String> standardQuoteFields = new Set<String>{ 
-		'OpportunityId', 
-		'IsSyncing', 
-		'Name', 
-		'Pricebook2Id' 
+		'IsSyncing',
+		'Name',
+		'OpportunityId',
+		'Pricebook2Id'
 	};
 	//prettier-ignore
 	private static Set<String> standardOppFields = new Set<String>{ 
-		'SyncedQuoteId', 
 		'HasOpportunityLineItem', 
 		'Name', 
-		'Pricebook2Id' 
+		'Pricebook2Id',
+		'SyncedQuoteId'
 	};
 	//prettier-ignore
 	private static Set<String> standardQuoteLineItemFields = new Set<String>{
-		'QuoteId',
-		'PricebookEntryId',
-		'UnitPrice',
-		'Quantity',
 		'Discount',
-		'SortOrder',
+		'OpportunityLineItemId',
+		'PricebookEntryId',
+		'Quantity',
+		'QuoteId',
 		'ServiceDate',
-		'OpportunityLineItemId'
+		'SortOrder',
+		'UnitPrice'
 	};
-	private static Set<String> standardOppLineItemFields = new Set<String>{ 'OpportunityId', 'PricebookEntryId', 'UnitPrice', 'Quantity', 'Discount', 'SortOrder', 'ServiceDate' };
-
+	//prettier-ignore
+	private static Set<String> standardOppLineItemFields = new Set<String>{ 
+		'Discount',
+		'OpportunityId',
+		'PricebookEntryId',
+		'Quantity',
+		'ServiceDate',
+		'SortOrder',
+		'UnitPrice'
+	};
 	/**
 	 * Map `Quote` field => `Opportunity` for syncing
 	 */

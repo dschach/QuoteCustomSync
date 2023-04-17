@@ -236,6 +236,7 @@ private class QuoteSyncTestSuite {
 		//prettier-ignore
 		String oliQuery = 'SELECT Id, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItem WHERE OpportunityId = \'' + oppId + '\'';
 		List<OpportunityLineItem> olis = Database.query(oliQuery);
+		System.debug(olis);
 
 		System.assertEquals(oppLines.size(), olis.size(), 'Number of line items does not match');
 
