@@ -147,125 +147,275 @@ public class QuoteSyncUtil {
 		return newQuoteIds.contains(id);
 	}
 
+	/**
+	 * @description return `quoteLineFieldMap` keyset
+	 *
+	 * @return      `Set<String>`vall QuoteLineItem fields in CMT records
+	 */
 	public static Set<String> getQuoteLineFields() {
 		return quoteLineFieldMap.keySet();
 	}
 
+	/**
+	 * @description return `quoteFieldMap` keyset
+	 *
+	 * @return      `Set<String>` all Quote fields in CMT records
+	 */
 	public static Set<String> getQuoteFields() {
 		return quoteFieldMap.keySet();
 	}
 
-	public static List<String> getOppLineFields() {
-		return quoteLineFieldMap.values();
+	/**
+	 * @description return `quoteLineFieldMap` values as a set
+	 *
+	 * @return      `Set<String>` all OppLineItem fields in CMT records
+	 */
+	public static Set<String> getOppLineFields() {
+		return new Set<String>(quoteLineFieldMap.values());
 	}
 
-	public static List<String> getOppFields() {
-		return quoteFieldMap.values();
+	/**
+	 * @description return `quoteFieldMap` values
+	 *
+	 * @return      `Set<String>` all Opp fields in CMT records
+	 */
+	public static Set<String> getOppFields() {
+		return new Set<String>(quoteFieldMap.values());
 	}
 
+	/**
+	 * @description	     Given a Quote field, find the mapped Opportunity field
+	 *
+	 * @param quoteField Quote field name
+	 * @return           `String` Opportunity field mapped from provided Quote field
+	 */
 	public static String getQuoteFieldMapTo(String quoteField) {
 		return quoteFieldMap.get(quoteField);
 	}
 
+	/**
+	 * @description          Given a QuoteLineItem field, find the mapped Opportunity field
+	 *
+	 * @param quoteLineField QuoteLineItem field name
+	 * @return               `String`
+	 */
 	public static String getQuoteLineFieldMapTo(String quoteLineField) {
 		return quoteLineFieldMap.get(quoteLineField);
 	}
 
+	/**
+	 * @description Join `quoteFieldMap` keyset with commas
+	 *
+	 * @return      Quote fields separated by commas
+	 */
 	public static String getQuoteFieldsString() {
-		String fields = '';
+		Set<String> fields = getQuoteFields();
+		return fields.isEmpty() ? '' : ', ' + String.join(new List<String>(fields), ', ');
+		/* String fields = '';
 		for (String field : getQuoteFields()) {
 			fields += ', ' + field;
 		}
-		return fields;
+		return fields; */
 	}
 
+	/**
+	 * @description Join `quoteFieldMap` values with commas
+	 *
+	 * @return      Opportunity fields separated by commas
+	 */
 	public static String getOppFieldsString() {
-		String fields = '';
+		Set<String> fields = getOppFields();
+		return fields.isEmpty() ? '' : ', ' + String.join(new List<String>(fields), ', ');
+		/* String fields = '';
 		for (String field : getOppFields()) {
 			fields += ', ' + field;
 		}
-		return fields;
+		return fields; */
 	}
 
+	/**
+	 * @description Concatenate all mapped QuoteLineItem fields with a comma
+	 *
+	 * @return      `String` Comma-separated list of QuoteLineItem fields
+	 */
 	public static String getQuoteLineFieldsString() {
-		String fields = '';
+		Set<String> fields = getQuoteLineFields();
+		return fields.isEmpty() ? '' : ', ' + String.join(new List<String>(fields), ', ');
+		/* String fields = '';
 		for (String field : getQuoteLineFields()) {
 			fields += ', ' + field;
 		}
-		return fields;
+		return fields; */
 	}
 
+	/**
+	 * @description
+	 *
+	 * @return      `String`
+	 */
 	public static String getOppLineFieldsString() {
+		Set<String> fields = getOppLineFields();
+		return fields.isEmpty() ? '' : ', ' + String.join(new List<String>(fields), ', ');
+		/* 
 		String fields = '';
 		for (String field : getOppLineFields()) {
 			fields += ', ' + field;
 		}
-		return fields;
+		return fields; */
 	}
 
+	/**
+	 * @description
+	 *
+	 * @param quoteField Quote field name
+	 * @param oppField   Opp field name
+	 * @return           `String`
+	 */
 	public static String addQuoteField(String quoteField, String oppField) {
 		return quoteFieldMap.put(quoteField, oppField);
 	}
 
+	/**
+	 * @description    Add a QuoteLineItem field to the fields to sync
+	 *
+	 * @param qliField Quote Line field name
+	 * @param oliField Opp Line field name
+	 * @return         `String`
+	 */
 	public static String addQuoteLineField(String qliField, String oliField) {
 		return quoteLineFieldMap.put(qliField, oliField);
 	}
 
+	/**
+	 * @description      Remove a Quote field from the Quote fields to sync
+	 * <br>May be removed, as not asserted in test class
+	 *
+	 * @param quoteField Quote field name
+	 * @return           `String`
+	 */
 	public static String removeQuoteField(String quoteField) {
 		return quoteFieldMap.remove(quoteField);
 	}
 
+	/**
+	 * @description Remove a QuoteLineItem field from the fields to sync
+	 * <br>May be removed, as not asserted in test class
+	 *
+	 * @param qliField Quote Line field name
+	 * @return         `String`
+	 */
 	public static String removeQuoteLineField(String qliField) {
 		return quoteLineFieldMap.remove(qliField);
 	}
 
-	private static Map<String, SObjectField> quoteFields = Schema.getGlobalDescribe().get('Quote').getDescribe().fields.getMap();
-	private static Map<String, SObjectField> quoteLineFields = Schema.getGlobalDescribe().get('QuoteLineItem').getDescribe().fields.getMap();
+	/**
+	 * Global describe - memoized
+	 */
+	private static Map<String, Schema.SObjectType> gd {
+		get {
+			if (gd == null) {
+				gd = Schema.getGlobalDescribe();
+			}
+			return gd;
+		}
+		set;
+	}
 
-	private static Map<String, SObjectField> oppFields = Schema.getGlobalDescribe().get('Opportunity').getDescribe().fields.getMap();
-	private static Map<String, SObjectField> oppLineFields = Schema.getGlobalDescribe().get('OpportunityLineItem').getDescribe().fields.getMap();
+	/**
+	 * All `Quote` fields
+	 */
+	private static final Map<String, SObjectField> quoteFields = gd.get('Quote').getDescribe().fields.getMap();
+	/**
+	 * All `QuoteLineItem` fields
+	 */
+	private static final Map<String, SObjectField> quoteLineFields = gd.get('QuoteLineItem').getDescribe().fields.getMap();
+	/**
+	 * All `Opportunity` fields
+	 */
+	private static final Map<String, SObjectField> oppFields = gd.get('Opportunity').getDescribe().fields.getMap();
+	/**
+	 * All `OpportunityLineItem` fields
+	 */
+	private static final Map<String, SObjectField> oppLineFields = gd.get('OpportunityLineItem').getDescribe().fields.getMap();
 
+	/**
+	 * @description  Given an object and field, return the DescribeFieldResult
+	 *
+	 * @param entity Object name
+	 * @param field  Field name
+	 * @return       `Schema.DescribeFieldResult`
+	 */
 	public static Schema.DescribeFieldResult getField(String entity, String field) {
 		Schema.DescribeFieldResult f = null;
 
-		if (entity == 'Quote') {
-			f = quoteFields.get(field).getDescribe();
-		} else if (entity == 'QuoteLineItem') {
-			f = quoteLineFields.get(field).getDescribe();
-		} else if (entity == 'Opportunity') {
-			f = oppFields.get(field).getDescribe();
-		} else if (entity == 'OpportunityLineItem') {
-			f = oppLineFields.get(field).getDescribe();
-		} else {
-			System.assert(false, 'Unknown entity: ' + entity + ', field: ' + field);
+		switch on entity {
+			when 'Quote' {
+				f = quoteFields.get(field).getDescribe();
+			}
+			when 'QuoteLineItem' {
+				f = quoteLineFields.get(field).getDescribe();
+			}
+			when 'Opportunity' {
+				f = oppFields.get(field).getDescribe();
+			}
+			when 'OpportunityLineItem' {
+				f = oppLineFields.get(field).getDescribe();
+			}
+			when else {
+				Assert.fail('Unknown entity: ' + entity + ', field: ' + field);
+			}
 		}
-
 		return f;
 	}
 
+	/**
+	 * Custom, non-synced fields
+	 */
 	public static Map<String, Schema.DescribeFieldResult> quoteRequiredFields = getCustomRequiredFields('Quote');
+	/**
+	 * Custom, non-synced fields
+	 */
 	public static Map<String, Schema.DescribeFieldResult> quoteLineRequiredFields = getCustomRequiredFields('QuoteLineItem');
+	/**
+	 * Custom, non-synced fields
+	 */
 	public static Map<String, Schema.DescribeFieldResult> oppRequiredFields = getCustomRequiredFields('Opportunity');
+	/**
+	 * Custom, non-synced fields
+	 */
 	public static Map<String, Schema.DescribeFieldResult> oppLineRequiredFields = getCustomRequiredFields('OpportunityLineItem');
 
+	/**
+	 * @description  Collect all custom fields for an object, and skip fields we need to sync.
+	 * <br>We may be able to memoize this, but since it's not called directly, there's low risk
+	 *
+	 * @param entity Object name - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem
+	 * @return       For the given object, a list of field describe results (minus our synced non-Boolean fields)
+	 */
 	public static Map<String, Schema.DescribeFieldResult> getCustomRequiredFields(String entity) {
 		Map<String, SObjectField> fields = null;
 		Set<String> excludeFields = new Set<String>();
 
-		if (entity == 'Quote') {
-			fields = quoteFields;
-			excludeFields.addAll(getQuoteFields());
-		} else if (entity == 'QuoteLineItem') {
-			fields = quoteLineFields;
-			excludeFields.addAll(getQuoteLineFields());
-		} else if (entity == 'Opportunity') {
-			fields = oppFields;
-			excludeFields.addAll(getOppFields());
-		} else if (entity == 'OpportunityLineItem') {
-			fields = oppLineFields;
-			excludeFields.addAll(getOppLineFields());
-		} else {
-			System.assert(false, 'Unknown entity: ' + entity);
+		switch on entity {
+			when 'Quote' {
+				fields = quoteFields;
+				excludeFields.addAll(getQuoteFields());
+			}
+			when 'QuoteLineItem' {
+				fields = quoteLineFields;
+				excludeFields.addAll(getQuoteLineFields());
+			}
+			when 'Opportunity' {
+				fields = oppFields;
+				excludeFields.addAll(getOppFields());
+			}
+			when 'OpportunityLineItem' {
+				fields = oppLineFields;
+				excludeFields.addAll(getOppLineFields());
+			}
+			when else {
+				System.assert(false, 'Unknown entity: ' + entity);
+			}
 		}
 
 		Map<String, Schema.DescribeFieldResult> requiredFields = new Map<String, Schema.DescribeFieldResult>();
@@ -277,7 +427,14 @@ public class QuoteSyncUtil {
 				continue;
 			}
 
-			if (f.isCustom() && f.isCreateable() && !f.isNillable() && !f.isAutoNumber() && !f.isCalculated() && (!f.isDefaultedOnCreate() || f.getType() == DisplayType.Boolean)) {
+			if (
+				f.isCustom() &&
+				f.isCreateable() &&
+				!f.isNillable() &&
+				!f.isAutoNumber() &&
+				!f.isCalculated() &&
+				(!f.isDefaultedOnCreate() || f.getType() == DisplayType.Boolean)
+			) {
 				requiredFields.put(field, f);
 			}
 		}
@@ -285,21 +442,32 @@ public class QuoteSyncUtil {
 		return requiredFields;
 	}
 
+	/**
+	 * @description Create a value for each custom field we are not syncing
+	 *
+	 * @param sobj  Sobject record - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem
+	 */
 	public static void populateRequiredFields(SObject sobj) {
 		String entity = sobj.getSObjectType().getDescribe().getName();
 
 		Map<String, Schema.DescribeFieldResult> fields = null;
 
-		if (entity == 'Quote') {
-			fields = QuoteRequiredFields;
-		} else if (entity == 'QuoteLineItem') {
-			fields = QuoteLineRequiredFields;
-		} else if (entity == 'Opportunity') {
-			fields = OppRequiredFields;
-		} else if (entity == 'OpportunityLineItem') {
-			fields = OppLineRequiredFields;
-		} else {
-			System.assert(false, 'Unknown entity: ' + entity);
+		switch on entity {
+			when 'Quote' {
+				fields = quoteRequiredFields;
+			}
+			when 'QuoteLineItem' {
+				fields = quoteLineRequiredFields;
+			}
+			when 'Opportunity' {
+				fields = oppRequiredFields;
+			}
+			when 'OpportunityLineItem' {
+				fields = oppLineRequiredFields;
+			}
+			when else {
+				System.assert(false, 'Unknown entity: ' + entity);
+			}
 		}
 
 		for (String field : fields.keySet()) {
@@ -311,8 +479,89 @@ public class QuoteSyncUtil {
 		}
 	}
 
+	/**
+	 * @description          Create a standard value for each field in our org. This could be done more elegantly with fewer parameters,
+	 * but it is effective like this.
+	 *
+	 * @param sobj           SObject (not the object name)
+	 * @param entity         Object Name
+	 * @param field          Field Name
+	 * @param result         Passed DescribeFieldResult
+	 * @param setNullOrFalse How to handle Booleans
+	 * @return               `Object`
+	 */
 	public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, boolean setNullOrFalse) {
 		Object value = null;
+		String strValue = System.currentTimeMillis() + '_' + entity + '_' + field;
+
+		Map<String, SObjectField> fieldsMap = gd.get(entity).getDescribe().fields.getMap();
+
+		Schema.DisplayType ftype = result.getType();
+
+		if (!setNullOrFalse) {
+			switch on ftype {
+				when Base64 {
+					value = Blob.valueOf(strValue);
+				}
+				when Boolean {
+					System.debug('Setting Boolean value');
+					if (sobj.get(field) != null) {
+						value = !Boolean.valueOf(sobj.get(field));
+						System.debug('Making existing ' + entity + '.' + field + ' Boolean value to ' + value);
+					} else if (entity.equalsIgnoreCase('Quote') || entity.equalsIgnoreCase('QuoteLineItem')) {
+						System.debug('Setting Q field to FALSE');
+						value = false;
+					} else {
+						System.debug('Setting O field to TRUE');
+						value = true;
+					}
+				}
+				when Currency {
+					value = Decimal.valueOf(Math.random());
+				}
+				when Date {
+					value = Date.today();
+				}
+				when DateTime {
+					value = DateTime.now();
+				}
+				when Integer {
+					value = Integer.valueOf(Math.random());
+				}
+				when Double, Percent {
+					value = Math.random();
+				}
+				when Email {
+					value = System.currentTimeMillis() + '@quotesync.test';
+				}
+				when Phone {
+					value = String.valueOf(System.currentTimeMillis());
+				}
+				when Picklist {
+					List<Schema.PicklistEntry> values = result.getPicklistValues();
+					value = values.get(0).getValue();
+				}
+				when MultiPicklist {
+					List<Schema.PicklistEntry> values = result.getPicklistValues();
+					value = values.get(0).getValue();
+				}
+				when String, TextArea, Url {
+					Integer fieldLength = fieldsMap.get(field).getDescribe().length;
+					value = strValue.left(fieldLength - 1);
+				}
+				when else {
+					value = strValue;
+				}
+			}
+		} else {
+			if (ftype == DisplayType.Boolean) {
+				value = false;
+			}
+		}
+
+		return value;
+
+		/* Object value = null;
 		String strValue = entity + '_' + field + '_' + System.currentTimeMillis();
 
 		Schema.DisplayType ftype = result.getType();
@@ -359,6 +608,6 @@ public class QuoteSyncUtil {
 			}
 		}
 
-		return value;
+		return value; */
 	}
 }
