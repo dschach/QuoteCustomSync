@@ -107,6 +107,7 @@ public class QuoteSyncUtil {
 	 * @description Add an ID to the `newQuoteIds` set
 	 *
 	 * @param id
+	 * @deprecated Unused
 	 */
 	public static void addNewQuoteId(Id id) {
 		newQuoteIds.add(id);
@@ -115,7 +116,8 @@ public class QuoteSyncUtil {
 	/**
 	 * @description Remove an ID from the `newQuoteIds` set
 	 *
-	 * @param id
+	 * @param id Quote Id
+	 * @deprecated Unused
 	 */
 	public static void removeNewQuoteId(Id id) {
 		newQuoteIds.remove(id);
@@ -132,6 +134,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Remove all Ids from the `newQuoteIds` set
+	 * @deprecated Unused
 	 */
 	public static void clearNewQuoteIds() {
 		newQuoteIds.clear();
@@ -292,6 +295,7 @@ public class QuoteSyncUtil {
 	 *
 	 * @param quoteField Quote field name
 	 * @return           `String`
+	 * @deprecated Unused
 	 */
 	public static String removeQuoteField(String quoteField) {
 		return quoteFieldMap.remove(quoteField);
@@ -537,11 +541,7 @@ public class QuoteSyncUtil {
 				when Phone {
 					value = String.valueOf(System.currentTimeMillis());
 				}
-				when Picklist {
-					List<Schema.PicklistEntry> values = result.getPicklistValues();
-					value = values.get(0).getValue();
-				}
-				when MultiPicklist {
+				when Picklist, MultiPicklist {
 					List<Schema.PicklistEntry> values = result.getPicklistValues();
 					value = values.get(0).getValue();
 				}
