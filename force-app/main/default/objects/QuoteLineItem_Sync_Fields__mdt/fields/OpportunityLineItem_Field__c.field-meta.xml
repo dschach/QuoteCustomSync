@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OpportunityLineItem_Field__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Opportunity line item field that sync with Quote line item field</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Opportunity line item field that syncs with Quote line item field</inlineHelpText>
+    <label>OpportunityLineItem Field</label>
+    <length>255</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

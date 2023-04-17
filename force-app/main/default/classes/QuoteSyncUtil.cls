@@ -1,81 +1,140 @@
+/**
+ * Open-source version of Quote-Opportunity Sync
+ *
+ * @see [QuoteSync](https://github.com/SalesforceLabs/CustomQuoteSync)
+ * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
+ * @since  2014 Original Author
+ * @author {@link [David Schach](https://github.com/dschach)}
+ * @since 2022-10 Converted to Custom Metadata
+ * @since 2023 Refine Quote Sync with new Quote fields
+ * @group OppQuoteSync
+ */
 public class QuoteSyncUtil {
-	public static boolean isRunningTest = false;
-
-	private static Map<String, String> quoteFieldMap = new Map<String, String>();
-	private static Map<String, String> quoteLineFieldMap = new Map<String, String>();
+	/**
+	 * Set of all new Quote Ids, maintained for the trigger handler
+	 */
 	private static Set<Id> newQuoteIds = new Set<Id>();
 
-	static {
-		/*
-        quoteFieldMap.put('description', 'description');
-        quoteFieldMap.put('custom_text__c', 'custom_text__c');  
-        quoteFieldMap.put('custom_checkbox__c', 'custom_checkbox__c');         
-        quoteFieldMap.put('custom_currency__c', 'custom_currency__c');
-        quoteFieldMap.put('custom_date__c', 'custom_date__c');              
-        quoteFieldMap.put('custom_datetime__c', 'custom_datetime__c'); 
-        quoteFieldMap.put('custom_email__c', 'custom_email__c');          
-        quoteFieldMap.put('custom_multipicklist__c', 'custom_multipicklist__c'); 
-        quoteFieldMap.put('custom_number__c', 'custom_number__c'); 
-        quoteFieldMap.put('custom_percent__c', 'custom_percent__c'); 
-        quoteFieldMap.put('custom_phone__c', 'custom_phone__c');      
-        quoteFieldMap.put('custom_picklist__c', 'custom_picklist__c'); 
-        quoteFieldMap.put('custom_rta__c', 'custom_rta__c'); 
-        quoteFieldMap.put('custom_url__c', 'custom_url__c'); 
-                       
-                              
-        quoteLineFieldMap.put('description', 'description');
-        quoteLineFieldMap.put('custom_text__c', 'custom_text__c');
-        quoteLineFieldMap.put('custom_checkbox__c', 'custom_checkbox__c');         
-        quoteLineFieldMap.put('custom_currency__c', 'custom_currency__c');
-        quoteLineFieldMap.put('custom_date__c', 'custom_date__c');              
-        quoteLineFieldMap.put('custom_datetime__c', 'custom_datetime__c'); 
-        quoteLineFieldMap.put('custom_email__c', 'custom_email__c');          
-        quoteLineFieldMap.put('custom_multipicklist__c', 'custom_multipicklist__c'); 
-        quoteLineFieldMap.put('custom_number__c', 'custom_number__c'); 
-        quoteLineFieldMap.put('custom_percent__c', 'custom_percent__c'); 
-        quoteLineFieldMap.put('custom_phone__c', 'custom_phone__c');      
-        quoteLineFieldMap.put('custom_picklist__c', 'custom_picklist__c'); 
-        quoteLineFieldMap.put('custom_rta__c', 'custom_rta__c'); 
-        quoteLineFieldMap.put('custom_url__c', 'custom_url__c');        
-        */
+	//prettier-ignore
+	private static Set<String> standardQuoteFields = new Set<String>{ 
+		'OpportunityId', 
+		'IsSyncing', 
+		'Name', 
+		'Pricebook2Id' 
+	};
+	//prettier-ignore
+	private static Set<String> standardOppFields = new Set<String>{ 
+		'SyncedQuoteId', 
+		'HasOpportunityLineItem', 
+		'Name', 
+		'Pricebook2Id' 
+	};
+	//prettier-ignore
+	private static Set<String> standardQuoteLineItemFields = new Set<String>{
+		'QuoteId',
+		'PricebookEntryId',
+		'UnitPrice',
+		'Quantity',
+		'Discount',
+		'SortOrder',
+		'ServiceDate',
+		'OpportunityLineItemId'
+	};
+	private static Set<String> standardOppLineItemFields = new Set<String>{ 'OpportunityId', 'PricebookEntryId', 'UnitPrice', 'Quantity', 'Discount', 'SortOrder', 'ServiceDate' };
 
-		Map<String, QuoteSyncField__c> quoteFields = QuoteSyncField__c.getAll();
-		for (String quoteField : quoteFields.keySet()) {
-			QuoteSyncField__c quoteSyncField = QuoteSyncField__c.getInstance(quoteField);
-			//FIXME - uppercase value cause NPE
-			//quoteFieldMap.put(quoteSyncField.Name, quoteSyncField.OppSyncField__c);
-			quoteFieldMap.put(quoteField, quoteSyncField.OppSyncField__c);
+	/**
+	 * Map `Quote` field => `Opportunity` for syncing
+	 */
+	private static Map<String, String> quoteFieldMap {
+		get {
+			if (quoteFieldMap == null) {
+				quoteFieldMap = new Map<String, String>();
+				Map<String, Quote_Sync_Fields__mdt> quoteFieldsCMDT = Quote_Sync_Fields__mdt.getAll();
+				System.debug('quoteFieldsCMDT ' + quoteFieldsCMDT);
+				for (Quote_Sync_Fields__mdt qsf : quoteFieldsCMDT.values()) {
+					quoteFieldMap.put(qsf.Quote_Field__c, qsf.Opportunity_Field__c);
+					System.debug('Map ' + qsf.Quote_Field__c + ' to ' + qsf.Opportunity_Field__c);
+				}
+				if (Test.isRunningTest()) {
+					quoteFieldMap.put('description', 'description');
+				}
+			}
+			return quoteFieldMap;
 		}
-
-		Map<String, QuoteLineSyncField__c> quoteLineFields = QuoteLineSyncField__c.getAll();
-		for (String quoteLineField : quoteLineFields.keySet()) {
-			QuoteLineSyncField__c quoteLineSyncField = QuoteLineSyncField__c.getInstance(quoteLineField);
-			//FIXME - uppercase value cause NPE
-			//quoteLineFieldMap.put(quoteLineSyncField.Name, quoteLineSyncField.OppLineSyncField__c);
-			quoteLineFieldMap.put(quoteLineField, quoteLineSyncField.OppLineSyncField__c);
-		}
+		set;
 	}
 
+	/**
+	 * @description Map `QuoteLineItem` field => `OpportunityLineItem` for syncing
+	 */
+	private static Map<String, String> quoteLineFieldMap {
+		get {
+			if (quoteLineFieldMap == null) {
+				quoteLineFieldMap = new Map<String, String>();
+				Map<String, QuoteLineItem_Sync_Fields__mdt> quoteLineFieldsCMDT = QuoteLineItem_Sync_Fields__mdt.getAll();
+				System.debug('quoteLineFieldsCMDT ' + quoteLineFieldsCMDT);
+				for (QuoteLineItem_Sync_Fields__mdt qsf : quoteLineFieldsCMDT.values()) {
+					quoteLineFieldMap.put(qsf.QuoteLineItem_Field__c, qsf.OpportunityLineItem_Field__c);
+					System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
+				}
+				if (Test.isRunningTest()) {
+					quoteLineFieldMap.put('description', 'description');
+				}
+			}
+			return quoteLineFieldMap;
+		}
+		set;
+	}
+
+	/**
+	 * @description getter for `newQuoteIds` variable
+	 *
+	 * @return      `Set<Id>` newQuoteIds
+	 */
 	public static Set<Id> getNewQuoteIds() {
 		return newQuoteIds;
 	}
 
+	/**
+	 * @description Add an ID to the `newQuoteIds` set
+	 *
+	 * @param id
+	 */
 	public static void addNewQuoteId(Id id) {
 		newQuoteIds.add(id);
 	}
 
+	/**
+	 * @description Remove an ID from the `newQuoteIds` set
+	 *
+	 * @param id
+	 */
 	public static void removeNewQuoteId(Id id) {
 		newQuoteIds.remove(id);
 	}
 
+	/**
+	 * @description Remove specific Ids from the `newQuoteIds` set
+	 *
+	 * @param ids
+	 */
 	public static void removeAllNewQuoteIds(Set<Id> ids) {
 		newQuoteIds.removeAll(ids);
 	}
 
+	/**
+	 * @description Remove all Ids from the `newQuoteIds` set
+	 */
 	public static void clearNewQuoteIds() {
 		newQuoteIds.clear();
 	}
 
+	/**
+	 * @description Does the set of `newQuoteIds` contain this Id?
+	 *
+	 * @param id    QuoteId
+	 * @return      `Boolean` newQuoteIds.contains(id);
+	 */
 	public static Boolean isNewQuote(Id id) {
 		return newQuoteIds.contains(id);
 	}
@@ -176,10 +235,10 @@ public class QuoteSyncUtil {
 		return f;
 	}
 
-	public static Map<String, Schema.DescribeFieldResult> QuoteRequiredFields = getCustomRequiredFields('Quote');
-	public static Map<String, Schema.DescribeFieldResult> QuoteLineRequiredFields = getCustomRequiredFields('QuoteLineItem');
-	public static Map<String, Schema.DescribeFieldResult> OppRequiredFields = getCustomRequiredFields('Opportunity');
-	public static Map<String, Schema.DescribeFieldResult> OppLineRequiredFields = getCustomRequiredFields('OpportunityLineItem');
+	public static Map<String, Schema.DescribeFieldResult> quoteRequiredFields = getCustomRequiredFields('Quote');
+	public static Map<String, Schema.DescribeFieldResult> quoteLineRequiredFields = getCustomRequiredFields('QuoteLineItem');
+	public static Map<String, Schema.DescribeFieldResult> oppRequiredFields = getCustomRequiredFields('Opportunity');
+	public static Map<String, Schema.DescribeFieldResult> oppLineRequiredFields = getCustomRequiredFields('OpportunityLineItem');
 
 	public static Map<String, Schema.DescribeFieldResult> getCustomRequiredFields(String entity) {
 		Map<String, SObjectField> fields = null;

@@ -22,8 +22,8 @@ echo "Creating scratch org..." && \
 sf org create scratch --set-default --definition-file config/project-scratch-def.json --duration-days 30 --alias $ORG_ALIAS && \
 echo "" && \
 
-echo "Pushing source..." && \
-sf project deploy start && \
+echo "Pushing package source..." && \
+sf project deploy start --source-dir force-app && \
 echo "" && \
 
 echo "Pushing unpackaged metadata..." && \

@@ -11,6 +11,7 @@
  * @see QuoteSyncHandler
  * @group OppQuoteSync
  */
+@SuppressWarnings('PMD.ApexDoc')
 @isTest
 private class QuoteSyncTestSuite {
 	/**
