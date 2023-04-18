@@ -222,6 +222,10 @@ private class QuoteSyncTestSuite {
 						Object qliValue = qli.get(qliField);
 						Object expectedValue = qline.get(qliField);
 
+						System.debug('>>>Field: ' + qliField);
+						System.debug('expected: ' + expectedValue);
+						System.debug('oliValue: ' + qliValue);
+
 						System.assertEquals(expectedValue, qliValue, 'QuoteLineItem.' + qliField + ' value does not match');
 					}
 					break;
@@ -246,6 +250,10 @@ private class QuoteSyncTestSuite {
 					for (String oliField : QuoteSyncUtil.getOppLineFields()) {
 						Object oliValue = oli.get(oliField);
 						Object expectedValue = oppline.get(oliField);
+
+						System.debug('>>>Field: ' + oliField);
+						System.debug('expected: ' + expectedValue);
+						System.debug('oliValue: ' + oliValue);
 
 						System.assertEquals(expectedValue, oliValue, 'OpportunityLineItem.' + oliField + ' value does not match');
 					}
@@ -354,16 +362,38 @@ private class QuoteSyncTestSuite {
 		}
 	}
 
+	/**
+	 * @description          Given an SObject and a field, fill it
+	 *
+	 * @param sobj           The SObject record
+	 * @param entity         The name of the SObject (its type)
+	 * @param field          The field to populate/update
+	 */
 	private static void populateField(SObject sobj, String entity, String field) {
-		List<String> fields = new List<String>();
+		Set<String> fields = new Set<String>();
 		fields.add(field);
 		populateFields(sobj, entity, fields);
 	}
 
-	private static void populateFields(SObject sobj, String entity, List<String> fields) {
+	/**
+	 * @description          Given an SObject and fields, fill them all
+	 *
+	 * @param sobj           The SObject record
+	 * @param entity         The name of the SObject (its type)
+	 * @param fields         All fields to populate/update
+	 */
+	private static void populateFields(SObject sobj, String entity, Set<String> fields) {
 		populateFields(sobj, entity, fields, false);
 	}
 
+	/**
+	 * @description          Given an SObject and fields, fill them
+	 *
+	 * @param sobj           The SObject record
+	 * @param entity         The name of the SObject (its type)
+	 * @param fields         All fields to populate/update
+	 * @param setNullOrFalse If true, set field to null (or Boolean to false)
+	 */
 	private static void populateFields(SObject sobj, String entity, Set<String> fields, Boolean setNullOrFalse) {
 		for (String field : fields) {
 			Schema.DescribeFieldResult result = QuoteSyncUtil.getField(entity, field);
@@ -371,12 +401,12 @@ private class QuoteSyncTestSuite {
 		}
 	}
 
-	private static void populateFields(SObject sobj, String entity, List<String> fields, Boolean setNullOrFalse) {
+	/* 	private static void populateFields(SObject sobj, String entity, List<String> fields, Boolean setNullOrFalse) {
 		for (String field : fields) {
 			Schema.DescribeFieldResult result = QuoteSyncUtil.getField(entity, field);
 			sobj.put(field, QuoteSyncUtil.createValue(sobj, entity, field, result, setNullOrFalse));
 		}
-	}
+	} */
 
 	private static Opportunity createOpp() {
 		return createOpp(false);
@@ -565,10 +595,25 @@ private class QuoteSyncTestSuite {
 		return opp;
 	}
 
+	/**
+	 * @description             Re-fill Quote fields and updateOpp(oppId)
+	 *
+	 * @param quoteId           Quote Id
+	 * @return                  `Quote` the updated Quote
+	 * @see updateQuote[0]
+	 */
 	private static Quote updateQuote(Id quoteId) {
 		return updateQuote(quoteId, false);
 	}
 
+	/**
+	 * @description             Re-fill Quote fields and updateOpp(oppId)
+	 *
+	 * @param quoteId           Quote Id
+	 * @param updateNullOrFalse
+	 * @return                  `Quote` the updated Quote
+	 * @see updateQuote[0]
+	 */
 	private static Quote updateQuote(Id quoteId, Boolean updateNullOrFalse) {
 		String quoteFields = QuoteSyncUtil.getQuoteFieldsString();
 		String quoteQuery = 'SELECT Id' + quoteFields + ' FROM Quote WHERE Id = \'' + quoteId + '\'';

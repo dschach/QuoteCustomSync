@@ -69,9 +69,13 @@ global without sharing class QuoteSyncHandler {
 			String oliFields = getStringFromFieldSet(QuoteSyncUtil.getOppLineFields());
 
 			//prettier-ignore
-			String qliQuery = 'SELECT Id, Name , (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
+			String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder ';
 			//prettier-ignore
-			String oliQuery = 'SELECT Id, Name, (SELECT OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder' + oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :syncOppIds ORDER BY Id';
+			qliQuery += qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
+			//prettier-ignore
+			String oliQuery = 'SELECT Id, Name, (SELECT OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder ';
+			//prettier-ignore
+			oliQuery += oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :syncOppIds ORDER BY Id';
 			Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(qliQuery)); //NOPMD
 			Map<Id, Opportunity> oppToOliMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oliQuery)); //NOPMD
 
@@ -142,7 +146,7 @@ global without sharing class QuoteSyncHandler {
 					Object oppValue = opp.get(oppField);
 					Object quoteValue = q.get(quoteField);
 					if (oppValue != quoteValue) {
-						if (Trigger.isInsert && (quoteValue == null || (quoteValue instanceof Boolean && !Boolean.valueOf(quoteValue)))) {
+						if (Trigger.isInsert && (quoteValue == null || (quoteValue instanceof Boolean && Boolean.valueOf(quoteValue) == false))) {
 							q.put(quoteField, oppValue);
 							hasChange = true;
 						} else if (Trigger.isUpdate) {
@@ -256,7 +260,7 @@ global without sharing class QuoteSyncHandler {
 					Boolean match = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
-							oli.pricebookentryid == qli.pricebookentryId &&
+							oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&
@@ -346,7 +350,9 @@ global without sharing class QuoteSyncHandler {
 		}
 
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, OpportunityId, isSyncing, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + qliFields + ' FROM QuoteLineItems WHERE Id IN:newRecords ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
+		String qliQuery = 'SELECT Id, OpportunityId, IsSyncing, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
+		//prettier-ignore
+		qliQuery += qliFields + ' FROM QuoteLineItems WHERE Id IN:newRecords ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
 		//System.debug('qliQuery ' + qliQuery);
 
 		Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(qliQuery)); //NOPMD)
@@ -357,7 +363,7 @@ global without sharing class QuoteSyncHandler {
 		Set<Id> filterQuoteIds = new Set<Id>();
 		for (Quote quote : quoteToQliMap.values()) {
 			// Only sync quote line item that are inserted for a new Quote or on a isSyncing Quote
-			if ((Trigger.isInsert && QuoteSyncUtil.isNewQuote(quote.Id)) || quote.isSyncing) {
+			if ((Trigger.isInsert && QuoteSyncUtil.isNewQuote(quote.Id)) || quote.IsSyncing) {
 				oppIds.add(quote.OpportunityId);
 			} else {
 				filterQuoteIds.add(quote.Id);
@@ -374,7 +380,9 @@ global without sharing class QuoteSyncHandler {
 
 		if (!oppIds.isEmpty()) {
 			//prettier-ignore
-			String oliQuery = 'SELECT Id, Name, (SELECT Id, OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :oppIds ORDER BY Id ASC';
+			String oliQuery = 'SELECT Id, Name, (SELECT Id, OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
+			//prettier-ignore
+			oliQuery += oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :oppIds ORDER BY Id ASC';
 			//System.debug(qliQuery);
 
 			Map<Id, Opportunity> oppToOliMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oliQuery)); //NOPMD
@@ -418,7 +426,7 @@ global without sharing class QuoteSyncHandler {
 					for (OpportunityLineItem oli : opplines) {
 						//TODO: is this the only way to know they match?
 						if (
-							oli.pricebookentryid == qli.pricebookentryId &&
+							oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&
@@ -436,12 +444,12 @@ global without sharing class QuoteSyncHandler {
 								Object oliValue = oli.get(oliField);
 								Object qliValue = qli.get(qliField);
 								if (oliValue != qliValue) {
-									if (Trigger.isInsert && (qliValue == null || (qliValue instanceof Boolean && !Boolean.valueOf(qliValue)))) {
-										System.debug('Insert trigger, isSyncing: ' + quote.isSyncing + ', new quote ids: ' + QuoteSyncUtil.getNewQuoteIds());
+									if (Trigger.isInsert && (qliValue == null || (qliValue instanceof Boolean && Boolean.valueOf(qliValue) == false))) {
+										System.debug('Insert trigger, isSyncing: ' + quote.IsSyncing + ', new quote ids: ' + QuoteSyncUtil.getNewQuoteIds());
 
 										// If it's a newly created Quote, don't sync the "Description" field value,
 										// because it's already copied from Opportunity Line Item on create.
-										if (quote.isSyncing || (QuoteSyncUtil.isNewQuote(quote.Id) && !qliField.equalsIgnoreCase('description'))) {
+										if (quote.IsSyncing || (QuoteSyncUtil.isNewQuote(quote.Id) && !qliField.equalsIgnoreCase('description'))) {
 											qli.put(qliField, oliValue);
 											hasChange = true;
 										}
@@ -470,7 +478,6 @@ global without sharing class QuoteSyncHandler {
 							break;
 						}
 					}
-
 					// NOTE: this may cause an error when there is a workflow field update that fired during record create
 					//if (trigger.isUpdate && updateOli) System.assert(match, 'No matching oppline');
 				}
@@ -479,16 +486,14 @@ global without sharing class QuoteSyncHandler {
 			bypassAll();
 
 			if (!updateOlis.isEmpty()) {
-				List<OpportunityLineItem> oliList = new List<OpportunityLineItem>();
-				oliList.addAll(updateOlis);
-
+				List<OpportunityLineItem> oliList = new List<OpportunityLineItem>(updateOlis);
+				//oliList.addAll(updateOlis);
 				Database.update(olilist);
 			}
 
 			if (!updateQlis.isEmpty()) {
-				List<QuoteLineItem> qliList = new List<QuoteLineItem>();
-				qliList.addAll(updateQlis);
-
+				List<QuoteLineItem> qliList = new List<QuoteLineItem>(updateQlis);
+				//qliList.addAll(updateQlis);
 				Database.update(qliList);
 			}
 
@@ -617,9 +622,13 @@ global without sharing class QuoteSyncHandler {
 		String oliFields
 	) {
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, Name , (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder' + qliFields + ' FROM QuoteLineItems ORDER BY  SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
+		String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder';
 		//prettier-ignore
-		String oliQuery = 'SELECT Id, Name, (SELECT OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder' + oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :syncOppIds ORDER BY Id ASC';
+		qliQuery += qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
+		//prettier-ignore
+		String oliQuery = 'SELECT Id, Name, (SELECT OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder';
+		//prettier-ignore
+		oliQuery += oliFields + ' FROM OpportunityLineItems ORDER BY SortOrder ASC) FROM Opportunity WHERE Id IN :syncOppIds ORDER BY Id ASC';
 		Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(qliQuery)); //NOPMD
 		Map<Id, Opportunity> oppToOliMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oliQuery)); //NOPMD
 
@@ -638,7 +647,7 @@ global without sharing class QuoteSyncHandler {
 					for (OpportunityLineItem oli : opplines) {
 						//TODO: Why is this the way to compare OLIs to QLIs
 						if (
-							oli.pricebookentryid == qli.pricebookentryId &&
+							oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&

@@ -80,16 +80,16 @@ public class QuoteSyncUtil {
 			if (quoteLineFieldMap == null) {
 				quoteLineFieldMap = new Map<String, String>();
 				Map<String, QuoteLineItem_Sync_Fields__mdt> quoteLineFieldsCMDT = QuoteLineItem_Sync_Fields__mdt.getAll();
-				System.debug('quoteLineFieldsCMDT ' + quoteLineFieldsCMDT);
+				//System.debug('quoteLineFieldsCMDT ' + quoteLineFieldsCMDT);
 				for (QuoteLineItem_Sync_Fields__mdt qsf : quoteLineFieldsCMDT.values()) {
 					quoteLineFieldMap.put(qsf.QuoteLineItem_Field__c, qsf.OpportunityLineItem_Field__c);
-					System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
+					//System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
 				}
 				if (Test.isRunningTest()) {
 					addQuoteLineField('description', 'description');
 				}
 			}
-			System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
+			//System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
 			return quoteLineFieldMap;
 		}
 		set;
@@ -107,8 +107,8 @@ public class QuoteSyncUtil {
 	/**
 	 * @description Add an ID to the `newQuoteIds` set
 	 *
-	 * @param id
-	 * @deprecated Unused
+	 * @param id    Quote Id to remove
+	 * @deprecated  Unused
 	 */
 	public static void addNewQuoteId(Id id) {
 		newQuoteIds.add(id);
@@ -127,7 +127,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description Remove specific Ids from the `newQuoteIds` set
 	 *
-	 * @param ids
+	 * @param ids   Quote IDs to remove
 	 */
 	public static void removeAllNewQuoteIds(Set<Id> ids) {
 		newQuoteIds.removeAll(ids);
@@ -492,10 +492,10 @@ public class QuoteSyncUtil {
 	 * @param entity         Object Name
 	 * @param field          Field Name
 	 * @param result         Passed DescribeFieldResult
-	 * @param setNullOrFalse How to handle Booleans
+	 * @param setNullOrFalse If true, set field to null (or Boolean to false)
 	 * @return               `Object`
 	 */
-	public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, boolean setNullOrFalse) {
+	public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, Boolean setNullOrFalse) {
 		Object value = null;
 		String strValue = System.currentTimeMillis() + '_' + entity + '_' + field;
 
