@@ -14,7 +14,8 @@
 			"enableQuote": true
 		},
 		"userManagementSettings": {
-			"permsetsInFieldCreation": true
+			"permsetsInFieldCreation": true,
+			"enableEnhancedPermsetMgmt": true
 		}
 	}
 }

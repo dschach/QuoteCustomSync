@@ -14,7 +14,7 @@ sf project deploy start --source-dir force-app
 sf project deploy start --source-dir unpackaged
 
 #echo "Assigning Permissions"
-#sf org assign permset --name PermSetName
+sf org assign permset --name QuoteSyncTester
 
 echo "Adding sample data"
 sf data import tree --plan ./data/data-plan.json

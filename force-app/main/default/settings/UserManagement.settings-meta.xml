@@ -3,7 +3,7 @@
     <enableCanAnswerContainUsername>true</enableCanAnswerContainUsername>
     <enableContactlessExternalIdentityUsers>false</enableContactlessExternalIdentityUsers>
     <enableEnhancedConcealPersonalInfo>true</enableEnhancedConcealPersonalInfo>
-    <enableEnhancedPermsetMgmt>false</enableEnhancedPermsetMgmt>
+    <enableEnhancedPermsetMgmt>true</enableEnhancedPermsetMgmt>
     <enableEnhancedProfileMgmt>true</enableEnhancedProfileMgmt>
     <enableNewProfileUI>false</enableNewProfileUI>
     <enableProfileFiltering>true</enableProfileFiltering>

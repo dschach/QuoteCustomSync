@@ -30,9 +30,9 @@ echo "Pushing unpackaged metadata..." && \
 sf project deploy start --source-dir unpackaged && \
 echo "" && \
 
-#echo "Assigning permission sets..." && \
-#sf org assign permset --name Quote_Sync_Permission && \
-#echo "" && \
+echo "Assigning permission sets..." && \
+sf org assign permset --name QuoteSyncTester && \
+echo "" && \
 
 echo "Importing sample data..." && \
 sf data import tree --plan data/data-plan.json && \
