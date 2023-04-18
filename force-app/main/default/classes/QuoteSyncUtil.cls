@@ -64,7 +64,7 @@ public class QuoteSyncUtil {
 					System.debug('Map ' + qsf.Quote_Field__c + ' to ' + qsf.Opportunity_Field__c);
 				}
 				if (Test.isRunningTest()) {
-					quoteFieldMap.put('description', 'description');
+					addQuoteField('description', 'description');
 				}
 			}
 			return quoteFieldMap;
@@ -86,9 +86,10 @@ public class QuoteSyncUtil {
 					System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
 				}
 				if (Test.isRunningTest()) {
-					quoteLineFieldMap.put('description', 'description');
+					addQuoteLineField('description', 'description');
 				}
 			}
+			System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
 			return quoteLineFieldMap;
 		}
 		set;
@@ -520,6 +521,9 @@ public class QuoteSyncUtil {
 						value = true;
 					}
 				}
+				when Combobox {
+					value = strValue;
+				}
 				when Currency {
 					value = Decimal.valueOf(Math.random());
 				}
@@ -532,8 +536,11 @@ public class QuoteSyncUtil {
 				when Integer {
 					value = Integer.valueOf(Math.random());
 				}
-				when Double, Percent {
+				when Double {
 					value = Math.random();
+				}
+				when Percent {
+					value = 10 * Math.random();
 				}
 				when Email {
 					value = System.currentTimeMillis() + '@quotesync.test';
@@ -548,6 +555,10 @@ public class QuoteSyncUtil {
 				when String, TextArea, Url {
 					Integer fieldLength = fieldsMap.get(field).getDescribe().length;
 					value = strValue.left(fieldLength - 1);
+				}
+				when Time {
+					DateTime dt = DateTime.now();
+					value = Time.newInstance(dt.hour(), dt.millisecond(), dt.second(), 0);
 				}
 				when else {
 					value = strValue;
