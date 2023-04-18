@@ -17,3 +17,6 @@ Admin.*
 
 # Page Layouts
 force-app/main/default/layouts/*.layout-meta.xml
+
+# Settings
+*.settings-meta.xml
