@@ -57,9 +57,7 @@ global without sharing class QuoteSyncHandler {
 			List<Quote> updateQuotes = getQuotesToUpdate(oppIds, quoteIds, oppFieldsString, quoteFieldsString, quoteFields);
 
 			stopQuote = true;
-			//Database.SaveResult[] quoteUpdates = Database.update(updateQuotes, false);
 			Database.update(updateQuotes);
-			System.debug(quoteUpdates);
 			stopQuote = false;
 		}
 
