@@ -80,16 +80,16 @@ public class QuoteSyncUtil {
 			if (quoteLineFieldMap == null) {
 				quoteLineFieldMap = new Map<String, String>();
 				Map<String, QuoteLineItem_Sync_Fields__mdt> quoteLineFieldsCMDT = QuoteLineItem_Sync_Fields__mdt.getAll();
-				//System.debug('quoteLineFieldsCMDT ' + quoteLineFieldsCMDT);
+				System.debug('quoteLineFieldsCMDT ' + quoteLineFieldsCMDT);
 				for (QuoteLineItem_Sync_Fields__mdt qsf : quoteLineFieldsCMDT.values()) {
 					quoteLineFieldMap.put(qsf.QuoteLineItem_Field__c, qsf.OpportunityLineItem_Field__c);
-					//System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
+					System.debug('Map ' + qsf.QuoteLineItem_Field__c + ' to ' + qsf.OpportunityLineItem_Field__c);
 				}
 				if (Test.isRunningTest()) {
 					addQuoteLineField('description', 'description');
 				}
 			}
-			//System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
+			System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
 			return quoteLineFieldMap;
 		}
 		set;

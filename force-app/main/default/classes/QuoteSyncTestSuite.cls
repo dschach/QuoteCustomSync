@@ -282,7 +282,7 @@ private class QuoteSyncTestSuite {
 			oppValues = ', ' + opp.get(oppField);
 		}
 
-		//System.debug(oppValues);
+		System.debug(oppValues);
 	}
 
 	/**
@@ -303,7 +303,7 @@ private class QuoteSyncTestSuite {
 			quoteValues = ', ' + quote.get(quoteField);
 		}
 
-		//System.debug(quoteValues);
+		System.debug(quoteValues);
 	}
 
 	/**
@@ -504,7 +504,7 @@ private class QuoteSyncTestSuite {
 	private static Quote createQuote(Opportunity opp, Boolean setNullOrFalse) {
 		Quote quote = new Quote(Name = 'test quote', OpportunityId = opp.Id, Pricebook2Id = opp.Pricebook2Id);
 		populateFields(quote, 'Quote', QuoteSyncUtil.getQuoteFields(), setNullOrFalse);
-		//System.debug('quote ' + quote);
+		System.debug('quote ' + quote);
 
 		QuoteSyncUtil.populateRequiredFields(quote);
 
@@ -643,10 +643,10 @@ private class QuoteSyncTestSuite {
 
 	private static List<OpportunityLineItem> updateOppLines(Id oppId, Boolean stdSyncField, Boolean customSyncField, Boolean updateNullOrFalse) {
 		String oliFields = QuoteSyncUtil.getOppLineFieldsString();
-		//System.debug('oliFields: ' + oliFields);
+		System.debug('oliFields: ' + oliFields);
 		//prettier-ignore
 		String oliQuery = 'SELECT Id, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItem WHERE OpportunityId  = \'' + oppId + '\'';
-		//System.debug('oliQuery: ' + oliQuery);
+		System.debug('oliQuery: ' + oliQuery);
 		List<OpportunityLineItem> olis = Database.query(oliQuery);
 
 		for (OpportunityLineItem oli : olis) {
