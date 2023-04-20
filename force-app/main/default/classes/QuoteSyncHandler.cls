@@ -2,7 +2,8 @@
  * @description QuoteSyncHandler class that contains all the logic that uses the
  * QuoteSyncUtil. This class exposes methods to sync the Opportunity, Quote,
  * OpportunityLineItem and QuoteLineItem objects and should ideally be called
- * from each object's TriggerHandler
+ * from each object's trigger
+ * <br>Code adapted from QuoteSync AppExchange package, moved to single handler class
  *
  * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
  * @since  2014 Original Author
@@ -19,12 +20,13 @@
 @SuppressWarnings('PMD.AvoidGLobalModifier')
 global without sharing class QuoteSyncHandler {
 	/**
-	 * @description Code from QuoteSync AppExchange package, moved to single handler class
+	 * @description Sync `Opportunities` with `Quotes`
 	 * @author {@link [David Schach](https://github.com/dschach)}
 	 * @param newRecords New `Opportunities` from Trigger.new
 	 * @param oldRecordsMap Old `Opportunities` in a map from Trigger.oldMap
 	 */
 	global void syncOpportunities(List<Opportunity> newRecords, Map<Id, Opportunity> oldRecordsMap) {
+		System.debug('OPP TRIGGER: ' + Trigger.operationType.name());
 		if (stopOpp) {
 			return;
 		}
@@ -80,11 +82,13 @@ global without sharing class QuoteSyncHandler {
 			Set<OpportunityLineItem> updateOliSet = getOpportunityLineItemsToUpdate(syncQuoteIds, syncOppIds, startSyncQuoteMap, qliFields, oliFields);
 
 			if (!updateOliSet.isEmpty()) {
-				List<OpportunityLineItem> updateOliList = new List<OpportunityLineItem>(updateOliSet);
 				stopQuote = true;
 				stopOppLine = true;
 				stopQuoteLine = true;
+
+				List<OpportunityLineItem> updateOliList = new List<OpportunityLineItem>(updateOliSet);
 				Database.update(updateOliList);
+
 				updateOliSet.clear();
 				updateOliList.clear();
 			}
@@ -93,13 +97,14 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * Sync Quote fields with Opportunity fields
-	 * <br>This code comes from the QuoteSync Salesforce Labs package
-	 * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
-	 * @param newRecords New `Quotes` from Trigger.new
+	 * @description        Sync `Quote` fields with `Opportunity` fields
+	 *
+	 * @author             {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
+	 * @param newRecords    New `Quotes` from Trigger.new
 	 * @param oldRecordsMap Old `Quotes` in a map from Trigger.oldMap
 	 */
 	global void syncQuote(List<Quote> newRecords, Map<Id, Quote> oldRecordsMap) {
+		System.debug('QUOTE TRIGGER: ' + Trigger.operationType.name());
 		if (stopQuote) {
 			return;
 		}
@@ -114,6 +119,7 @@ global without sharing class QuoteSyncHandler {
 		System.debug(quoteQuery);
 
 		List<Quote> quotes = Database.query(quoteQuery); //NOPMD
+		System.debug(quotes);
 
 		Set<Id> oppIds = new Set<Id>();
 		Map<Id, Quote> quoteMap = new Map<Id, Quote>();
@@ -130,11 +136,13 @@ global without sharing class QuoteSyncHandler {
 			System.debug(oppQuery);
 
 			List<Opportunity> opps = Database.query(oppQuery); //NOPMD
+			System.debug(opps);
+
 			List<Opportunity> updateOpps = new List<Opportunity>();
 			List<Quote> updateQuotes = new List<Quote>();
 			for (Opportunity opp : opps) {
 				Quote q = quoteMap.get(opp.Id);
-				// store the new quote Id if corresponding opportunity has line items
+				// store the new `Quote` Id if corresponding opportunity has line items
 				if (Trigger.isInsert && opp.HasOpportunityLineItem) {
 					QuoteSyncUtil.addNewQuoteId(q.Id);
 				}
@@ -143,17 +151,22 @@ global without sharing class QuoteSyncHandler {
 					String oppField = QuoteSyncUtil.getQuoteFieldMapTo(quoteField);
 					Object oppValue = opp.get(oppField);
 					Object quoteValue = q.get(quoteField);
+					System.debug('For Quote.' + quoteField + ' to Opportunity.' + oppField + ' Quote value: ' + quoteValue + ' to Opp value: ' + oppValue);
 					if (oppValue != quoteValue) {
+						hasChange = true;
+						// on Insert, copy value from Opp to Quote for all synced fields
 						if (Trigger.isInsert && (quoteValue == null || (quoteValue instanceof Boolean && Boolean.valueOf(quoteValue) == false))) {
+							// QuoteSyncUtil.getField('Quote', quoteField).getType() == DisplayType.BOOLEAN &&
 							q.put(quoteField, oppValue);
-							hasChange = true;
-						} else if (Trigger.isUpdate) {
+						}
+						// on Quote Update, copy Quote values to Opportunity
+						else if (Trigger.isUpdate) {
+							System.debug('IS UPDATE FROM QUOTE: ' + quoteValue + ' copied over ' + oppValue);
 							if (quoteValue == null) {
 								opp.put(oppField, null);
 							} else {
 								opp.put(oppField, quoteValue);
 							}
-							hasChange = true;
 						}
 					}
 				}
@@ -169,20 +182,23 @@ global without sharing class QuoteSyncHandler {
 				Database.update(updateQuotes);
 			} else if (Trigger.isUpdate) {
 				stopOpp = true;
+				System.debug('About to update Opps ' + opps);
 				Database.update(updateOpps);
 				stopOpp = false;
 			}
 		}
 		stopQuote = false;
+		System.debug('At end of Quote trigger: newQuoteIds: ' + QuoteSyncUtil.getNewQuoteIds());
 	}
 
 	/**
-	 * @description Code from QuoteSync AppExchange package, moved to org namespace
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @param newRecords New `OpportunityLineItems` from Trigger.new
+	 * @description         Sync `Opportunity Products` with `Quote Line Items`
+	 * @author              {@link [David Schach](https://github.com/dschach)}
+	 * @param newRecords    New `OpportunityLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `OpportunityLineItems` in a map from Trigger.oldMap
 	 */
 	global void syncOppLines(List<OpportunityLineItem> newRecords, Map<Id, OpportunityLineItem> oldRecordsMap) {
+		System.debug('OPP LINES TRIGGER: ' + Trigger.operationType.name());
 		if (stopOppLine) {
 			return;
 		}
@@ -207,7 +223,7 @@ global without sharing class QuoteSyncHandler {
 		}
 
 		//prettier-ignore
-		String oliQuery ='SELECT Id, Name, SyncedQuoteId, (SELECT Id, OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItems WHERE Id IN :newRecords ORDER BY SortOrder ASC ) FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != NULL ORDER BY Id ASC';
+		String oliQuery ='SELECT Id, Name, SyncedQuoteId, (SELECT Id, Discount, OpportunityId, PricebookEntryId, Quantity, ServiceDate, SortOrder, UnitPrice' + oliFields + ' FROM OpportunityLineItems WHERE Id IN :newRecords ORDER BY SortOrder ASC ) FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != NULL ORDER BY Id ASC';
 		System.debug(oliQuery);
 
 		Map<Id, Opportunity> oppToOliMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oliQuery)); //NOPMD
@@ -222,7 +238,7 @@ global without sharing class QuoteSyncHandler {
 
 		if (!quoteIds.isEmpty()) {
 			//prettier-ignore
-			String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
+			String qliQuery = 'SELECT Id, Name, (SELECT Id, Discount, OpportunityLineItemId, PricebookEntryId, Quantity, QuoteId, ServiceDate, SortOrder, UnitPrice' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
 			System.debug(qliQuery);
 
 			Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(String.escapeSingleQuotes(qliQuery)));
@@ -239,11 +255,13 @@ global without sharing class QuoteSyncHandler {
 				Set<QuoteLineItem> matchedQlis = new Set<QuoteLineItem>();
 				for (OpportunityLineItem oli : oppToOliMap.get(opp.Id).OpportunityLineItems) {
 					Boolean updateQli = false;
-					OpportunityLineItem oldOli = null;
+
 					if (Trigger.isUpdate) {
+						OpportunityLineItem oldOli = oldRecordsMap.get(oli.Id);
+
 						System.debug('Old oli: ' + oldOli.UnitPrice + ', ' + oldOli.Quantity + ', ' + oldOli.Discount + ', ' + oldOli.ServiceDate);
 						System.debug('New oli: ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate);
-						oldOli = oldRecordsMap.get(oli.Id);
+
 						if (
 							oli.UnitPrice == oldOli.UnitPrice &&
 							oli.Quantity == oldOli.Quantity &&
@@ -258,12 +276,12 @@ global without sharing class QuoteSyncHandler {
 					Boolean match = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
-							oli.PricebookEntryId == qli.PricebookEntryId &&
+							(oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&
 							oli.ServiceDate == qli.ServiceDate &&
-							oli.SortOrder == qli.SortOrder
+							oli.SortOrder == qli.SortOrder) || (qli.OpportunityLineItemId != null && oli.Id == qli.OpportunityLineItemId)
 						) {
 							if (updateQlis.contains(qli) || matchedQlis.contains(qli)) {
 								continue;
@@ -275,13 +293,25 @@ global without sharing class QuoteSyncHandler {
 								Object qliValue = qli.get(qliField);
 								if (oliValue != qliValue) {
 									if (Trigger.isInsert) {
-										oli.put(oliField, qliValue);
+										if (qliValue == null) {
+											oli.put(oliField, null);
+										} else {
+											oli.put(oliField, qliValue);
+										}
 										hasChange = true;
 									} else if (Trigger.isUpdate && !updateQli) {
-										oli.put(oliField, qliValue);
+										if (qliValue == null) {
+											oli.put(oliField, null);
+										} else {
+											oli.put(oliField, qliValue);
+										}
 										hasChange = true;
 									} else if (Trigger.isUpdate && updateQli) {
-										qli.put(qliField, oliValue);
+										if (oliValue == null) {
+											qli.put(qliField, null);
+										} else {
+											qli.put(qliField, oliValue);
+										}
 										hasChange = true;
 									}
 								}
@@ -318,11 +348,13 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * Sync `QuoteLineItems` with Opportunity Line Items
+	 * Sync `Quote Line Items` with `Opportunity Products`
 	 * @param newRecords New `QuoteLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `QuoteLineItems` in a map from Trigger.oldMap
 	 */
 	global void syncQuoteLines(List<QuoteLineItem> newRecords, Map<Id, QuoteLineItem> oldRecordsMap) {
+		System.debug('QUOTE LINES TRIGGER: ' + Trigger.operationType.name());
+		System.debug('New `Quote` Ids: ' + QuoteSyncUtil.getNewQuoteIds());
 		if (stopQuoteLine) {
 			return;
 		}
@@ -348,7 +380,7 @@ global without sharing class QuoteSyncHandler {
 		}
 
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, OpportunityId, IsSyncing, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
+		String qliQuery = 'SELECT Id, OpportunityId, Opportunity.HasOpportunityLineItem, IsSyncing, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
 		//prettier-ignore
 		qliQuery += qliFields + ' FROM QuoteLineItems WHERE Id IN:newRecords ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
 		System.debug('qliQuery ' + qliQuery);
@@ -361,18 +393,19 @@ global without sharing class QuoteSyncHandler {
 		Set<Id> filterQuoteIds = new Set<Id>();
 		for (Quote q : quoteToQliMap.values()) {
 			// Only sync quote line item that are inserted for a new Quote or on a isSyncing Quote
-			if ((Trigger.isInsert && QuoteSyncUtil.isNewQuote(q.Id)) || q.IsSyncing) {
+			if ((Trigger.isInsert && q.Opportunity.HasOpportunityLineItem) || q.IsSyncing) {
+				QuoteSyncUtil.addNewQuoteId(q.Id);
 				oppIds.add(q.OpportunityId);
 			} else {
 				filterQuoteIds.add(q.Id);
 			}
 		}
 
-		System.debug('Filter quote ids: ' + filterQuoteIds);
+		//System.debug('Filter `Quote` Ids: ' + filterQuoteIds);
 
 		quoteIds.removeAll(filterQuoteIds);
 		for (Id id : filterQuoteIds) {
-			quoteToQliMap.remove(id);
+			//quoteToQliMap.remove(id);
 			quoteToQliMap.remove(id);
 		}
 
@@ -400,10 +433,9 @@ global without sharing class QuoteSyncHandler {
 
 				for (QuoteLineItem qli : quoteToQliMap.get(q.Id).QuoteLineItems) {
 					Boolean updateOli = false;
-					QuoteLineItem oldQli = null;
 
 					if (Trigger.isUpdate) {
-						oldQli = oldRecordsMap.get(qli.Id);
+						QuoteLineItem oldQli = oldRecordsMap.get(qli.Id);
 						System.debug('Old qli: ' + oldQli.UnitPrice + ', ' + oldQli.Quantity + ', ' + oldQli.Discount + ', ' + oldQli.ServiceDate);
 						System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
 
@@ -443,7 +475,7 @@ global without sharing class QuoteSyncHandler {
 								Object qliValue = qli.get(qliField);
 								if (oliValue != qliValue) {
 									if (Trigger.isInsert && (qliValue == null || (qliValue instanceof Boolean && Boolean.valueOf(qliValue) == false))) {
-										System.debug('Insert trigger, isSyncing: ' + q.IsSyncing + ', new quote ids: ' + QuoteSyncUtil.getNewQuoteIds());
+										System.debug('Insert trigger, isSyncing: ' + q.IsSyncing + ', new `Quote` Ids: ' + QuoteSyncUtil.getNewQuoteIds());
 
 										// If it's a newly created Quote, don't sync the "Description" field value,
 										// because it's already copied from Opportunity Line Item on create.
@@ -451,14 +483,19 @@ global without sharing class QuoteSyncHandler {
 											qli.put(qliField, oliValue);
 											hasChange = true;
 										}
-									} else if (Trigger.isUpdate && !updateOli /*&& oldQli != null*/) {
-										//Object oldQliValue = oldQli.get(qliField);
-										//if (qliValue == oldQliValue) {
-										qli.put(qliField, oliValue);
+									} else if (Trigger.isUpdate && !updateOli) {
+										if (oliValue == null) {
+											qli.put(qliField, null);
+										} else {
+											qli.put(qliField, oliValue);
+										}
 										hasChange = true;
-										//}
 									} else if (Trigger.isUpdate && updateOli) {
-										oli.put(oliField, qliValue);
+										if (qliValue == null) {
+											oli.put(oliField, null);
+										} else {
+											oli.put(oliField, qliValue);
+										}
 										hasChange = true;
 									}
 								}
@@ -553,15 +590,18 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * @description Method that gets a list of O Ids, a list of quote Ids and returns a list of `Quotes` that should be updated to be synced with their corresponding synced `Opportunity`
+	 * @description Method that gets a set of `Opportunity` Ids, a set of `Quote` 
+	 * Ids and returns a list of `Quotes` that should be updated to be synced with
+	 * their corresponding `Opportunity`
+
 	 * @author David Schach
 	 * @since 2022
 	 *
 	 * @param oppIds Set of `Opportunity` Ids
-	 * @param quoteIds Set of Quote Ids
+	 * @param quoteIds Set of `Quote` Ids
 	 * @param oppFieldsString List of comma separated  `Opportunity` fields to be compared
 	 * @param quoteFieldsString List of comma separated quote fields to be compared (in a string)
-	 * @param quoteFields List of quote fields in a list
+	 * @param quoteFields List of `Quote` fields in a list
 	 * @return `List<Quote>` That should be updated
 	 */
 	private static List<Quote> getQuotesToUpdate(
@@ -603,11 +643,12 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * @description Method that gets a set of quote Ids, a set of `Opportunity` Ids and a map linking them together and returns a list of Opportunity Line Items that should be updated to be synced
+	 * @description Method that gets a set of `Quote` Ids, a set of `Opportunity` Ids and a map
+	 * linking them together and returns a list of `Opportunity Products` that should be updated to be synced
 	 *
-	 * @param syncQuoteIds Set of Quote Ids
-	 * @param syncOppIds Set of Opportunity Ids
-	 * @param startSyncQuoteMap Map that links each quote Id with its synced `Opportunity` Id
+	 * @param syncQuoteIds Set of `Quote` Ids
+	 * @param syncOppIds Set of `Opportunity` Ids
+	 * @param startSyncQuoteMap Map that links each `Quote` Id with its synced `Opportunity` Id
 	 * @param qliFields List of `QuoteLineItem` fields to be compared
 	 * @param oliFields List of `OpportunityLineItem` fields to be compared
 	 * @return `Set<OpportunityLineItem>` that should be updated
