@@ -12,7 +12,7 @@
  * @since 2022-08 New trigger handler framework
  * @since 2022-10 Converted to Custom Metadata
  * @since 2023-04 Refine Quote Sync with new Quote fields
- * @since 2023-04 Remove trigger framework
+ * @since 2023-04 Remove trigger framework, stoppers into this class
  *
  * @group OppQuoteSync
  * @see QuoteSyncUtil
@@ -22,6 +22,7 @@ global without sharing class QuoteSyncHandler {
 	/**
 	 * @description Sync `Opportunities` with `Quotes`
 	 * @author {@link [David Schach](https://github.com/dschach)}
+	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords New `Opportunities` from Trigger.new
 	 * @param oldRecordsMap Old `Opportunities` in a map from Trigger.oldMap
 	 */
@@ -100,6 +101,8 @@ global without sharing class QuoteSyncHandler {
 	 * @description        Sync `Quote` fields with `Opportunity` fields
 	 *
 	 * @author             {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
+	 * @author {@link [David Schach](https://github.com/dschach)}
+	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `Quotes` from Trigger.new
 	 * @param oldRecordsMap Old `Quotes` in a map from Trigger.oldMap
 	 */
@@ -194,6 +197,7 @@ global without sharing class QuoteSyncHandler {
 	/**
 	 * @description         Sync `Opportunity Products` with `Quote Line Items`
 	 * @author              {@link [David Schach](https://github.com/dschach)}
+	 * @since               2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `OpportunityLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `OpportunityLineItems` in a map from Trigger.oldMap
 	 */
@@ -203,14 +207,14 @@ global without sharing class QuoteSyncHandler {
 			return;
 		}
 
-		if (Trigger.isBefore && Trigger.isInsert) {
+		/* 	if (Trigger.isBefore && Trigger.isInsert) {
 			if (Test.isRunningTest()) {
 				for (OpportunityLineItem oli : newRecords) {
-					QuoteSyncUtil.populateRequiredFields(oli);
+					//QuoteSyncUtil.populateRequiredFields(oli);
 				}
 			}
 			return;
-		}
+		} */
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
 
@@ -238,7 +242,7 @@ global without sharing class QuoteSyncHandler {
 
 		if (!quoteIds.isEmpty()) {
 			//prettier-ignore
-			String qliQuery = 'SELECT Id, Name, (SELECT Id, Discount, OpportunityLineItemId, PricebookEntryId, Quantity, QuoteId, ServiceDate, SortOrder, UnitPrice' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
+			String qliQuery = 'SELECT Id, OpportunityId, Name, (SELECT Id, Discount, OpportunityLineItemId, PricebookEntryId, Quantity, QuoteId, ServiceDate, SortOrder, UnitPrice' + qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY OpportunityId ASC';
 			System.debug(qliQuery);
 
 			Map<Id, Quote> quoteToQliMap = new Map<Id, Quote>((List<Quote>) Database.query(String.escapeSingleQuotes(qliQuery)));
@@ -272,8 +276,13 @@ global without sharing class QuoteSyncHandler {
 							updateQli = true;
 						}
 					}
+
+					// Trying setting the update flag to true for all transactions
+					updateQli = true;
+					// End of trying
+
 					Boolean hasChange = false;
-					Boolean match = false;
+					//Boolean match = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
 							(oli.PricebookEntryId == qli.PricebookEntryId &&
@@ -323,7 +332,7 @@ global without sharing class QuoteSyncHandler {
 									updateQlis.add(qli);
 								}
 							}
-							match = true;
+							//match = true;
 							break;
 						}
 					}
@@ -349,6 +358,8 @@ global without sharing class QuoteSyncHandler {
 
 	/**
 	 * Sync `Quote Line Items` with `Opportunity Products`
+	 * @author {@link [David Schach](https://github.com/dschach)}
+	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords New `QuoteLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `QuoteLineItems` in a map from Trigger.oldMap
 	 */
@@ -359,14 +370,14 @@ global without sharing class QuoteSyncHandler {
 			return;
 		}
 
-		if (Trigger.isBefore && Trigger.isInsert) {
+		/* if (Trigger.isBefore && Trigger.isInsert) {
 			if (Test.isRunningTest()) {
 				for (QuoteLineItem qli : newRecords) {
-					QuoteSyncUtil.populateRequiredFields(qli);
+					//QuoteSyncUtil.populateRequiredFields(qli);
 				}
 			}
 			return;
-		}
+		} */
 
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
@@ -380,7 +391,7 @@ global without sharing class QuoteSyncHandler {
 		}
 
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, OpportunityId, Opportunity.HasOpportunityLineItem, IsSyncing, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
+		String qliQuery = 'SELECT Id, OpportunityId, Opportunity.HasOpportunityLineItem, IsSyncing, (SELECT Id, OpportunityLineItemId, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder';
 		//prettier-ignore
 		qliQuery += qliFields + ' FROM QuoteLineItems WHERE Id IN:newRecords ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :quoteIds ORDER BY Id ASC';
 		System.debug('qliQuery ' + qliQuery);
@@ -440,28 +451,31 @@ global without sharing class QuoteSyncHandler {
 						System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
 
 						if (
-							qli.UnitPrice == oldQli.UnitPrice &&
+							(qli.UnitPrice == oldQli.UnitPrice &&
 							qli.Quantity == oldQli.Quantity &&
 							qli.Discount == oldQli.Discount &&
 							qli.ServiceDate == oldQli.ServiceDate &&
-							qli.SortOrder == oldQli.SortOrder
+							qli.SortOrder == oldQli.SortOrder)
 						) {
 							updateOli = true;
 						}
 					}
 
+					// Trying to set updateOli to true for every transaction because we've made an update to the record
+					updateOli = true;
+					// End of trying
+
 					Boolean hasChange = false;
-					Boolean match = false;
+					//Boolean match = false;
 
 					for (OpportunityLineItem oli : opplines) {
-						//TODO: is this the only way to know they match?
 						if (
-							oli.PricebookEntryId == qli.PricebookEntryId &&
+							(oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&
 							oli.ServiceDate == qli.ServiceDate &&
-							oli.SortOrder == qli.SortOrder
+							oli.SortOrder == qli.SortOrder) || (qli.OpportunityLineItemId != null && oli.Id == qli.OpportunityLineItemId)
 						) {
 							if (updateOlis.contains(oli) || matchedOlis.contains(oli)) {
 								continue;
@@ -509,7 +523,7 @@ global without sharing class QuoteSyncHandler {
 								}
 							}
 
-							match = true;
+							//match = true;
 							break;
 						}
 					}
@@ -541,11 +555,11 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * If true, exit `OppoortunityLineItem trigger handler
+	 * If true, exit `OppoortunityLineItem` trigger handler
 	 */
 	public static Boolean stopOppLine = false;
 	/**
-	 * If true, exit `Opportunity trigger handler
+	 * If true, exit `Opportunity` trigger handler
 	 */
 	public static Boolean stopOpp = false;
 	/**
@@ -643,7 +657,7 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * @description Method that gets a set of `Quote` Ids, a set of `Opportunity` Ids and a map
+	 * @description Method that takes a set of `Quote` Ids, a set of `Opportunity` Ids and a map
 	 * linking them together and returns a list of `Opportunity Products` that should be updated to be synced
 	 *
 	 * @param syncQuoteIds Set of `Quote` Ids
@@ -661,7 +675,7 @@ global without sharing class QuoteSyncHandler {
 		String oliFields
 	) {
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder';
+		String qliQuery = 'SELECT Id, Name, (SELECT Id, QuoteId, OpportunityLineItemId, PricebookEntryId, UnitPrice, Quantity, Discount, SortOrder';
 		//prettier-ignore
 		qliQuery += qliFields + ' FROM QuoteLineItems ORDER BY SortOrder ASC) FROM Quote WHERE Id IN :syncQuoteIds ORDER BY Id ASC';
 		//prettier-ignore
@@ -686,11 +700,13 @@ global without sharing class QuoteSyncHandler {
 					for (OpportunityLineItem oli : opplines) {
 						//TODO: Why is this the way to compare OLIs to QLIs
 						if (
-							oli.PricebookEntryId == qli.PricebookEntryId &&
+							(oli.PricebookEntryId == qli.PricebookEntryId &&
 							oli.UnitPrice == qli.UnitPrice &&
 							oli.Quantity == qli.Quantity &&
 							oli.Discount == qli.Discount &&
-							oli.SortOrder == qli.SortOrder
+							oli.SortOrder == qli.SortOrder) ||
+							// prettier-ignore
+							(qli.OpportunityLineItemId != null && oli.Id == qli.OpportunityLineItemId)
 						) {
 							if (updateOliSet.contains(oli)) {
 								continue;
