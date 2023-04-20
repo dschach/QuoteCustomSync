@@ -13,7 +13,7 @@
  */
 @SuppressWarnings('PMD.ApexDoc')
 @isTest
-private class QuoteSyncTestSuite {
+private without sharing class QuoteSyncTestSuite {
 	/**
 	 * Store the standard pricebook Id
 	 */
@@ -32,7 +32,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	@TestSetup
-	static void makeData() {
+	private static void makeData() {
 		Product2 prod = new Product2(Name = 'test product', IsActive = true);
 		insert prod;
 
@@ -73,7 +73,7 @@ private class QuoteSyncTestSuite {
 			Object oppValue = opp.get(oppField);
 			Object quoteValue = quote.get(quoteField);
 
-			// Boolean field is equal even not sync because of trigger on Quote creation copy values from Opp
+			// Boolean field is equal even is not synced because of trigger on Quote creation copy values from Opp
 			if (sync || (oppValue instanceof Boolean && quoteValue instanceof Boolean && isCreate)) {
 				//prettier-ignore
 				System.assertEquals(oppValue, quoteValue, 'Opportunity.' + oppField + ' value does not match Quote.' + quoteField + ' value');
@@ -102,7 +102,7 @@ private class QuoteSyncTestSuite {
 		String oliFields = QuoteSyncUtil.getOppLineFieldsString();
 
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + qliFields + ' FROM QuoteLineItem WHERE QuoteId = \'' + quoteId + '\'';
+		String qliQuery = 'SELECT Id, QuoteId, OpportunityLineItemId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + qliFields + ' FROM QuoteLineItem WHERE QuoteId = \'' + quoteId + '\'';
 		//prettier-ignore
 		String oliQuery = 'SELECT Id, OpportunityId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItem WHERE OpportunityId  = \'' + oppId + '\'';
 		List<OpportunityLineItem> olis = Database.query(oliQuery);
@@ -115,8 +115,7 @@ private class QuoteSyncTestSuite {
 				for (OpportunityLineItem oli : olis) {
 					n++;
 					//prettier-ignore
-					String oliValues = '#################   OppLine ' + n +': ' + oli.PricebookEntryId + ', ' + oli.UnitPrice + ', ' + oli.Quantity +
-						', ' + oli.Discount + ', ' + oli.ServiceDate;
+					String oliValues = '#################   OppLine ' + n +': ' + oli.PricebookEntryId + ', ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate;
 					for (String oliField : QuoteSyncUtil.getOppLineFields()) {
 						oliValues += ', ' + oli.get(oliField);
 					}
@@ -139,7 +138,7 @@ private class QuoteSyncTestSuite {
 				}
 			}
 			//prettier-ignore
-			System.assertEquals(olis.size(), qlis.size(), 'Number of opp lines: ' + olis.size() + ' does not match number of quote lines: ' + qlis.size() + '\n' + errorMsg);
+			System.assertEquals(olis.size(), qlis.size(), 'Number of OpportunityLineItems: ' + olis.size() + ' does not match number of QuoteLineItems: ' + qlis.size() + '\n' + errorMsg);
 		}
 
 		for (QuoteLineItem qli : qlis) {
@@ -158,7 +157,7 @@ private class QuoteSyncTestSuite {
 						Object oliValue = oli.get(oliField);
 						Object qliValue = qli.get(qliField);
 
-						// Boolean field is equal even not sync because of trigger on QuoteLineItem creation copy values from OppLineItem
+						// Boolean field is equal even is not synced because of trigger on QuoteLineItem creation copy values from OppLineItem
 						if (sync || (oliValue instanceof Boolean && qliValue instanceof Boolean && isCreate)) {
 							//prettier-ignore
 							System.assertEquals(oliValue, qliValue, 'OpportunityLineItem.' + oliField + ' value does not match QuoteLineItem.' + qliField + ' value');
@@ -265,7 +264,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests. Currently not used.
+	 * Debug method for use in checking unit tests.
 	 *
 	 * @param oppId The `Opportunity` to debug
 	 * @example
@@ -286,7 +285,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests. Currently not used.
+	 * Debug method for use in checking unit tests.
 	 *
 	 * @param quoteId The `Quote` to debug
 	 * @example
@@ -307,7 +306,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests. Currently not used.
+	 * Debug method for use in checking unit tests.
 	 *
 	 * @param oppId The `Opportunity` to debug
 	 * @example
@@ -335,7 +334,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests. Currently not used.
+	 * Debug method for use in checking unit tests.
 	 *
 	 * @param quoteId The `Quote` to debug
 	 * @example
@@ -413,8 +412,8 @@ private class QuoteSyncTestSuite {
 	}
 
 	private static Opportunity createOpp(Boolean setNullOrFalse) {
-		Pricebook2 standardPB = new Pricebook2(Id = getStandardPricebookId(), IsActive = true);
-		Database.update(standardPB, false);
+		/* Pricebook2 standardPB = new Pricebook2(Id = getStandardPricebookId(), IsActive = true);
+		 Database.update(standardPB, false); */
 
 		Opportunity opp = new Opportunity(
 			Name = 'test opp',
@@ -549,6 +548,9 @@ private class QuoteSyncTestSuite {
 				ServiceDate = System.today(),
 				PricebookEntryId = currPbe.Id
 			);
+			if (unique) {
+				qli.PricebookEntryId = pbesToInsert[i - 1].Id;
+			}
 			populateFields(qli, 'QuoteLineItem', QuoteSyncUtil.getQuoteLineFields(), setNullOrFalse);
 
 			QuoteSyncUtil.populateRequiredFields(qli);
@@ -751,7 +753,7 @@ private class QuoteSyncTestSuite {
 			qliQuery = 'SELECT Id ' + qliFields + ' FROM QuoteLineItem WHERE QuoteId = \'' + quoteId + '\'';
 		}
 
-		List<QuoteLineItem> qlis = Database.query(qliQuery);
+		List<QuoteLineItem> qlis = (List<QuoteLineItem>) Database.query(qliQuery, AccessLevel.SYSTEM_MODE);
 
 		if (field != null) {
 			for (QuoteLineItem qli : qlis) {
@@ -786,20 +788,22 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Create quote from opp. Verify quote sync fields are copied from opp
+	 * Create quote from `Opportunity`. Verify `Quote` sync fields are copied from opp
 	 */
 	@isTest
 	private static void testCreateQuote() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
 	}
 
 	/**
-	 * Create quote from opp with opp line. Verify quote line sync fields are copied from opp line
+	 * Create quote from opp with `Opportunity Product`. Verify `Quote Line Item` sync fields are copied from `Opportunity Product`
 	 */
 	@isTest
 	private static void testCreateQuoteWithQuoteLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2, false, false);
 		System.assert(!oppLines.isEmpty());
@@ -814,10 +818,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote. Verify opp fields are sync'ed from quote
+	 * Start sync from quote. Verify opp fields are synced from quote
 	 */
 	@isTest
 	private static void testStartSyncQuote() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -831,10 +836,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote. Verify opp fields are sync'ed from quote
+	 * Start sync from quote. Verify opp fields are synced from quote
 	 */
 	@isTest
 	private static void testStartSyncQuoteSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp, true);
 
@@ -845,10 +851,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote line. Verify opp line fields are sync'ed from quote line
+	 * Start sync from quote with `Quote Line Item`. Verify `Opportunity Product` fields are synced from `Quote Line Item`
 	 */
 	@isTest
 	private static void testStartSyncWithQuoteLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -867,10 +874,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote line. Verify opp line fields are sync'ed from quote line
+	 * Start sync from quote with `Quote Line Item`. Verify `Opportunity Product` fields are synced from `Quote Line Item`
 	 */
 	@isTest
 	private static void testStartSyncWithQuoteLineSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		//FIXME
 		//List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
@@ -887,10 +895,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from another quote. Verify opp and opp line fields are sync'ed from new quote and quote line
+	 * Start sync from another quote. Verify opp and `Opportunity Product` fields are synced from new quote and `Quote Line Item`
 	 */
 	@isTest
 	private static void testStartSyncOtherQuote() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote1 = createQuote(opp);
@@ -915,10 +924,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines create new opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` create new `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -933,10 +943,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines create new opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` create new `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLineSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -951,10 +962,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines update existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` update existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -972,10 +984,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines update existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` update existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLineSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		//List<OpportunityLineItem> oppLines =
 		createOppLines(opp, 2);
@@ -993,7 +1006,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1() {
@@ -1020,13 +1033,13 @@ private class QuoteSyncTestSuite {
 
 		quoteLines = updateQuoteLinesCustomSyncFields(quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		startSync(opp.Id, quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
@@ -1034,7 +1047,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1a() {
@@ -1059,13 +1072,13 @@ private class QuoteSyncTestSuite {
 
 		updateOppLinesCustomSyncFields(opp.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		startSync(opp.Id, quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
@@ -1073,7 +1086,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2() {
@@ -1098,7 +1111,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2a() {
@@ -1123,7 +1136,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3() {
@@ -1148,7 +1161,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3a() {
@@ -1174,13 +1187,13 @@ private class QuoteSyncTestSuite {
 		//FIXME
 		//updateOppLines(opp.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		startSync(opp.Id, quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
@@ -1188,7 +1201,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4() {
@@ -1203,13 +1216,13 @@ private class QuoteSyncTestSuite {
 
 		quoteLines = updateQuoteLinesCustomSyncFields(quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		startSync(opp.Id, quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
@@ -1217,7 +1230,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4a() {
@@ -1241,7 +1254,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine5() {
@@ -1265,7 +1278,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine6() {
@@ -1289,7 +1302,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7() {
@@ -1300,16 +1313,16 @@ private class QuoteSyncTestSuite {
 
 		// create quotelines first so trigger doesn't copy Boolean field value from opplines on create
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, numLine);
-		//List<OpportunityLineItem> oppLines =
+
 		createOppLines(opp, numLine);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		startSync(opp.Id, quote.Id);
 
-		//printOppLines(opp.Id);
-		//printQuoteLines(quote.Id);
+		printOppLines(opp.Id);
+		printQuoteLines(quote.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
@@ -1317,7 +1330,7 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Start sync from quote with quote lines that match existing opp lines on opp.  Verify opp line fields are sync'ed
+	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7a() {
@@ -1339,10 +1352,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Stop sync on verify no changes on opp & opp line, quote & quote line fields
+	 * Stop sync on verify no changeson `Opportunity` & `Opportunity Product`, quote & `Quote Line Item` fields
 	 */
 	@isTest
 	private static void testStopSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1365,14 +1379,17 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp sync fields.  Verify corresponding fields on quote are updated.
+	 * Update 'Opportunity' sync fields. Verify corresponding fields on `Quote` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
 
@@ -1381,14 +1398,17 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp sync fields.  Verify corresponding fields on quote are updated.
+	 * Update 'Opportunity' sync fields. Verify corresponding fields on `Quote` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppSyncSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id, true);
 
@@ -1397,10 +1417,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
+	 * Update `Opportunity Product` sync fields to null. Verify corresponding fields on `Quote Line Item` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppLineSyncSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1408,6 +1429,8 @@ private class QuoteSyncTestSuite {
 		System.assert(!quoteLines.isEmpty());
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLines(opp.Id, true, true, true);
@@ -1420,10 +1443,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
+	 * Update `Opportunity Product` sync fields. Verify corresponding fields on `Quote Line Item` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppLineSync1() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1431,6 +1455,8 @@ private class QuoteSyncTestSuite {
 		System.assert(!quoteLines.isEmpty());
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLines(opp.Id);
@@ -1443,10 +1469,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
+	 * Update `Opportunity Product` standard fields. Verify corresponding fields on `Quote Line Item` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppLineSync2() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1454,6 +1481,8 @@ private class QuoteSyncTestSuite {
 		System.assert(!quoteLines.isEmpty());
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLinesStdSyncFields(opp.Id);
@@ -1466,10 +1495,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp line sync fields.  Verify corresponding fields on quote line are updated.
+	 * Update `Opportunity Product` sync fields. Verify corresponding fields on `Quote Line Item` are updated.
 	 */
 	@isTest
 	private static void testUpdateOppLineSync3() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1477,6 +1507,8 @@ private class QuoteSyncTestSuite {
 		System.assert(!quoteLines.isEmpty());
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLinesCustomSyncFields(opp.Id);
@@ -1489,10 +1521,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert opp line with sync fields set.  Verify corresponding fields on quote line are sync'ed.
+	 * Insert `Opportunity Product` with sync fields set. Verify corresponding fields on `Quote Line Item` are synced.
 	 */
 	@isTest
 	private static void testInsertOppLineSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 
@@ -1511,10 +1544,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote sync fields.  Verify corresponding fields on opp are updated.
+	 * Update `Quote` sync fields. Verify corresponding fieldson `Opportunity` are updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1527,10 +1561,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote sync fields.  Verify corresponding fields on opp are updated.
+	 * Update `Quote` sync fields. Verify corresponding fieldson `Opportunity` are updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteSyncSetNull() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1543,10 +1578,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
+	 * Update `Quote Line Item` sync fields. Verify corresponding fields on `Opportunity Product` are updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync1() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1566,33 +1602,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
-	 */
-	@isTest
-	private static void testUpdateQuoteLineSyncSetNull() {
-		Opportunity opp = createOpp();
-
-		Quote quote = createQuote(opp);
-		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
-		System.assert(!quoteLines.isEmpty());
-
-		startSync(opp.Id, quote.Id);
-
-		Quote updatedQuote = updateQuote(quote.Id);
-		List<QuoteLineItem> updatedQuoteLines = updateQuoteLines(quote.Id, true, true, true);
-
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
-		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
-
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
-		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
-	}
-
-	/**
-	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
+	 * Update `Quote Line Item` sync fields. Verify corresponding fields on `Opportunity Product` are updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync2() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1612,10 +1626,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote line sync fields.  Verify corresponding fields on opp line are updated.
+	 * Update `Quote Line Item` sync fields. Verify corresponding fields on `Opportunity Product` are updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteLineSync3() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1635,10 +1650,37 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert quote line with sync fields.  Verify corresponding fields on opp line are sync'ed.
+	 * Update `Quote Line Item` sync fields. Verify corresponding fields on `Opportunity Product` are updated.
+	 */
+	@isTest
+	private static void testUpdateQuoteLineSyncSetNull() {
+		Test.startTest();
+		Opportunity opp = createOpp();
+
+		Quote quote = createQuote(opp);
+		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
+		System.assert(!quoteLines.isEmpty());
+
+		startSync(opp.Id, quote.Id);
+
+		Quote updatedQuote = updateQuote(quote.Id);
+		List<QuoteLineItem> updatedQuoteLines = updateQuoteLines(quote.Id, true, true, true);
+
+		Test.stopTest();
+
+		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
+
+		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
+	}
+
+	/**
+	 * Insert `Quote Line Item` with sync fields. Verify corresponding fields on `Opportunity Product` are synced.
 	 */
 	@isTest
 	private static void testInsertQuoteLineSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1657,10 +1699,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp non-sync fields.  Verify fields on quote are not updated.
+	 * Update opp non-sync fields. Verify fields on `Quote` are not updated.
 	 */
 	@isTest
 	private static void testUpdateOppNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1673,10 +1716,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp line non-sync fields.  Verify fields on quote line are not updated.
+	 * Update `Opportunity Product` non-sync fields. Verify fields on `Quote Line Item` are not updated.
 	 */
 	@isTest
 	private static void testUpdateOppLineNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
@@ -1701,10 +1745,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert opp line without sync fields.  Verify fields on quote line are sync'ed.
+	 * Insert `Opportunity Product` without sync fields. Verify fields on `Quote Line Item` are synced.
 	 */
 	@isTest
 	private static void testInsertOppLineNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1719,10 +1764,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote non-sync fields.  Verify corresponding fields on opp are not updated.
+	 * Update `Quote` non-sync fields. Verify corresponding fieldson `Opportunity` are not updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
@@ -1735,10 +1781,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote line non-sync fields.  Verify corresponding fields on opp line are not updated.
+	 * Update `Quote Line Item` non-sync fields. Verify corresponding fields on `Opportunity Product` are not updated.
 	 */
 	@isTest
 	private static void testUpdateQuoteLineNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
@@ -1747,7 +1794,8 @@ private class QuoteSyncTestSuite {
 		startSync(opp.Id, quote.Id);
 
 		// remove sync field
-		String field = QuoteSyncUtil.removeQuoteLineField('description');
+		//String field =
+		QuoteSyncUtil.removeQuoteLineField('description');
 
 		quoteLines = updateQuoteLinesNoSync(quote.Id, 'description');
 
@@ -1763,14 +1811,17 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert quote line without sync fields.  Verify corresponding fields on opp line are not synced.
+	 * Insert `Quote Line Item` without sync fields. Verify corresponding fields on `Opportunity Product` are not synced.
 	 */
 	@isTest
 	private static void testInsertQuoteLineNoSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		List<QuoteLineItem> quoteLines = createQuoteLinesNoSync(quote, 2);
 
@@ -1781,38 +1832,45 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update opp when it's not sync with quote.
+	 * Update `Opportunity` when it's is not synced with `Quote`.
 	 */
 	@isTest
 	private static void testUpdateOppNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
+
+		Test.stopTest();
 
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertOppFields(opp.Id, updatedOpp));
 	}
 
 	/**
-	 * Update quote when it's not synced with opp.
+	 * Update `Quote` when it's not synced with `Opportunity`.
 	 */
 	@isTest
 	private static void testUpdateQuoteNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		Quote quote = createQuote(opp);
 
 		Quote updatedQuote = updateQuote(quote.Id);
+
+		Test.stopTest();
 
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertQuoteFields(quote.Id, updatedQuote));
 	}
 
 	/**
-	 * Update opp line when opp not synced with quote.
+	 * Update `Opportunity Product` when opp not synced with `Quote`.
 	 */
 	@isTest
 	private static void testUpdateOppLineNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1824,6 +1882,8 @@ private class QuoteSyncTestSuite {
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> updatedOppLines = updateOppLines(opp.Id);
 
+		Test.stopTest();
+
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id));
 
@@ -1832,10 +1892,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update quote line when quote not synced with opp.
+	 * Update `Quote Line Item` when `Quote` not synced with `Opportunity`.
 	 */
 	@isTest
 	private static void testUpdateQuoteLineNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 		System.assert(!oppLines.isEmpty());
@@ -1843,6 +1904,8 @@ private class QuoteSyncTestSuite {
 		Quote quote = createQuote(opp);
 		//List<QuoteLineItem> quoteLines =
 		createQuoteLines(quote, 2);
+
+		Test.stopTest();
 
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> updatedQuoteLines = updateQuoteLines(quote.Id);
@@ -1855,16 +1918,18 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert opp line when opp not sync with quote
+	 * Insert `Opportunity Product` when opp is not synced with `Quote`
 	 */
 	@isTest
 	private static void testInsertOppLineNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2);
 
 		Quote quote = createQuote(opp);
 
 		oppLines.addAll(createOppLines(opp, 2));
+		Test.stopTest();
 
 		System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id, true));
@@ -1873,10 +1938,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Insert quote line when quote not sync with opp.
+	 * Insert `Quote Line Item` when `Quote` is not synced with `Opportunity`.
 	 */
 	@isTest
 	private static void testInsertQuoteLineNotSync() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1889,15 +1955,18 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Create duplicate opp line with from same pricebookentry
+	 * Create duplicate `Opportunity Product` with from same `Price Book Entry`
 	 */
 	@isTest
 	private static void testCreateDuplicateOppLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2, false, false);
 
@@ -1908,15 +1977,18 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Create duplicate quote line with from same pricebookentry
+	 * Create duplicate `Quote Line Item` with from same `Price Book Entry`
 	 */
 	@isTest
 	private static void testCreateDuplicateQuoteLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2, false, false);
 		System.assert(!quoteLines.isEmpty());
@@ -1928,10 +2000,11 @@ private class QuoteSyncTestSuite {
 	}
 
 	/**
-	 * Update duplicate opp line with from same pricebookentry
+	 * Update duplicate `Opportunity Product` with from same `Price Book Entry`
 	 */
 	@isTest
 	private static void testUpdateDuplicateOppLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
@@ -1941,26 +2014,31 @@ private class QuoteSyncTestSuite {
 		startSync(opp.Id, quote.Id);
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
+		Test.stopTest();
 		List<OpportunityLineItem> oppLines = updateOppLines(opp.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
+
 		System.assert(assertOppLineFields(opp.Id, oppLines));
 	}
 
 	/**
-	 * Update duplicate quote line with from same pricebookentry
+	 * Update duplicate `Quote Line Item` with from same `Price Book Entry`
 	 */
 	@isTest
 	private static void testUpdateDuplicateQuoteLine() {
+		Test.startTest();
 		Opportunity opp = createOpp();
 
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2, false, false);
 
 		startSync(opp.Id, quote.Id);
+
+		Test.stopTest();
 
 		quote = updateQuote(quote.Id);
 		quoteLines = updateQuoteLines(quote.Id);

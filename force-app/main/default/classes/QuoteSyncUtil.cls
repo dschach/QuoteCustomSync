@@ -13,7 +13,16 @@ public class QuoteSyncUtil {
 	/**
 	 * Set of all new Quote Ids, maintained for the trigger handler
 	 */
-	private static Set<Id> newQuoteIds = new Set<Id>();
+	private static Set<Id> newQuoteIds {
+		get {
+			if (newQuoteIds == null) {
+				newQuoteIds = new Set<Id>();
+			}
+			System.debug('GETTING newQuoteIds: ' + newQuoteIds);
+			return newQuoteIds;
+		}
+		set;
+	}
 
 	//prettier-ignore
 	private static Set<String> standardQuoteFields = new Set<String>{ 
@@ -66,6 +75,7 @@ public class QuoteSyncUtil {
 				if (Test.isRunningTest()) {
 					addQuoteField('description', 'description');
 				}
+				System.debug('QuoteFieldMap: ' + quoteFieldMap);
 			}
 			return quoteFieldMap;
 		}
@@ -88,8 +98,9 @@ public class QuoteSyncUtil {
 				if (Test.isRunningTest()) {
 					addQuoteLineField('description', 'description');
 				}
+				System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
 			}
-			System.debug('QuoteLineFieldMap: ' + quoteLineFieldMap);
+
 			return quoteLineFieldMap;
 		}
 		set;
@@ -142,10 +153,11 @@ public class QuoteSyncUtil {
 	}
 
 	/**
-	 * @description Does the set of `newQuoteIds` contain this Id?
+	 * @description Does the set `newQuoteIds` contain this Id?
 	 *
 	 * @param id    QuoteId
 	 * @return      `Boolean` newQuoteIds.contains(id);
+	 * @deprecated Unused
 	 */
 	public static Boolean isNewQuote(Id id) {
 		return newQuoteIds.contains(id);
@@ -154,7 +166,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description return `quoteLineFieldMap` keyset
 	 *
-	 * @return      `Set<String>`vall QuoteLineItem fields in CMT records
+	 * @return      `Set<String>` all `QuoteLineItem` fields in CMT records
 	 */
 	public static Set<String> getQuoteLineFields() {
 		return quoteLineFieldMap.keySet();
@@ -163,7 +175,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description return `quoteFieldMap` keyset
 	 *
-	 * @return      `Set<String>` all Quote fields in CMT records
+	 * @return      `Set<String>` all `Quote` fields in CMT records
 	 */
 	public static Set<String> getQuoteFields() {
 		return quoteFieldMap.keySet();
@@ -172,14 +184,14 @@ public class QuoteSyncUtil {
 	/**
 	 * @description return `quoteLineFieldMap` values as a set
 	 *
-	 * @return      `Set<String>` all OppLineItem fields in CMT records
+	 * @return      `Set<String>` all `OpportunityLineItem` fields in CMT records
 	 */
 	public static Set<String> getOppLineFields() {
 		return new Set<String>(quoteLineFieldMap.values());
 	}
 
 	/**
-	 * @description return `quoteFieldMap` values
+	 * @description return `quoteFieldMap` values as a set
 	 *
 	 * @return      `Set<String>` all Opp fields in CMT records
 	 */
@@ -188,7 +200,7 @@ public class QuoteSyncUtil {
 	}
 
 	/**
-	 * @description	     Given a Quote field, find the mapped Opportunity field
+	 * @description	     Given a `Quote` field, find the mapped `Opportunity` field
 	 *
 	 * @param quoteField Quote field name
 	 * @return           `String` Opportunity field mapped from provided Quote field
@@ -198,10 +210,10 @@ public class QuoteSyncUtil {
 	}
 
 	/**
-	 * @description          Given a QuoteLineItem field, find the mapped Opportunity field
+	 * @description          Given a `QuoteLineItem` field, find the mapped `Opportunity` field
 	 *
 	 * @param quoteLineField QuoteLineItem field name
-	 * @return               `String`
+	 * @return               `String` `Opportunity` field name
 	 */
 	public static String getQuoteLineFieldMapTo(String quoteLineField) {
 		return quoteLineFieldMap.get(quoteLineField);
@@ -223,7 +235,7 @@ public class QuoteSyncUtil {
 	}
 
 	/**
-	 * @description Join `quoteFieldMap` values with commas
+	 * @description Join `quoteFieldMap` values (`Opportunity` fields) with commas
 	 *
 	 * @return      Opportunity fields separated by commas
 	 */
@@ -260,12 +272,6 @@ public class QuoteSyncUtil {
 	public static String getOppLineFieldsString() {
 		Set<String> fields = getOppLineFields();
 		return fields.isEmpty() ? '' : ', ' + String.join(new List<String>(fields), ', ');
-		/* 
-		String fields = '';
-		for (String field : getOppLineFields()) {
-			fields += ', ' + field;
-		}
-		return fields; */
 	}
 
 	/**
@@ -284,10 +290,9 @@ public class QuoteSyncUtil {
 	 *
 	 * @param qliField Quote Line field name
 	 * @param oliField Opp Line field name
-	 * @return         `String`
 	 */
-	public static String addQuoteLineField(String qliField, String oliField) {
-		return quoteLineFieldMap.put(qliField, oliField);
+	public static void addQuoteLineField(String qliField, String oliField) {
+		quoteLineFieldMap.put(qliField, oliField);
 	}
 
 	/**
@@ -295,8 +300,8 @@ public class QuoteSyncUtil {
 	 * <br>May be removed, as not asserted in test class
 	 *
 	 * @param quoteField Quote field name
-	 * @return           `String`
-	 * @deprecated Unused
+	 * @return           `String` The field name
+	 * @deprecated       Unused
 	 */
 	public static String removeQuoteField(String quoteField) {
 		return quoteFieldMap.remove(quoteField);
@@ -307,7 +312,7 @@ public class QuoteSyncUtil {
 	 * <br>May be removed, as not asserted in test class
 	 *
 	 * @param qliField Quote Line field name
-	 * @return         `String`
+	 * @return         `String` The field name
 	 */
 	public static String removeQuoteLineField(String qliField) {
 		return quoteLineFieldMap.remove(qliField);
@@ -344,7 +349,7 @@ public class QuoteSyncUtil {
 	private static final Map<String, SObjectField> OPP_LINE_FIELDS = gd.get('OpportunityLineItem').getDescribe().fields.getMap();
 
 	/**
-	 * @description  Given an object and field, return the DescribeFieldResult
+	 * @description  Given an object and field, return the `Schema.DescribeFieldResult`
 	 *
 	 * @param entity Object name
 	 * @param field  Field name
@@ -567,6 +572,8 @@ public class QuoteSyncUtil {
 		} else {
 			if (ftype == DisplayType.Boolean) {
 				value = false;
+			} else {
+				value = null;
 			}
 		}
 
