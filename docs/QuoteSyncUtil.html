@@ -31,42 +31,20 @@
       <div class="navbar">
         <nav role="navigation">
           <a class="nav-header" id="home" href="javascript:void(0)" onclick="goToLocation('index.html');"> Home </a>
-          <details id="Miscellaneous" class="group-name">
-            <summary id="header-Miscellaneous" class="nav-header">
-              <span>Miscellaneous</span>
+          <details id="OppQuoteSync" class="group-name">
+            <summary id="header-OppQuoteSync" class="nav-header">
+              <span>OppQuoteSync</span>
             </summary>
             <ul>
               <!-- menu items -->
-              <li
-                title="QuoteSyncTestSuite"
-                id="item-QuoteSyncTestSuite"
-                class="nav-item class private"
-                onclick="goToLocation('QuoteSyncTestSuite.html');">
-                <a tabindex="1" href="javascript:void(0)">QuoteSyncTestSuite</a>
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
+              </li>
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
               </li>
               <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
-              </li>
-              <li title="TriggerStopper" id="item-TriggerStopper" class="nav-item class public" onclick="goToLocation('TriggerStopper.html');">
-                <a tabindex="1" href="javascript:void(0)">TriggerStopper</a>
-              </li>
-            </ul>
-          </details>
-          <details id="Trigger_Handler" class="group-name">
-            <summary id="header-Trigger_Handler" class="nav-header">
-              <span>Trigger Handler</span>
-            </summary>
-            <ul>
-              <!-- menu items -->
-              <li title="TriggerHandler" id="item-TriggerHandler" class="nav-item class public" onclick="goToLocation('TriggerHandler.html');">
-                <a tabindex="1" href="javascript:void(0)">TriggerHandler</a>
-              </li>
-              <li
-                title="TriggerHandlerTest"
-                id="item-TriggerHandlerTest"
-                class="nav-item class private"
-                onclick="goToLocation('TriggerHandlerTest.html');">
-                <a tabindex="1" href="javascript:void(0)">TriggerHandlerTest</a>
               </li>
             </ul>
           </details>
@@ -87,11 +65,6 @@
           <label for="cbx-public"> public </label>&nbsp;&nbsp;<input
             type="checkbox"
             checked="true"
-            id="cbx-protected"
-            onclick="toggleScope('protected', this.checked);" />
-          <label for="cbx-protected"> protected </label>&nbsp;&nbsp;<input
-            type="checkbox"
-            checked="true"
             id="cbx-private"
             onclick="toggleScope('private', this.checked);" />
           <label for="cbx-private"> private </label>&nbsp;&nbsp;<input
@@ -109,9 +82,31 @@
               <span>QuoteSyncUtil</span>
             </h2>
             <div class="class-container">
+              <div class="class-description">Open-source version of Quote-Opportunity Sync</div>
               <div class="class-subtitle">Signature</div>
 
               <div class="class-signature">public class QuoteSyncUtil</div>
+              <div class="class-subtitle">See</div>
+              <div class="class-subtitle-description">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/SalesforceLabs/CustomQuoteSync">QuoteSync</a>
+              </div>
+              <div class="class-subtitle">Author</div>
+              <div class="class-subtitle-description">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/SalesforceLabs">Salesforce Labs</a>
+              </div>
+              <div class="class-subtitle">Since</div>
+              <div class="class-subtitle-description">
+                <li>2014 Original Author</li>
+              </div>
+              <div class="class-subtitle">Author</div>
+              <div class="class-subtitle-description">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+              </div>
+              <div class="class-subtitle">Since</div>
+              <div class="class-subtitle-description">
+                <li>2022-10 Converted to Custom Metadata</li>
+                <li>2023 Refine Quote Sync with new Quote fields</li>
+              </div>
             </div>
             <div class="subsection properties QuoteSyncUtil">
               <h3 class="subsection-title properties">QuoteSyncUtil Properties</h3>
@@ -119,53 +114,81 @@
                 <tr>
                   <th>Name</th>
                   <th>Signature</th>
+
+                  <th>Description</th>
                 </tr>
-                <tr class="property public">
-                  <td class="attribute-name"><span>isRunningTest</span></td>
+                <tr class="property private">
+                  <td class="attribute-name"><span>gd</span></td>
                   <td>
-                    <div class="attribute-signature">public static boolean isRunningTest</div>
+                    <div class="attribute-signature">private static Map&lt;String, Schema.SObjectType&gt; gd</div>
                   </td>
+
+                  <td class="attribute-description">Global describe - memoized</td>
                 </tr>
                 <tr class="property private">
                   <td class="attribute-name"><span>newQuoteIds</span></td>
                   <td>
                     <div class="attribute-signature">private static Set&lt;Id&gt; newQuoteIds</div>
                   </td>
+
+                  <td class="attribute-description">Set of all new Quote Ids, maintained for the trigger handler</td>
                 </tr>
                 <tr class="property private">
-                  <td class="attribute-name"><span>oppFields</span></td>
+                  <td class="attribute-name"><span>OPP_FIELDS</span></td>
                   <td>
-                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; oppFields</div>
+                    <div class="attribute-signature">private static final Map&lt;String, SObjectField&gt; OPP_FIELDS</div>
                   </td>
+
+                  <td class="attribute-description">All <code class="code-inline">Opportunity</code> fields</td>
                 </tr>
                 <tr class="property private">
-                  <td class="attribute-name"><span>oppLineFields</span></td>
+                  <td class="attribute-name"><span>OPP_LINE_FIELDS</span></td>
                   <td>
-                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; oppLineFields</div>
+                    <div class="attribute-signature">private static final Map&lt;String, SObjectField&gt; OPP_LINE_FIELDS</div>
                   </td>
+
+                  <td class="attribute-description">All <code class="code-inline">OpportunityLineItem</code> fields</td>
                 </tr>
                 <tr class="property public">
-                  <td class="attribute-name"><span>OppLineRequiredFields</span></td>
+                  <td class="attribute-name"><span>oppLineRequiredFields</span></td>
                   <td>
-                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; OppLineRequiredFields</div>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; oppLineRequiredFields</div>
                   </td>
+
+                  <td class="attribute-description">Custom, non-synced fields</td>
                 </tr>
                 <tr class="property public">
-                  <td class="attribute-name"><span>OppRequiredFields</span></td>
+                  <td class="attribute-name"><span>oppRequiredFields</span></td>
                   <td>
-                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; OppRequiredFields</div>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; oppRequiredFields</div>
                   </td>
+
+                  <td class="attribute-description">Custom, non-synced fields</td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>QUOTE_FIELDS</span></td>
+                  <td>
+                    <div class="attribute-signature">private static final Map&lt;String, SObjectField&gt; QUOTE_FIELDS</div>
+                  </td>
+
+                  <td class="attribute-description">All <code class="code-inline">Quote</code> fields</td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>QUOTE_LINE_FIELDS</span></td>
+                  <td>
+                    <div class="attribute-signature">private static final Map&lt;String, SObjectField&gt; QUOTE_LINE_FIELDS</div>
+                  </td>
+
+                  <td class="attribute-description">All <code class="code-inline">QuoteLineItem</code> fields</td>
                 </tr>
                 <tr class="property private">
                   <td class="attribute-name"><span>quoteFieldMap</span></td>
                   <td>
                     <div class="attribute-signature">private static Map&lt;String, String&gt; quoteFieldMap</div>
                   </td>
-                </tr>
-                <tr class="property private">
-                  <td class="attribute-name"><span>quoteFields</span></td>
-                  <td>
-                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; quoteFields</div>
+
+                  <td class="attribute-description">
+                    Map <code class="code-inline">Quote</code> field =&gt; <code class="code-inline">Opportunity</code> for syncing
                   </td>
                 </tr>
                 <tr class="property private">
@@ -173,24 +196,58 @@
                   <td>
                     <div class="attribute-signature">private static Map&lt;String, String&gt; quoteLineFieldMap</div>
                   </td>
+
+                  <td class="attribute-description">
+                    Map <code class="code-inline">QuoteLineItem</code> field =&gt; <code class="code-inline">OpportunityLineItem</code> for syncing
+                  </td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>quoteLineRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; quoteLineRequiredFields</div>
+                  </td>
+
+                  <td class="attribute-description">Custom, non-synced fields</td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name"><span>quoteRequiredFields</span></td>
+                  <td>
+                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; quoteRequiredFields</div>
+                  </td>
+
+                  <td class="attribute-description">Custom, non-synced fields</td>
                 </tr>
                 <tr class="property private">
-                  <td class="attribute-name"><span>quoteLineFields</span></td>
+                  <td class="attribute-name"><span>standardOppFields</span></td>
                   <td>
-                    <div class="attribute-signature">private static Map&lt;String, SObjectField&gt; quoteLineFields</div>
+                    <div class="attribute-signature">private static Set&lt;String&gt; standardOppFields</div>
                   </td>
+
+                  <td class="attribute-description"></td>
                 </tr>
-                <tr class="property public">
-                  <td class="attribute-name"><span>QuoteLineRequiredFields</span></td>
+                <tr class="property private">
+                  <td class="attribute-name"><span>standardOppLineItemFields</span></td>
                   <td>
-                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; QuoteLineRequiredFields</div>
+                    <div class="attribute-signature">private static Set&lt;String&gt; standardOppLineItemFields</div>
                   </td>
+
+                  <td class="attribute-description"></td>
                 </tr>
-                <tr class="property public">
-                  <td class="attribute-name"><span>QuoteRequiredFields</span></td>
+                <tr class="property private">
+                  <td class="attribute-name"><span>standardQuoteFields</span></td>
                   <td>
-                    <div class="attribute-signature">public static Map&lt;String, Schema.DescribeFieldResult&gt; QuoteRequiredFields</div>
+                    <div class="attribute-signature">private static Set&lt;String&gt; standardQuoteFields</div>
                   </td>
+
+                  <td class="attribute-description"></td>
+                </tr>
+                <tr class="property private">
+                  <td class="attribute-name"><span>standardQuoteLineItemFields</span></td>
+                  <td>
+                    <div class="attribute-signature">private static Set&lt;String&gt; standardQuoteLineItemFields</div>
+                  </td>
+
+                  <td class="attribute-description"></td>
                 </tr>
               </table>
             </div>
@@ -199,85 +256,154 @@
               <div class="methods-container">
                 <ul class="methods-toc">
                   <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.addNewQuoteId"> addNewQuoteId (id) </a>
+                    <a class="methods-toc__entry deprecated" href="#QuoteSyncUtil.addNewQuoteId"> addNewQuoteId (id) </a>
+
+                    <div class="methods-toc__description">Add an ID to the <code class="code-inline">newQuoteIds</code> set</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.addQuoteField"> addQuoteField (quoteField, oppField) </a>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.addQuoteLineField"> addQuoteLineField (qliField, oliField) </a>
+
+                    <div class="methods-toc__description">Add a QuoteLineItem field to the fields to sync</div>
                   </li>
                   <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.clearNewQuoteIds"> clearNewQuoteIds () </a>
+                    <a class="methods-toc__entry deprecated" href="#QuoteSyncUtil.clearNewQuoteIds"> clearNewQuoteIds () </a>
+
+                    <div class="methods-toc__description">Remove all Ids from the <code class="code-inline">newQuoteIds</code> set</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.createValue"> createValue (sobj, entity, field, result, setNullOrFalse) </a>
+
+                    <div class="methods-toc__description">
+                      Create a standard value for each field in our org. This could be done more elegantly with fewer parameters, but it is effective
+                      like this.
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getCustomRequiredFields"> getCustomRequiredFields (entity) </a>
+
+                    <div class="methods-toc__description">
+                      Collect all custom fields for an object, and skip fields we need to sync. <br />We may be able to memoize this, but since
+                      it&#39;s not called directly, there&#39;s low risk
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getField"> getField (entity, field) </a>
+
+                    <div class="methods-toc__description">
+                      Given an object and field, return the <code class="code-inline">Schema.DescribeFieldResult</code>
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getNewQuoteIds"> getNewQuoteIds () </a>
+
+                    <div class="methods-toc__description">getter for <code class="code-inline">newQuoteIds</code> variable</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppFields"> getOppFields () </a>
+
+                    <div class="methods-toc__description">return <code class="code-inline">quoteFieldMap</code> values as a set</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppFieldsString"> getOppFieldsString () </a>
+
+                    <div class="methods-toc__description">
+                      Join <code class="code-inline">quoteFieldMap</code> values (<code class="code-inline">Opportunity</code> fields) with commas
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppLineFields"> getOppLineFields () </a>
+
+                    <div class="methods-toc__description">return <code class="code-inline">quoteLineFieldMap</code> values as a set</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppLineFieldsString"> getOppLineFieldsString () </a>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFieldMapTo"> getQuoteFieldMapTo (quoteField) </a>
+
+                    <div class="methods-toc__description">
+                      Given a <code class="code-inline">Quote</code> field, find the mapped <code class="code-inline">Opportunity</code> field
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFields"> getQuoteFields () </a>
+
+                    <div class="methods-toc__description">return <code class="code-inline">quoteFieldMap</code> keyset</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteFieldsString"> getQuoteFieldsString () </a>
+
+                    <div class="methods-toc__description">Join <code class="code-inline">quoteFieldMap</code> keyset with commas</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFieldMapTo"> getQuoteLineFieldMapTo (quoteLineField) </a>
+
+                    <div class="methods-toc__description">
+                      Given a <code class="code-inline">QuoteLineItem</code> field, find the mapped <code class="code-inline">Opportunity</code> field
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFields"> getQuoteLineFields () </a>
+
+                    <div class="methods-toc__description">return <code class="code-inline">quoteLineFieldMap</code> keyset</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getQuoteLineFieldsString"> getQuoteLineFieldsString () </a>
+
+                    <div class="methods-toc__description">Concatenate all mapped QuoteLineItem fields with a comma</div>
                   </li>
                   <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.isNewQuote"> isNewQuote (id) </a>
+                    <a class="methods-toc__entry deprecated" href="#QuoteSyncUtil.isNewQuote"> isNewQuote (id) </a>
+
+                    <div class="methods-toc__description">Does the set <code class="code-inline">newQuoteIds</code> contain this Id?</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.populateRequiredFields"> populateRequiredFields (sobj) </a>
+
+                    <div class="methods-toc__description">Create a value for each custom field we are not syncing</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.removeAllNewQuoteIds"> removeAllNewQuoteIds (ids) </a>
+
+                    <div class="methods-toc__description">Remove specific Ids from the <code class="code-inline">newQuoteIds</code> set</div>
                   </li>
                   <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeNewQuoteId"> removeNewQuoteId (id) </a>
+                    <a class="methods-toc__entry deprecated" href="#QuoteSyncUtil.removeNewQuoteId"> removeNewQuoteId (id) </a>
+
+                    <div class="methods-toc__description">Remove an ID from the <code class="code-inline">newQuoteIds</code> set</div>
                   </li>
                   <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.removeQuoteField"> removeQuoteField (quoteField) </a>
+                    <a class="methods-toc__entry deprecated" href="#QuoteSyncUtil.removeQuoteField"> removeQuoteField (quoteField) </a>
+
+                    <div class="methods-toc__description">
+                      Remove a Quote field from the Quote fields to sync <br />May be removed, as not asserted in test class
+                    </div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.removeQuoteLineField"> removeQuoteLineField (qliField) </a>
+
+                    <div class="methods-toc__description">
+                      Remove a QuoteLineItem field from the fields to sync <br />May be removed, as not asserted in test class
+                    </div>
                   </li>
                 </ul>
                 <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.addNewQuoteId">
+                  <h4 class="method-title deprecated" id="QuoteSyncUtil.addNewQuoteId">
                     <span>addNewQuoteId(id)</span>
                   </h4>
+                  <div class="method-description">Add an ID to the <code class="code-inline">newQuoteIds</code> set</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static void addNewQuoteId(Id id)</div>
+                  <div class="method-subtitle deprecated">Deprecated</div>
+                  <div class="method-subtitle-description">Unused</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">id</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id to remove</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.addQuoteField">
@@ -286,83 +412,171 @@
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String addQuoteField(String quoteField, String oppField)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Quote field name</div>
+                  <div class="param-name">oppField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Opp field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">String</code>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.addQuoteLineField">
                     <span>addQuoteLineField(qliField, oliField)</span>
                   </h4>
+                  <div class="method-description">Add a QuoteLineItem field to the fields to sync</div>
                   <div class="method-subtitle">Signature</div>
 
-                  <div class="method-signature">public static String addQuoteLineField(String qliField, String oliField)</div>
+                  <div class="method-signature">public static void addQuoteLineField(String qliField, String oliField)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">qliField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Quote Line field name</div>
+                  <div class="param-name">oliField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Opp Line field name</div>
                 </div>
                 <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.clearNewQuoteIds">
+                  <h4 class="method-title deprecated" id="QuoteSyncUtil.clearNewQuoteIds">
                     <span>clearNewQuoteIds()</span>
                   </h4>
+                  <div class="method-description">Remove all Ids from the <code class="code-inline">newQuoteIds</code> set</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static void clearNewQuoteIds()</div>
+                  <div class="method-subtitle deprecated">Deprecated</div>
+                  <div class="method-subtitle-description">Unused</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.createValue">
                     <span>createValue(sobj, entity, field, result, setNullOrFalse)</span>
                   </h4>
+                  <div class="method-description">
+                    Create a standard value for each field in our org. This could be done more elegantly with fewer parameters, but it is effective
+                    like this.
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
-                    public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, boolean
+                    public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, Boolean
                     setNullOrFalse)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">sobj</div>
+                  <div class="param-type">Type: <code class="code-inline">SObject</code></div>
+                  <div class="param-description">SObject (not the object name)</div>
+                  <div class="param-name">entity</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Object Name</div>
+                  <div class="param-name">field</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Field Name</div>
+                  <div class="param-name">result</div>
+                  <div class="param-type">Type: <code class="code-inline">Schema.DescribeFieldResult</code></div>
+                  <div class="param-description">Passed DescribeFieldResult</div>
+                  <div class="param-name">setNullOrFalse</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">If true, set field to null (or Boolean to false)</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Object</code>
                   </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getCustomRequiredFields">
                     <span>getCustomRequiredFields(entity)</span>
                   </h4>
+                  <div class="method-description">
+                    Collect all custom fields for an object, and skip fields we need to sync. <br />We may be able to memoize this, but since it&#39;s
+                    not called directly, there&#39;s low risk
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
                     public static Map&lt;String, Schema.DescribeFieldResult&gt; getCustomRequiredFields(String entity)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">entity</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Object name - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    For the given object, a list of field describe results (minus our synced non-Boolean fields)
                   </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getField">
                     <span>getField(entity, field)</span>
                   </h4>
+                  <div class="method-description">
+                    Given an object and field, return the <code class="code-inline">Schema.DescribeFieldResult</code>
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static Schema.DescribeFieldResult getField(String entity, String field)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">entity</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Object name</div>
+                  <div class="param-name">field</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Schema.DescribeFieldResult</code>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getNewQuoteIds">
                     <span>getNewQuoteIds()</span>
                   </h4>
+                  <div class="method-description">getter for <code class="code-inline">newQuoteIds</code> variable</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static Set&lt;Id&gt; getNewQuoteIds()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Set&lt;Id&gt;</code> newQuoteIds</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppFields">
                     <span>getOppFields()</span>
                   </h4>
+                  <div class="method-description">return <code class="code-inline">quoteFieldMap</code> values as a set</div>
                   <div class="method-subtitle">Signature</div>
 
-                  <div class="method-signature">public static List&lt;String&gt; getOppFields()</div>
+                  <div class="method-signature">public static Set&lt;String&gt; getOppFields()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Set&lt;String&gt;</code> all Opp fields in CMT records</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppFieldsString">
                     <span>getOppFieldsString()</span>
                   </h4>
+                  <div class="method-description">
+                    Join <code class="code-inline">quoteFieldMap</code> values (<code class="code-inline">Opportunity</code> fields) with commas
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getOppFieldsString()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">Opportunity fields separated by commas</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppLineFields">
                     <span>getOppLineFields()</span>
                   </h4>
+                  <div class="method-description">return <code class="code-inline">quoteLineFieldMap</code> values as a set</div>
                   <div class="method-subtitle">Signature</div>
 
-                  <div class="method-signature">public static List&lt;String&gt; getOppLineFields()</div>
+                  <div class="method-signature">public static Set&lt;String&gt; getOppLineFields()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Set&lt;String&gt;</code> all <code class="code-inline">OpportunityLineItem</code> fields in CMT records
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppLineFieldsString">
@@ -371,102 +585,190 @@
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getOppLineFieldsString()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">String</code>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteFieldMapTo">
                     <span>getQuoteFieldMapTo(quoteField)</span>
                   </h4>
+                  <div class="method-description">
+                    Given a <code class="code-inline">Quote</code> field, find the mapped <code class="code-inline">Opportunity</code> field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getQuoteFieldMapTo(String quoteField)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Quote field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">String</code> Opportunity field mapped from provided Quote field
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteFields">
                     <span>getQuoteFields()</span>
                   </h4>
+                  <div class="method-description">return <code class="code-inline">quoteFieldMap</code> keyset</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static Set&lt;String&gt; getQuoteFields()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Set&lt;String&gt;</code> all <code class="code-inline">Quote</code> fields in CMT records
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteFieldsString">
                     <span>getQuoteFieldsString()</span>
                   </h4>
+                  <div class="method-description">Join <code class="code-inline">quoteFieldMap</code> keyset with commas</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getQuoteFieldsString()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">Quote fields separated by commas</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFieldMapTo">
                     <span>getQuoteLineFieldMapTo(quoteLineField)</span>
                   </h4>
+                  <div class="method-description">
+                    Given a <code class="code-inline">QuoteLineItem</code> field, find the mapped <code class="code-inline">Opportunity</code> field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getQuoteLineFieldMapTo(String quoteLineField)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteLineField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">QuoteLineItem field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">String</code> <code class="code-inline">Opportunity</code> field name
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFields">
                     <span>getQuoteLineFields()</span>
                   </h4>
+                  <div class="method-description">return <code class="code-inline">quoteLineFieldMap</code> keyset</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static Set&lt;String&gt; getQuoteLineFields()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Set&lt;String&gt;</code> all <code class="code-inline">QuoteLineItem</code> fields in CMT records
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFieldsString">
                     <span>getQuoteLineFieldsString()</span>
                   </h4>
+                  <div class="method-description">Concatenate all mapped QuoteLineItem fields with a comma</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String getQuoteLineFieldsString()</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">String</code> Comma-separated list of QuoteLineItem fields</div>
                 </div>
                 <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.isNewQuote">
+                  <h4 class="method-title deprecated" id="QuoteSyncUtil.isNewQuote">
                     <span>isNewQuote(id)</span>
                   </h4>
+                  <div class="method-description">Does the set <code class="code-inline">newQuoteIds</code> contain this Id?</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static Boolean isNewQuote(Id id)</div>
+                  <div class="method-subtitle deprecated">Deprecated</div>
+                  <div class="method-subtitle-description">Unused</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">id</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">QuoteId</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Boolean</code> newQuoteIds.contains(id);</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.populateRequiredFields">
                     <span>populateRequiredFields(sobj)</span>
                   </h4>
+                  <div class="method-description">Create a value for each custom field we are not syncing</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static void populateRequiredFields(SObject sobj)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">sobj</div>
+                  <div class="param-type">Type: <code class="code-inline">SObject</code></div>
+                  <div class="param-description">Sobject record - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.removeAllNewQuoteIds">
                     <span>removeAllNewQuoteIds(ids)</span>
                   </h4>
+                  <div class="method-description">Remove specific Ids from the <code class="code-inline">newQuoteIds</code> set</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static void removeAllNewQuoteIds(Set&lt;Id&gt; ids)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">ids</div>
+                  <div class="param-type">Type: <code class="code-inline">Set&lt;Id&gt;</code></div>
+                  <div class="param-description">Quote IDs to remove</div>
                 </div>
                 <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.removeNewQuoteId">
+                  <h4 class="method-title deprecated" id="QuoteSyncUtil.removeNewQuoteId">
                     <span>removeNewQuoteId(id)</span>
                   </h4>
+                  <div class="method-description">Remove an ID from the <code class="code-inline">newQuoteIds</code> set</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static void removeNewQuoteId(Id id)</div>
+                  <div class="method-subtitle deprecated">Deprecated</div>
+                  <div class="method-subtitle-description">Unused</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">id</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
                 </div>
                 <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.removeQuoteField">
+                  <h4 class="method-title deprecated" id="QuoteSyncUtil.removeQuoteField">
                     <span>removeQuoteField(quoteField)</span>
                   </h4>
+                  <div class="method-description">
+                    Remove a Quote field from the Quote fields to sync <br />May be removed, as not asserted in test class
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String removeQuoteField(String quoteField)</div>
+                  <div class="method-subtitle deprecated">Deprecated</div>
+                  <div class="method-subtitle-description">Unused</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Quote field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">String</code> The field name</div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.removeQuoteLineField">
                     <span>removeQuoteLineField(qliField)</span>
                   </h4>
+                  <div class="method-description">
+                    Remove a QuoteLineItem field from the fields to sync <br />May be removed, as not asserted in test class
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">public static String removeQuoteLineField(String qliField)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">qliField</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Quote Line field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">String</code> The field name</div>
                 </div>
               </div>
             </div>
