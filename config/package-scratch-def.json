@@ -12,12 +12,6 @@
 		},
 		"quoteSettings": {
 			"enableQuote": true
-		},
-		"orderManagementSettings": { "enableOrderManagement": false },
-		"orderSettings": { "enableOrders": false },
-		"userManagementSettings": {
-			"permsetsInFieldCreation": true,
-			"enableEnhancedPermsetMgmt": true
 		}
 	}
 }

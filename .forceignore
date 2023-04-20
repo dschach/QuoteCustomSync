@@ -16,7 +16,7 @@ package.xml
 Admin.*
 
 # Page Layouts
-force-app/main/default/layouts/*.layout-meta.xml
+**/*.layout-meta.xml
 
 # Settings
-*.settings-meta.xml
+**/*.settings-meta.xml
