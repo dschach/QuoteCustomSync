@@ -1,7 +1,7 @@
 engine:
   source:
     - path: '${workspaceFolder}/force-app/main/default/classes'
-      sourceUrl: https://github.com/dschach/QuoteCustomSync/force-app/main/default/classes
+      sourceUrl: https://github.com/dschach/QuoteCustomSync/blob/main
   targetDirectory: '${workspaceFolder}/docs'
   # excludes:
   #   - '*Test.cls'
