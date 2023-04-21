@@ -9,13 +9,13 @@
 <h2 id="changelog"><a href="./assets/changelog.html">Changelog</a></h2>
 <h2 id="todo-items">ToDo items</h2>
 <ol>
-<li>Look at the permission set granted - you&#39;ll probably want to fix that</li>
-<li>Update API version to the latest and greatest</li>
+<li>Look at the permission set granted - you&#39;ll probably want to fix that. Is it needed?</li>
+<li>Try to minimize metadata in the package, but ensure that tests have proper coverage when generating the package. Will need to optimize the metadata included (see sfdx-project).</li>
 </ol>
 <h2 id="general-description">General Description</h2>
 <p>This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and QuoteLineItem. The mapped fields will be synchronized automatically similar to the standard Quote Sync process.</p>
 <h2 id="configuration">Configuration</h2>
 <h3 id="whats-included">What&#39;s Included</h3>
-<p>This package comes with some code (and installs a base trigger handler package) to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.</p>
+<p>This package comes with some code to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.</p>
 <p>This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (or Line Item) field names on the correct CMT and the package will do the rest.</p>
 
