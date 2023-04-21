@@ -435,9 +435,16 @@ public class QuoteSyncUtil {
 				continue;
 			}
 
+			/* System.debug('>>>> Investigating ' + field + ' field');
+			System.debug('isCustom' + f.isCustom());
+			//System.debug('isCreateable' + f.isCreateable());
+			System.debug('!isNillable' + !f.isNillable());
+			System.debug('!isAutoNumber' + !f.isAutoNumber());
+			System.debug('!isCalculated' + !f.isCalculated()); */
+
 			if (
 				f.isCustom() &&
-				f.isCreateable() &&
+				//f.isCreateable() && // do not enforce permissions here
 				!f.isNillable() &&
 				!f.isAutoNumber() &&
 				!f.isCalculated() &&
