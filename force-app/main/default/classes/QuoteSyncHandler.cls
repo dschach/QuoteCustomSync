@@ -113,7 +113,6 @@ global without sharing class QuoteSyncHandler {
 		}
 		stopQuote = true;
 		Set<String> quoteFields = QuoteSyncUtil.getQuoteFields();
-		//List<String> oppFields = QuoteSyncUtil.getOppFields();
 
 		String quoteFieldsString = getStringFromFieldSet(quoteFields);
 		String oppFieldsString = getStringFromFieldSet(QuoteSyncUtil.getOppFields());
@@ -266,7 +265,7 @@ global without sharing class QuoteSyncHandler {
 						System.debug('Old oli: ' + oldOli.UnitPrice + ', ' + oldOli.Quantity + ', ' + oldOli.Discount + ', ' + oldOli.ServiceDate);
 						System.debug('New oli: ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate);
 
-						if (
+						/* if (
 							oli.UnitPrice == oldOli.UnitPrice &&
 							oli.Quantity == oldOli.Quantity &&
 							oli.Discount == oldOli.Discount &&
@@ -274,7 +273,7 @@ global without sharing class QuoteSyncHandler {
 							oli.SortOrder == oldOli.SortOrder
 						) {
 							updateQli = true;
-						}
+						} */
 					}
 
 					// Trying setting the update flag to true for all transactions
@@ -282,7 +281,6 @@ global without sharing class QuoteSyncHandler {
 					// End of trying
 
 					Boolean hasChange = false;
-					//Boolean match = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
 							(oli.PricebookEntryId == qli.PricebookEntryId &&
@@ -332,12 +330,9 @@ global without sharing class QuoteSyncHandler {
 									updateQlis.add(qli);
 								}
 							}
-							//match = true;
 							break;
 						}
 					}
-					// NOTE: this causes error when there is workflow field update that fired during record create
-					//if (trigger.isUpdate && updateQli) System.assert(match, 'No matching quoteline');
 				}
 			}
 
@@ -450,7 +445,7 @@ global without sharing class QuoteSyncHandler {
 						System.debug('Old qli: ' + oldQli.UnitPrice + ', ' + oldQli.Quantity + ', ' + oldQli.Discount + ', ' + oldQli.ServiceDate);
 						System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
 
-						if (
+						/* if (
 							(qli.UnitPrice == oldQli.UnitPrice &&
 							qli.Quantity == oldQli.Quantity &&
 							qli.Discount == oldQli.Discount &&
@@ -458,7 +453,7 @@ global without sharing class QuoteSyncHandler {
 							qli.SortOrder == oldQli.SortOrder)
 						) {
 							updateOli = true;
-						}
+						} */
 					}
 
 					// Trying to set updateOli to true for every transaction because we've made an update to the record
@@ -466,7 +461,6 @@ global without sharing class QuoteSyncHandler {
 					// End of trying
 
 					Boolean hasChange = false;
-					//Boolean match = false;
 
 					for (OpportunityLineItem oli : opplines) {
 						if (
@@ -522,13 +516,9 @@ global without sharing class QuoteSyncHandler {
 									updateOlis.add(oli);
 								}
 							}
-
-							//match = true;
 							break;
 						}
 					}
-					// NOTE: this may cause an error when there is a workflow field update that fired during record create
-					//if (trigger.isUpdate && updateOli) System.assert(match, 'No matching oppline');
 				}
 			}
 
@@ -546,6 +536,8 @@ global without sharing class QuoteSyncHandler {
 				Database.update(qliList);
 			}
 
+			// Salesforce has split Quote and QLI creation into two transactions, so this may not be necessary.
+			// TODO: Remove this in a future version if unneeded.
 			if (Trigger.isInsert) {
 				QuoteSyncUtil.removeAllNewQuoteIds(quoteIds);
 			}

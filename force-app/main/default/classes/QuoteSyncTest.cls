@@ -408,13 +408,6 @@ private without sharing class QuoteSyncTest {
 		}
 	}
 
-	/* 	private static void populateFields(SObject sobj, String entity, List<String> fields, Boolean setNullOrFalse) {
-		for (String field : fields) {
-			Schema.DescribeFieldResult result = QuoteSyncUtil.getField(entity, field);
-			sobj.put(field, QuoteSyncUtil.createValue(sobj, entity, field, result, setNullOrFalse));
-		}
-	} */
-
 	private static Opportunity createOpp() {
 		return createOpp(false);
 	}
