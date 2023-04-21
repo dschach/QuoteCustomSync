@@ -7,8 +7,6 @@
     <label>Text</label>
     <length>255</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackTrending>false</trackTrending>
-    <type>Text</type>
+    <trackFeedHistory>false</trackFeedHistory><type>Text</type>
     <unique>false</unique>
 </CustomField>

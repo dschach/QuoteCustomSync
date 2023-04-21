@@ -119,7 +119,6 @@ public class QuoteSyncUtil {
 	 * @description Add an ID to the `newQuoteIds` set
 	 *
 	 * @param id    Quote Id to remove
-	 * @deprecated  Unused
 	 */
 	public static void addNewQuoteId(Id id) {
 		newQuoteIds.add(id);
@@ -157,7 +156,6 @@ public class QuoteSyncUtil {
 	 *
 	 * @param id    QuoteId
 	 * @return      `Boolean` newQuoteIds.contains(id);
-	 * @deprecated Unused
 	 */
 	public static Boolean isNewQuote(Id id) {
 		return newQuoteIds.contains(id);
@@ -514,15 +512,11 @@ public class QuoteSyncUtil {
 					value = Blob.valueOf(strValue);
 				}
 				when Boolean {
-					System.debug('Setting Boolean value');
 					if (sobj.get(field) != null) {
 						value = !Boolean.valueOf(sobj.get(field));
-						System.debug('Making existing ' + entity + '.' + field + ' Boolean value to ' + value);
 					} else if (entity.equalsIgnoreCase('Quote') || entity.equalsIgnoreCase('QuoteLineItem')) {
-						System.debug('Setting Q field to FALSE');
 						value = false;
 					} else {
-						System.debug('Setting O field to TRUE');
 						value = true;
 					}
 				}
@@ -533,10 +527,10 @@ public class QuoteSyncUtil {
 					value = Decimal.valueOf(Math.random());
 				}
 				when Date {
-					value = Date.today();
+					value = Date.today().addDays(Integer.valueof(Math.random() * 30));
 				}
 				when DateTime {
-					value = DateTime.now();
+					value = DateTime.now().addMinutes(Integer.valueof(Math.random() * 60));
 				}
 				when Integer {
 					value = Integer.valueOf(Math.random());
@@ -548,22 +542,25 @@ public class QuoteSyncUtil {
 					value = 10 * Math.random();
 				}
 				when Email {
-					value = System.currentTimeMillis() + '@quotesync.test';
+					value = System.currentTimeMillis() + '@' + entity.toLowerCase() + 'sync.test';
 				}
 				when Phone {
 					value = String.valueOf(System.currentTimeMillis());
 				}
 				when Picklist, MultiPicklist {
 					List<Schema.PicklistEntry> values = result.getPicklistValues();
-					value = values.get(0).getValue();
+					if (entity.equalsIgnoreCase('Quote') || entity.equalsIgnoreCase('QuoteLineItem')) {
+						value = values.get(0).getValue();
+					} else {
+						values.get(1).getValue();
+					}
 				}
 				when String, TextArea, Url {
 					Integer fieldLength = fieldsMap.get(field).getDescribe().length;
 					value = strValue.left(fieldLength - 1);
 				}
 				when Time {
-					DateTime dt = DateTime.now();
-					value = Time.newInstance(dt.hour(), dt.millisecond(), dt.second(), 0);
+					value = DateTime.now().time();
 				}
 				when else {
 					value = strValue;
