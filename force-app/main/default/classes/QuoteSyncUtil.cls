@@ -534,10 +534,18 @@ public class QuoteSyncUtil {
 					value = Decimal.valueOf(Math.random());
 				}
 				when Date {
-					value = Date.today().addDays(Integer.valueof(Math.random() * 30));
+					if (entity.equalsIgnoreCase('Quote') || entity.equalsIgnoreCase('QuoteLineItem')) {
+						value = Date.today().addDays(Integer.valueof(Math.random() * 30));
+					} else {
+						value = Date.today().addDays(Integer.valueof(Math.random() * -30));
+					}
 				}
 				when DateTime {
-					value = DateTime.now().addMinutes(Integer.valueof(Math.random() * 60));
+					if (entity.equalsIgnoreCase('Quote') || entity.equalsIgnoreCase('QuoteLineItem')) {
+						value = DateTime.now().addMinutes(Integer.valueof(Math.random() * 60));
+					} else {
+						value = DateTime.now().addMinutes(Integer.valueof(Math.random() * -60));
+					}
 				}
 				when Integer {
 					value = Integer.valueOf(Math.random());
