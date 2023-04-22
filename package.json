@@ -1,7 +1,7 @@
 {
 	"name": "quote-custom-sync",
 	"private": true,
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Quote Custom Sync builds on SalesforceLabs work and uses custom metadata types and new standard fields to work even better.",
 	"scripts": {
 		"apex:test": "rm testresults/* && sf apex run test --test-level RunLocalTests --output-dir testresults --result-format human --code-coverage",
