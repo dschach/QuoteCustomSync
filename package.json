@@ -1,13 +1,13 @@
 {
 	"name": "quote-custom-sync",
 	"private": true,
-	"version": "0.1.1",
+	"version": "0.1.0",
 	"description": "Quote Custom Sync builds on SalesforceLabs work and uses custom metadata types and new standard fields to work even better.",
 	"scripts": {
 		"apex:test": "rm testresults/* && sf apex run test --test-level RunLocalTests --output-dir testresults --result-format human --code-coverage",
 		"myinfo": "sf org display --verbose",
-		"pmd:scan:csv": "$HOME/pmd/bin/pmd check -d force-app -R pmd/ruleset.xml -f csv -r pmd/pmd.csv --cache .pmdCache --short-names",
-		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/ruleset.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache --short-names",
+		"pmd:scan:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/ruleset.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
+		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/deployRules.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
 		"precommit": "lint-staged",
 		"prepare": "husky install",
 		"prettier:apex": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
@@ -16,6 +16,7 @@
 		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --target-branch=main --dry-run --debug",
+		"setup:docs": ". doc-assets/setupApexDox.sh",
 		"scratchorg": ". scripts/scratchorg.sh",
 		"updateHighlight": ". doc-assets/updateHighlight.sh",
 		"x2oddevhub": "sf config set target-dev-hub=x2od"

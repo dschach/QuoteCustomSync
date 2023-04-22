@@ -1,9 +1,7 @@
 engine:
   source:
     - path: '${workspaceFolder}/force-app/main/default/classes'
-      #sourceUrl: https://fixthis.com
-    - path: '${workspaceFolder}/trigger-handler/main/default/classes'
-    #  sourceUrl: https://fixthis.com
+      sourceUrl: https://github.com/dschach/QuoteCustomSync/blob/main
   targetDirectory: '${workspaceFolder}/docs'
   # excludes:
   #   - '*Test.cls'
@@ -15,7 +13,7 @@ engine:
   scope:
     - global
     - public
-    - protected
+    #- protected
     - private
     #- webService
     - testMethod

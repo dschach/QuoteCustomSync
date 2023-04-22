@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Map custom quote fields that sync with opportunity fields</description>
+    <label>Quote Sync Field</label>
+    <pluralLabel>Quote Sync Fields</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -64,9 +64,9 @@ jobs:
         with:
           version: 'latest'
           sourcePath: 'force-app'
-          rulesets: 'pmd/deployRules_prerelease.xml'
-          analyzeModifiedFilesOnly: 'false'
-          createGitHubAnnotations: 'true'
+          rulesets: 'pmd/deployRules.xml'
+          analyzeModifiedFilesOnly: false
+          createGitHubAnnotations: true
       # Check for PMD violations
       - name: 'Check for PMD violations'
         if: steps.pmd-action.outputs.violations != 0
@@ -119,7 +119,7 @@ jobs:
 
       # Deploy source to scratch org
       - name: 'Push source to scratch org'
-        run: sfdx force:source:push
+        run: sf project deploy start
         #run: sf project deploy start --target-org QuoteSyncOrg
 
       # Import sample data
@@ -163,12 +163,13 @@ jobs:
 
       - name: Install SFDX CLI and Scanner
         run: |
-          npm install sfdx-cli
-          node_modules/sfdx-cli/bin/run plugins:install @salesforce/sfdx-scanner
+          npm install sfdx-cli -g
+          sfdx plugins:install @salesforce/sfdx-scanner
+
       - name: Run SFDX Scanner - Report findings as comments
         uses: mitchspano/sfdx-scan-pull-request@v0.1.9
         with:
-          pmdconfig: 'pmd/deployRules_prerelease.xml'
+          pmdconfig: 'pmd/deployRules.xml'
           severity-threshold: 2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

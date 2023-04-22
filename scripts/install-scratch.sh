@@ -4,6 +4,12 @@
 ORG_ALIAS="QuoteSyncOrg"
 
 echo ""
+echo "Set dev hub"
+npm run x2oddevhub
+echo ""
+
+
+echo ""
 echo "Installing scratch org ($ORG_ALIAS)"
 echo ""
 
@@ -16,13 +22,17 @@ echo "Creating scratch org..." && \
 sf org create scratch --set-default --definition-file config/project-scratch-def.json --duration-days 30 --alias $ORG_ALIAS && \
 echo "" && \
 
-echo "Pushing source..." && \
-sf deploy metadata && \
+echo "Pushing package source..." && \
+sf project deploy start --source-dir force-app && \
 echo "" && \
 
-#echo "Assigning permission sets..." && \
-#sf org assign permset --name Quote_Sync_Permission && \
-#echo "" && \
+echo "Pushing unpackaged metadata..." && \
+sf project deploy start --source-dir unpackaged && \
+echo "" && \
+
+echo "Assigning permission sets..." && \
+sf org assign permset --name QuoteSyncTester && \
+echo "" && \
 
 echo "Importing sample data..." && \
 sf data import tree --plan data/data-plan.json && \
@@ -42,4 +52,4 @@ if [ "$EXIT_CODE" -eq 0 ]; then
 else
     echo "Installation failed."
 fi
-exit $EXIT_CODE
+#exit $EXIT_CODE

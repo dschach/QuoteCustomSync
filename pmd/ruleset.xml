@@ -2,6 +2,7 @@
 <ruleset name="quickstart" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 	<description>Quickstart configuration of PMD for Salesforce, customized.</description>
 	<exclude-pattern>.*/.sfdx/.*</exclude-pattern>
+	<exclude-pattern>.*/.sf/.*</exclude-pattern>
 
 	<!-- BEST PRACTICES -->
 	<rule ref="category/apex/bestpractices.xml/UnusedLocalVariable" message="Variable ''{0}'' defined but not used">
@@ -12,7 +13,7 @@
 	<rule ref="category/apex/design.xml/ExcessiveParameterList" message="Avoid long parameter lists (you have more than 10)">
 		<priority>3</priority>
 		<properties>
-			<property name="minimum" value="10" />
+			<property name="minimum" value="6" />
 		</properties>
 	</rule>
 
@@ -23,7 +24,7 @@
 		</properties>
 	</rule>
 
-	<!-- <rule ref="category/apex/design.xml/NcssConstructorCount" message="The constructor has an NCSS line count of {0}">
+	<rule ref="category/apex/design.xml/NcssConstructorCount" message="The constructor has an NCSS line count of {0}">
 		<priority>3</priority>
 		<properties>
 			<property name="minimum" value="50" />
@@ -42,14 +43,14 @@
 		<properties>
 			<property name="minimum" value="1500" />
 		</properties>
-	</rule> -->
-
-	<!-- <rule ref="category/apex/design.xml/StdCyclomaticComplexity" message="The {0} ''{1}'' has a Standard Cyclomatic Complexity of {2}.">
+	</rule> 
+	
+	<rule ref="category/apex/design.xml/StdCyclomaticComplexity" message="The {0} ''{1}'' has a Standard Cyclomatic Complexity of {2}.">
 		<priority>3</priority>
 		<properties>
 			<property name="reportLevel" value="100" />
 		</properties>
-	</rule> -->
+	</rule>
 
 	<rule ref="category/apex/design.xml/TooManyFields" message="Too many fields">
 		<priority>3</priority>
@@ -138,7 +139,7 @@
 		<priority>2</priority>
 	</rule>
 
-	<!--		<rule ref="category/apex/bestpractices.xml/ApexAssertionsShouldIncludeMessage"/> -->
+	<!--<rule ref="category/apex/bestpractices.xml/ApexAssertionsShouldIncludeMessage"/> -->
 
 	<rule ref="category/apex/errorprone.xml/TestMethodsMustBeInTestClasses">
 		<priority>2</priority>
@@ -239,42 +240,12 @@
 		<priority>3</priority>
 		<properties>
 			<property name="reportMissingDescription" value="false"></property>
-			<property name="reportPrivate" value="false"></property>
+			<property name="reportPrivate" value="true"></property>
 			<property name="reportProtected" value="true"></property>
+			<property name="reportProperty" value="false"></property>
 		</properties>
 	</rule>
 
-	<!-- CLARITY / BEST PRACTICES -->
-	<!-- <rule ref="category/apex/bestpractices.xml/DebugsShouldUseLoggingLevel">
-		<priority>4</priority>
-	</rule> -->
+	<rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode" />
 
-	<!-- <rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode" /> -->
-
-
-	<!-- VISUALFORCE RULES -->
-	<rule ref="category/vf/security.xml/VfHtmlStyleTagXss" message="Dynamic EL content within URL in style tag should be URLENCODED or JSINHTMLENCODED as appropriate">
-		<!--
-			<apex:page>
-		<style>
-				div {
-						background: url('{!XSSHere}'); // Potential XSS
-				}
-				div {
-						background: url('{!URLENCODE(XSSHere)}'); // correct encoding
-				}
-		</style>
-	</apex:page>
--->
-	<priority>2</priority>
-</rule>
-
-<rule ref="category/vf/security.xml/VfUnescapeEl" message="Avoid unescaped user controlled content in EL as it results in XSS.">
-	<!--Example <apex:outputText value="Potential XSS is {! here }" escape="false" /> -->
-	<priority>3</priority>
-	</rule>
-
-<!-- Error on apex:page action usage -->
-<!-- <apex:page controller="AcRestActionsController" action="{!csrfInitMethod}" > -->
-<rule ref="category/vf/security.xml/VfCsrf" />
 </ruleset>

@@ -14,11 +14,7 @@ coverage:
         target: auto
         threshold: 10%
         flags:
-          - LWC
           - Apex
-      LWC:
-        flags:
-          - LWC
       Apex:
         flags:
           - Apex

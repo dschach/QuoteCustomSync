@@ -13,8 +13,8 @@ Metadata-driven Quote-Opportunity custom field synchronization
 
 ## ToDo items
 
-1. Look at the permission set granted - you'll probably want to fix that
-1. Update API version to the latest and greatest
+1. Look at the permission set granted - you'll probably want to fix that. Is it needed?
+2. Try to minimize metadata in the package, but ensure that tests have proper coverage when generating the package. Will need to optimize the metadata included (see sfdx-project).
 
 ## General Description
 
@@ -24,6 +24,6 @@ This app allows you to configure custom fields mapping between Opportunity and Q
 
 ### What's Included
 
-This package comes with some code (and installs a base trigger handler package) to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.
+This package comes with some code to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know which fields to map between the proper objects.
 
 This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (or Line Item) field names on the correct CMT and the package will do the rest.

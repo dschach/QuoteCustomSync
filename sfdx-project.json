@@ -1,17 +1,20 @@
 {
-  "packageDirectories": [
-    {
-      "path": "trigger-handler"
-    },
-    {
-      "path": "force-app",
-      "default": true,
-      "versionNumber": "0.1.1.NEXT"
-    }
-  ],
-  "pushPackageDirectoriesSequentially": true,
-  "name": "QuoteCustomSync",
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "57.0"
+	"packageDirectories": [
+		{
+			"path": "force-app",
+			"default": true,
+			"versionNumber": "0.1.0.NEXT",
+			"unpackagedMetadata": {
+				"path": "unpackaged"
+			}
+		},
+		{
+			"path": "unpackaged",
+			"default": false
+		}
+	],
+	"name": "QuoteCustomSync",
+	"namespace": "",
+	"sfdcLoginUrl": "https://login.salesforce.com",
+	"sourceApiVersion": "57.0"
 }

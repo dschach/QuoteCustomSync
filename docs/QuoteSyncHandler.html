@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom Quote Sync Documentation</title>
+    <meta charset="UTF-8" />
+    <script type="module" src="./assets/index.js"></script>
+    <script type="module" src="./assets/search-idx.js"></script>
+    <script type="module" src="./assets/search.js"></script>
+    <script charset="UTF-8" src="./assets/highlight.js"></script>
+    <script charset="UTF-8" src="./assets/mark.js"></script>
+    <script charset="UTF-8" src="./assets/lunr.js"></script>
+    <link rel="stylesheet" href="./assets/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/index.css" />
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+
+  <body>
+    <div id="side-bar">
+      <div id="logo-container">
+        <div class="title">Custom Quote Sync Documentation</div>
+        <img src="assets/logo.png" />
+        <div class="subtitle">
+          Documentation for <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach/QuoteCustomSync">Custom Quote Sync</a>
+        </div>
+      </div>
+      <div id="search-wrapper">
+        <div class="search-icon"></div>
+        <input id="search-input" type="text" autocomplete="off" placeholder="Search..." />
+      </div>
+      <ul id="search-results" class=""></ul>
+      <div class="navbar">
+        <nav role="navigation">
+          <a class="nav-header" id="home" href="javascript:void(0)" onclick="goToLocation('index.html');"> Home </a>
+          <details id="OppQuoteSync" class="group-name">
+            <summary id="header-OppQuoteSync" class="nav-header">
+              <span>OppQuoteSync</span>
+            </summary>
+            <ul>
+              <!-- menu items -->
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
+              </li>
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
+              </li>
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
+              </li>
+            </ul>
+          </details>
+        </nav>
+      </div>
+    </div>
+    <table id="content">
+      <tr>
+        <td class="scoping-panel">
+          Show: <input type="checkbox" checked="true" id="cbx-all" onclick="toggleAllScopes(this.checked);" />
+          <label for="cbx-all">All</label>&nbsp;&nbsp;
+          <input type="checkbox" checked="true" id="cbx-global" onclick="toggleScope('global', this.checked);" />
+          <label for="cbx-global"> global </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-public"
+            onclick="toggleScope('public', this.checked);" />
+          <label for="cbx-public"> public </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-private"
+            onclick="toggleScope('private', this.checked);" />
+          <label for="cbx-private"> private </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-testmethod"
+            onclick="toggleScope('testmethod', this.checked);" />
+          <label for="cbx-testmethod"> testMethod </label>
+        </td>
+      </tr>
+      <tr>
+        <td class="doc-page">
+          <div class="section">
+            <h2 class="class-title top-level-type" id="QuoteSyncHandler">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Go to source"
+                class="source-link"
+                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L21">
+                QuoteSyncHandler
+              </a>
+            </h2>
+            <div class="class-container">
+              <div class="class-description">
+                QuoteSyncHandler class that contains all the logic that uses the QuoteSyncUtil. This class exposes methods to sync the Opportunity,
+                Quote, OpportunityLineItem and QuoteLineItem objects and should ideally be called from each object&#39;s trigger <br />Code adapted
+                from QuoteSync AppExchange package, moved to single handler class
+              </div>
+              <div class="class-subtitle">Signature</div>
+              <div class="class-annotations">@SuppressWarnings('PMD.AvoidGLobalModifier')</div>
+              <div class="class-signature">global without sharing class QuoteSyncHandler</div>
+              <div class="class-subtitle">See</div>
+              <div class="class-subtitle-description">
+                <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncUtil.html')">QuoteSyncUtil</a>
+              </div>
+              <div class="class-subtitle">Author</div>
+              <div class="class-subtitle-description">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/SalesforceLabs">Salesforce Labs</a>
+              </div>
+              <div class="class-subtitle">Since</div>
+              <div class="class-subtitle-description">
+                <li>2014 Original Author</li>
+              </div>
+              <div class="class-subtitle">Author</div>
+              <div class="class-subtitle-description">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+              </div>
+              <div class="class-subtitle">Since</div>
+              <div class="class-subtitle-description">
+                <li>2022-08 New trigger handler framework</li>
+                <li>2022-10 Converted to Custom Metadata</li>
+                <li>2023-04 Refine Quote Sync with new Quote fields</li>
+                <li>2023-04 Remove trigger framework, stoppers into this class</li>
+              </div>
+            </div>
+            <div class="subsection properties QuoteSyncHandler">
+              <h3 class="subsection-title properties">QuoteSyncHandler Properties</h3>
+              <table class="attributes-table properties">
+                <tr>
+                  <th>Name</th>
+                  <th>Signature</th>
+
+                  <th>Description</th>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L556">
+                      stopOpp
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Boolean stopOpp</div>
+                  </td>
+
+                  <td class="attribute-description">If true, exit <code class="code-inline">Opportunity</code> trigger handler</td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L552">
+                      stopOppLine
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Boolean stopOppLine</div>
+                  </td>
+
+                  <td class="attribute-description">If true, exit <code class="code-inline">OppoortunityLineItem</code> trigger handler</td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L564">
+                      stopQuote
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Boolean stopQuote</div>
+                  </td>
+
+                  <td class="attribute-description">If true, exit <code class="code-inline">Quote</code> trigger handler</td>
+                </tr>
+                <tr class="property public">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L560">
+                      stopQuoteLine
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Boolean stopQuoteLine</div>
+                  </td>
+
+                  <td class="attribute-description">If true, exit <code class="code-inline">QuoteLineItem</code> trigger handler</td>
+                </tr>
+              </table>
+            </div>
+            <div class="subsection methods">
+              <h3 class="subsection-title methods">QuoteSyncHandler Methods</h3>
+              <div class="methods-container">
+                <ul class="methods-toc">
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.bypassAll"> bypassAll () </a>
+
+                    <div class="methods-toc__description">Deactivate all QuoteSync triggers</div>
+                  </li>
+                  <li class="method public">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.clearAllBypasses"> clearAllBypasses () </a>
+
+                    <div class="methods-toc__description">Reactivate all QuoteSync triggers</div>
+                  </li>
+                  <li class="method private">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.getOpportunityLineItemsToUpdate">
+                      getOpportunityLineItemsToUpdate (syncQuoteIds, syncOppIds, startSyncQuoteMap, qliFields, oliFields)
+                    </a>
+
+                    <div class="methods-toc__description">
+                      Method that takes a set of <code class="code-inline">Quote</code> Ids, a set of <code class="code-inline">Opportunity</code> Ids
+                      and a map linking them together and returns a list of <code class="code-inline">Opportunity Products</code> that should be
+                      updated to be synced
+                    </div>
+                  </li>
+                  <li class="method private">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.getQuotesToUpdate">
+                      getQuotesToUpdate (oppIds, quoteIds, oppFieldsString, quoteFieldsString, quoteFields)
+                    </a>
+
+                    <div class="methods-toc__description">
+                      Method that gets a set of <code class="code-inline">Opportunity</code> Ids, a set of <code class="code-inline">Quote</code> Ids
+                      and returns a list of <code class="code-inline">Quotes</code> that should be updated to be synced with their corresponding
+                      <code class="code-inline">Opportunity</code>
+                    </div>
+                  </li>
+                  <li class="method private">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.getStringFromFieldSet"> getStringFromFieldSet (fields) </a>
+
+                    <div class="methods-toc__description">
+                      Method that builds a string of fields separated by a comma to be put into a Database query string
+                    </div>
+                  </li>
+                  <li class="method global">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.syncOppLines"> syncOppLines (newRecords, oldRecordsMap) </a>
+
+                    <div class="methods-toc__description">
+                      Sync <code class="code-inline">Opportunity Products</code> with <code class="code-inline">Quote Line Items</code>
+                    </div>
+                  </li>
+                  <li class="method global">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.syncOpportunities"> syncOpportunities (newRecords, oldRecordsMap) </a>
+
+                    <div class="methods-toc__description">
+                      Sync <code class="code-inline">Opportunities</code> with <code class="code-inline">Quotes</code>
+                    </div>
+                  </li>
+                  <li class="method global">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.syncQuote"> syncQuote (newRecords, oldRecordsMap) </a>
+
+                    <div class="methods-toc__description">
+                      Sync <code class="code-inline">Quote</code> fields with <code class="code-inline">Opportunity</code> fields
+                    </div>
+                  </li>
+                  <li class="method global">
+                    <a class="methods-toc__entry" href="#QuoteSyncHandler.syncQuoteLines"> syncQuoteLines (newRecords, oldRecordsMap) </a>
+
+                    <div class="methods-toc__description">
+                      Sync <code class="code-inline">Quote Line Items</code> with <code class="code-inline">Opportunity Products</code>
+                    </div>
+                  </li>
+                </ul>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncHandler.bypassAll">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L569">
+                      bypassAll()
+                    </a>
+                  </h4>
+                  <div class="method-description">Deactivate all QuoteSync triggers</div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void bypassAll()</div>
+                </div>
+                <div class="method public">
+                  <h4 class="method-title" id="QuoteSyncHandler.clearAllBypasses">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L579">
+                      clearAllBypasses()
+                    </a>
+                  </h4>
+                  <div class="method-description">Reactivate all QuoteSync triggers</div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">public static void clearAllBypasses()</div>
+                </div>
+                <div class="method private">
+                  <h4 class="method-title" id="QuoteSyncHandler.getOpportunityLineItemsToUpdate">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L662">
+                      getOpportunityLineItemsToUpdate(syncQuoteIds, syncOppIds, startSyncQuoteMap, qliFields, oliFields)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Method that takes a set of <code class="code-inline">Quote</code> Ids, a set of <code class="code-inline">Opportunity</code> Ids
+                    and a map linking them together and returns a list of <code class="code-inline">Opportunity Products</code> that should be updated
+                    to be synced
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    private static Set&lt;OpportunityLineItem&gt; getOpportunityLineItemsToUpdate( Set&lt;Id&gt; syncQuoteIds, Set&lt;Id&gt;
+                    syncOppIds, Map&lt;Id, Id&gt; startSyncQuoteMap, String qliFields, String oliFields )
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">syncQuoteIds</div>
+                  <div class="param-type">Type: <code class="code-inline"> Set&lt;Id&gt;</code></div>
+                  <div class="param-description">Set of <code class="code-inline">Quote</code> Ids</div>
+                  <div class="param-name">syncOppIds</div>
+                  <div class="param-description">Set of <code class="code-inline">Opportunity</code> Ids</div>
+                  <div class="param-name">startSyncQuoteMap</div>
+                  <div class="param-type">Type: <code class="code-inline">Id&gt;</code></div>
+                  <div class="param-description">
+                    Map that links each <code class="code-inline">Quote</code> Id with its synced <code class="code-inline">Opportunity</code> Id
+                  </div>
+                  <div class="param-name">qliFields</div>
+                  <div class="param-description">List of <code class="code-inline">QuoteLineItem</code> fields to be compared</div>
+                  <div class="param-name">oliFields</div>
+                  <div class="param-description">List of <code class="code-inline">OpportunityLineItem</code> fields to be compared</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">Set&lt;OpportunityLineItem&gt;</code> that should be updated
+                  </div>
+                </div>
+                <div class="method private">
+                  <h4 class="method-title" id="QuoteSyncHandler.getQuotesToUpdate">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L613">
+                      getQuotesToUpdate(oppIds, quoteIds, oppFieldsString, quoteFieldsString, quoteFields)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Method that gets a set of <code class="code-inline">Opportunity</code> Ids, a set of <code class="code-inline">Quote</code> Ids
+                    and returns a list of <code class="code-inline">Quotes</code> that should be updated to be synced with their corresponding
+                    <code class="code-inline">Opportunity</code>
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    private static List&lt;Quote&gt; getQuotesToUpdate( Set&lt;Id&gt; oppIds, Set&lt;Id&gt; quoteIds, String oppFieldsString, String
+                    quoteFieldsString, Set&lt;String&gt; quoteFields )
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppIds</div>
+                  <div class="param-type">Type: <code class="code-inline"> Set&lt;Id&gt;</code></div>
+                  <div class="param-description">Set of <code class="code-inline">Opportunity</code> Ids</div>
+                  <div class="param-name">quoteIds</div>
+                  <div class="param-description">Set of <code class="code-inline">Quote</code> Ids</div>
+                  <div class="param-name">oppFieldsString</div>
+                  <div class="param-description">List of comma separated <code class="code-inline">Opportunity</code> fields to be compared</div>
+                  <div class="param-name">quoteFieldsString</div>
+                  <div class="param-description">List of comma separated quote fields to be compared (in a string)</div>
+                  <div class="param-name">quoteFields</div>
+                  <div class="param-description">List of <code class="code-inline">Quote</code> fields in a list</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">List&lt;Quote&gt;</code> That should be updated</div>
+                  <div class="method-subtitle">Author</div>
+                  <div class="method-subtitle-description">David Schach</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022</li>
+                  </div>
+                </div>
+                <div class="method private">
+                  <h4 class="method-title" id="QuoteSyncHandler.getStringFromFieldSet">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L591">
+                      getStringFromFieldSet(fields)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Method that builds a string of fields separated by a comma to be put into a Database query string
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">private String getStringFromFieldSet(Set&lt;String&gt; fields)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">fields</div>
+                  <div class="param-type">Type: <code class="code-inline">Set&lt;String&gt;</code></div>
+                  <div class="param-description">Set of field names</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">String</code> with the fields separated by commas</div>
+                </div>
+                <div class="method global">
+                  <h4 class="method-title" id="QuoteSyncHandler.syncOppLines">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L203">
+                      syncOppLines(newRecords, oldRecordsMap)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Sync <code class="code-inline">Opportunity Products</code> with <code class="code-inline">Quote Line Items</code>
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    global void syncOppLines(List&lt;OpportunityLineItem&gt; newRecords, Map&lt;Id, OpportunityLineItem&gt; oldRecordsMap)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">newRecords</div>
+                  <div class="param-type">Type: <code class="code-inline">List&lt;OpportunityLineItem&gt;</code></div>
+                  <div class="param-description">New <code class="code-inline">OpportunityLineItems</code> from Trigger.new</div>
+                  <div class="param-name">oldRecordsMap</div>
+                  <div class="param-type">Type: <code class="code-inline">Map&lt;Id, OpportunityLineItem&gt;</code></div>
+                  <div class="param-description">Old <code class="code-inline">OpportunityLineItems</code> in a map from Trigger.oldMap</div>
+                  <div class="method-subtitle">Author</div>
+                  <div class="method-subtitle-description">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+                  </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
+                  </div>
+                </div>
+                <div class="method global">
+                  <h4 class="method-title" id="QuoteSyncHandler.syncOpportunities">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L29">
+                      syncOpportunities(newRecords, oldRecordsMap)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Sync <code class="code-inline">Opportunities</code> with <code class="code-inline">Quotes</code>
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    global void syncOpportunities(List&lt;Opportunity&gt; newRecords, Map&lt;Id, Opportunity&gt; oldRecordsMap)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">newRecords</div>
+                  <div class="param-type">Type: <code class="code-inline">List&lt;Opportunity&gt;</code></div>
+                  <div class="param-description">New <code class="code-inline">Opportunities</code> from Trigger.new</div>
+                  <div class="param-name">oldRecordsMap</div>
+                  <div class="param-type">Type: <code class="code-inline">Map&lt;Id, Opportunity&gt;</code></div>
+                  <div class="param-description">Old <code class="code-inline">Opportunities</code> in a map from Trigger.oldMap</div>
+                  <div class="method-subtitle">Author</div>
+                  <div class="method-subtitle-description">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+                  </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
+                  </div>
+                </div>
+                <div class="method global">
+                  <h4 class="method-title" id="QuoteSyncHandler.syncQuote">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L109">
+                      syncQuote(newRecords, oldRecordsMap)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Sync <code class="code-inline">Quote</code> fields with <code class="code-inline">Opportunity</code> fields
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">global void syncQuote(List&lt;Quote&gt; newRecords, Map&lt;Id, Quote&gt; oldRecordsMap)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">newRecords</div>
+                  <div class="param-type">Type: <code class="code-inline">List&lt;Quote&gt;</code></div>
+                  <div class="param-description">New <code class="code-inline">Quotes</code> from Trigger.new</div>
+                  <div class="param-name">oldRecordsMap</div>
+                  <div class="param-type">Type: <code class="code-inline">Map&lt;Id, Quote&gt;</code></div>
+                  <div class="param-description">Old <code class="code-inline">Quotes</code> in a map from Trigger.oldMap</div>
+                  <div class="method-subtitle">Authors</div>
+                  <div class="method-subtitle-description">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/SalesforceLabs">Salesforce Labs</a>,
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+                  </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
+                  </div>
+                </div>
+                <div class="method global">
+                  <h4 class="method-title" id="QuoteSyncHandler.syncQuoteLines">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L361">
+                      syncQuoteLines(newRecords, oldRecordsMap)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    Sync <code class="code-inline">Quote Line Items</code> with <code class="code-inline">Opportunity Products</code>
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    global void syncQuoteLines(List&lt;QuoteLineItem&gt; newRecords, Map&lt;Id, QuoteLineItem&gt; oldRecordsMap)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">newRecords</div>
+                  <div class="param-type">Type: <code class="code-inline">List&lt;QuoteLineItem&gt;</code></div>
+                  <div class="param-description">New <code class="code-inline">QuoteLineItems</code> from Trigger.new</div>
+                  <div class="param-name">oldRecordsMap</div>
+                  <div class="param-type">Type: <code class="code-inline">Map&lt;Id, QuoteLineItem&gt;</code></div>
+                  <div class="param-description">Old <code class="code-inline">QuoteLineItems</code> in a map from Trigger.oldMap</div>
+                  <div class="method-subtitle">Author</div>
+                  <div class="method-subtitle-description">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
+                  </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="footer">
+          <div>
+            <a href="https://github.com/no-stack-dub-sack/apexdox-vs-code" target="_blank" rel="noopener noreferrer"> Powered By ApexDox VS Code </a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

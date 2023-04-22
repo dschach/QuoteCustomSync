@@ -1,7 +1,8 @@
 {
 	"orgName": "DSchach QuoteSync",
 	"edition": "Developer",
-	"features": ["Walkthroughs", "EnableSetPasswordInApi"],
+	"features": ["EnableSetPasswordInApi"],
+	"hasSampleData": true,
 	"settings": {
 		"lightningExperienceSettings": {
 			"enableS1DesktopEnabled": true
@@ -9,12 +10,14 @@
 		"mobileSettings": {
 			"enableS1EncryptedStoragePref2": false
 		},
-		"userEngagementSettings": {
-			"enableOrchestrationInSandbox": true,
-			"enableShowSalesforceUserAssist": false
-		},
 		"quoteSettings": {
 			"enableQuote": true
+		},
+		"orderManagementSettings": { "enableOrderManagement": false },
+		"orderSettings": { "enableOrders": false },
+		"userManagementSettings": {
+			"permsetsInFieldCreation": true,
+			"enableEnhancedPermsetMgmt": true
 		}
 	}
 }
