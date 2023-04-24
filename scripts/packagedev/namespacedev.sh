@@ -4,7 +4,7 @@ echo "Cleaning previous scratch org..."
 sf org delete scratch --no-prompt --target-org QuoteSyncOrg
 
 echo "Using namespace"
-sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"x2od_qcs\"|" sfdx-project.json
 
 echo "Creating new scratch org"
 sf org create scratch --definition-file config/project-scratch-def.json --alias QuoteSyncOrg --set-default --no-ancestors --duration-days 21
@@ -22,7 +22,7 @@ sf apex run --file ./data/sample-data.apex
 #sf apex run --apex-code-file "data/sample-data.apex" —-target-org QuoteSyncOrg
 
 echo "Clearing namespace"
-sed -i "" "s|\"namespace\": \"\"|\"namespace\": \"\"|" sfdx-project.json
+sed -i "" "s|\"namespace\": \"x2od_qcs\"|\"namespace\": \"\"|" sfdx-project.json
 
 echo "opening org"
 sf org open --target-org QuoteSyncOrg

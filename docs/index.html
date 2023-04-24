@@ -100,22 +100,14 @@
           <p>
             (based on Salesforce Labs <a href="https://appexchange.salesforce.com/listingDetail?listingId=a0N30000003Iop5EAC">Custom Quote Sync</a>)
           </p>
-          <h2 id="changelog"><a href="./assets/changelog.html">Changelog</a></h2>
-          <h2 id="todo-items">ToDo items</h2>
-          <ol>
-            <li>Look at the permission set granted - you&#39;ll probably want to fix that. Is it needed?</li>
-            <li>
-              Try to minimize metadata in the package, but ensure that tests have proper coverage when generating the package. Will need to optimize
-              the metadata included (see sfdx-project).
-            </li>
-          </ol>
+          <h2 id="changelog"><a href="./changelog.html">Changelog</a></h2>
+          <h2 id="installation-instructions"><a href="./installation.html">Installation Instructions</a></h2>
           <h2 id="general-description">General Description</h2>
           <p>
             This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and
             QuoteLineItem. The mapped fields will be synchronized automatically similar to the standard Quote Sync process.
           </p>
-          <h2 id="configuration">Configuration</h2>
-          <h3 id="whats-included">What&#39;s Included</h3>
+          <h2 id="whats-included">What&#39;s Included</h2>
           <p>
             This package comes with some code to sync custom fields between Opportunities and Quotes (and their Line Items), but it needs to know
             which fields to map between the proper objects.
@@ -124,6 +116,60 @@
             This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (or Line Item) field names on the correct CMT and the
             package will do the rest.
           </p>
+          <h2 id="configuration">Configuration</h2>
+          <h3 id="what-salesforce-syncs-automatically">What Salesforce syncs automatically</h3>
+          <h4 id="opportunity-quote">Opportunity-Quote</h4>
+          <p>
+            Some fields do not need to be specified, as Salesforce will synchronize those values automatically between the Opportunity and the syncing
+            Quote. These are the standard fields:
+          </p>
+          <ul>
+            <li>Price Book</li>
+          </ul>
+          <p>
+            Yes, there is only one field that is synchronized, and all of this assumes that there are line items on the Opportunity or the Quote. If
+            there are no line items, the Opportunity Amount does NOT synchronize with the Quote.GrandTotal field!
+          </p>
+          <p>
+            There are some Opportunity and Quote fields that do not &quot;line up&quot; with each other. For example, there may be a Tax field on
+            Quote, but there is not one on Opportunity. For these fields, they may be included in syncing configuration, but there could be errors if
+            one of the fields cannot be written to (such a a formula field). This functionality to check that may be released in a future version
+            (SAFE HARBOR).
+          </p>
+          <h3 id="custom-metadata-types">Custom Metadata Types</h3>
+          <p>Two CMTs are included: <code>Quote Sync Field</code> and <code>Quote Line Sync Field</code>. Four fields on each must be filled in:</p>
+          <ol>
+            <li>
+              Go to Setup &gt; Custom Metadata Types and click <code>Manage Records</code> on one of the metadata types. We will use
+              <code>Quote Sync Field</code> as our example.
+            </li>
+            <li>
+              If you are syncing two text fields, named <code>QuoteText__c</code> on Quote and <code>OpportunityText__c</code> on Opportunity, create
+              a custom metadata type with the following:
+              <ol>
+                <li>
+                  Name and DeveloperName are friendly fields and are not used by the app. Perhaps call this entry <code>Text</code>. Significantly,
+                  the DeveloperName must be unique.
+                </li>
+                <li>
+                  Type the field names into the <code>Quote Field</code> (QuoteText<strong
+                    >c) and <code>Opportunity Field</code> (OpportunityText</strong
+                  >c) fields. this single record is used for both directions of synchronization.
+                </li>
+              </ol>
+            </li>
+            <li>Save the record and go to the next one.</li>
+          </ol>
+          <p>
+            Again, the same CMT records are used for updating the Opportunity from its syncing Quote, and for updating the syncing Quote from its
+            Opportunity.
+          </p>
+          <h1 id="roadmap-work-in-progress">Roadmap (work in progress)</h1>
+          <ol>
+            <li>Create Unlocked Package Version.</li>
+            <li>Investigate using namespace for package</li>
+            <li>Clean more comments as scratch org tests continue to pass</li>
+          </ol>
         </td>
       </tr>
       <tr>

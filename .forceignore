@@ -16,7 +16,7 @@ package.xml
 Admin.*
 
 # Page Layouts
-**/*.layout-meta.xml
+#**/*.layout-meta.xml
 
 # Settings
 **/*.settings-meta.xml
