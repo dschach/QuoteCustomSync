@@ -249,13 +249,13 @@ global without sharing class QuoteSyncHandler {
 				for (OpportunityLineItem oli : oppToOliMap.get(opp.Id).OpportunityLineItems) {
 					Boolean updateQli = false;
 
-					if (Trigger.isUpdate) {
+					/* if (Trigger.isUpdate) {
 						OpportunityLineItem oldOli = oldRecordsMap.get(oli.Id);
 
 						//System.debug('Old oli: ' + oldOli.UnitPrice + ', ' + oldOli.Quantity + ', ' + oldOli.Discount + ', ' + oldOli.ServiceDate);
 						//System.debug('New oli: ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate);
 
-						/* if (
+						if (
 							oli.UnitPrice == oldOli.UnitPrice &&
 							oli.Quantity == oldOli.Quantity &&
 							oli.Discount == oldOli.Discount &&
@@ -263,8 +263,8 @@ global without sharing class QuoteSyncHandler {
 							oli.SortOrder == oldOli.SortOrder
 						) {
 							updateQli = true;
-						} */
-					}
+						} 
+					} */
 
 					// Trying setting the update flag to true for all transactions
 					updateQli = true;
@@ -428,12 +428,12 @@ global without sharing class QuoteSyncHandler {
 				for (QuoteLineItem qli : quoteToQliMap.get(q.Id).QuoteLineItems) {
 					Boolean updateOli = false;
 
-					if (Trigger.isUpdate) {
+					/* if (Trigger.isUpdate) {
 						QuoteLineItem oldQli = oldRecordsMap.get(qli.Id);
 						//System.debug('Old qli: ' + oldQli.UnitPrice + ', ' + oldQli.Quantity + ', ' + oldQli.Discount + ', ' + oldQli.ServiceDate);
 						//System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
 
-						/* if (
+						if (
 							(qli.UnitPrice == oldQli.UnitPrice &&
 							qli.Quantity == oldQli.Quantity &&
 							qli.Discount == oldQli.Discount &&
@@ -441,8 +441,8 @@ global without sharing class QuoteSyncHandler {
 							qli.SortOrder == oldQli.SortOrder)
 						) {
 							updateOli = true;
-						} */
-					}
+						} 
+					} */
 
 					// Trying to set updateOli to true for every transaction because we've made an update to the record
 					updateOli = true;
