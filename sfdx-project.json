@@ -21,14 +21,6 @@
     {
       "path": "unpackaged",
       "default": false
-    },
-    {
-      "path": "force-app",
-      "package": "Quote Custom Sync",
-      "versionName": "ver 0.1",
-      "versionNumber": "0.1.0.NEXT",
-      "default": false,
-      "versionDescription": ""
     }
   ],
   "name": "quotecustomsync",

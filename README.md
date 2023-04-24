@@ -13,6 +13,8 @@ Metadata-driven Quote-Opportunity custom field synchronization
 
 ## [Installation Instructions](./INSTALLATION.md)
 
+Latest unlocked package: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3a000001qXnfAAE ver 0.2 (beta)
+
 ## General Description
 
 This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and QuoteLineItem. The mapped fields will be synchronized automatically similar to the standard Quote Sync process.
@@ -27,7 +29,7 @@ This is achieved via Custom Metadata Types. Indicate the Opportunity and Quote (
 
 ### What Salesforce syncs automatically
 
-#### Opportunity-Quote
+#### Opportunity - Quote
 
 Some fields do not need to be specified, as Salesforce will synchronize those values automatically between the Opportunity and the syncing Quote. These are the standard fields:
 
@@ -36,6 +38,16 @@ Some fields do not need to be specified, as Salesforce will synchronize those va
 Yes, there is only one field that is synchronized, and all of this assumes that there are line items on the Opportunity or the Quote. If there are no line items, the Opportunity Amount does NOT synchronize with the Quote.GrandTotal field!
 
 There are some Opportunity and Quote fields that do not "line up" with each other. For example, there may be a Tax field on Quote, but there is not one on Opportunity. For these fields, they may be included in syncing configuration, but there could be errors if one of the fields cannot be written to (such a a formula field). This functionality to check that may be released in a future version (SAFE HARBOR).
+
+#### Opportunity Product - Quote Line Item
+
+- Description
+- Discount
+- PricebookEntryId (updates List Price, Product, etc)
+- Quantity
+- ServiceDate
+- SortOrder
+- UnitPrice (Sales Price)
 
 ### Custom Metadata Types
 
@@ -51,6 +63,5 @@ Again, the same CMT records are used for updating the Opportunity from its synci
 
 # Roadmap (work in progress)
 
-1. Create Unlocked Package Version.
-2. Investigate using namespace for package
-3. Clean more comments as scratch org tests continue to pass
+1. Investigate using namespace for package
+1. Clean more comments as scratch org tests continue to pass
