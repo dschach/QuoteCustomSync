@@ -6,12 +6,12 @@ coverage:
     patch:
       default:
         # basic
-        target: auto
+        target: 75%
         threshold: 10%
         if_ci_failed: error #success, failure, error, ignore
     project:
       default:
-        target: auto
+        target: 75%
         threshold: 10%
         flags:
           - Apex
