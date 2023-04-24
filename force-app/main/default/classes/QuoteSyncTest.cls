@@ -229,9 +229,9 @@ private without sharing class QuoteSyncTest {
 						Object qliValue = qli.get(qliField);
 						Object expectedValue = qline.get(qliField);
 
-						System.debug('>>>Field: ' + qliField);
-						System.debug('expected: ' + expectedValue);
-						System.debug('oliValue: ' + qliValue);
+						//System.debug('>>>Field: ' + qliField);
+						//System.debug('expected: ' + expectedValue);
+						//System.debug('oliValue: ' + qliValue);
 
 						System.assertEquals(expectedValue, qliValue, 'QuoteLineItem.' + qliField + ' value does not match');
 					}
@@ -247,7 +247,7 @@ private without sharing class QuoteSyncTest {
 		//prettier-ignore
 		String oliQuery = 'SELECT Id, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItem WHERE OpportunityId = \'' + oppId + '\'';
 		List<OpportunityLineItem> olis = Database.query(oliQuery);
-		System.debug(olis);
+		//System.debug(olis);
 
 		System.assertEquals(oppLines.size(), olis.size(), 'Number of line items does not match');
 
@@ -258,9 +258,9 @@ private without sharing class QuoteSyncTest {
 						Object oliValue = oli.get(oliField);
 						Object expectedValue = oppline.get(oliField);
 
-						System.debug('>>>Field: ' + oliField);
-						System.debug('expected: ' + expectedValue);
-						System.debug('oliValue: ' + oliValue);
+						//System.debug('>>>Field: ' + oliField);
+						//System.debug('expected: ' + expectedValue);
+						//System.debug('oliValue: ' + oliValue);
 
 						System.assertEquals(expectedValue, oliValue, 'OpportunityLineItem.' + oliField + ' value does not match');
 					}
@@ -504,7 +504,6 @@ private without sharing class QuoteSyncTest {
 	private static Quote createQuote(Opportunity opp, Boolean setNullOrFalse) {
 		Quote quote = new Quote(Name = 'test quote', OpportunityId = opp.Id, Pricebook2Id = opp.Pricebook2Id);
 		populateFields(quote, 'Quote', QuoteSyncUtil.getQuoteFields(), setNullOrFalse);
-		System.debug('quote ' + quote);
 
 		QuoteSyncUtil.populateRequiredFields(quote);
 
@@ -646,10 +645,8 @@ private without sharing class QuoteSyncTest {
 
 	private static List<OpportunityLineItem> updateOppLines(Id oppId, Boolean stdSyncField, Boolean customSyncField, Boolean updateNullOrFalse) {
 		String oliFields = QuoteSyncUtil.getOppLineFieldsString();
-		System.debug('oliFields: ' + oliFields);
 		//prettier-ignore
 		String oliQuery = 'SELECT Id, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + oliFields + ' FROM OpportunityLineItem WHERE OpportunityId  = \'' + oppId + '\'';
-		System.debug('oliQuery: ' + oliQuery);
 		List<OpportunityLineItem> olis = Database.query(oliQuery);
 
 		for (OpportunityLineItem oli : olis) {
