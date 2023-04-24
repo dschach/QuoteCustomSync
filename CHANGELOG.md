@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.2.1](https://github.com/dschach/QuoteCustomSync/compare/v0.2.0...v0.2.1) (2023-04-24)
+
+
+### Features
+
+* Release beta 2, create unlocked package ([#17](https://github.com/dschach/QuoteCustomSync/issues/17)) ([e51c980](https://github.com/dschach/QuoteCustomSync/commit/e51c98091b520927b429ea04f974e3e80714b1e8))
+
+
+### Bug Fixes
+
+* **ApexDox:** Fix installation pagename ([c926bfb](https://github.com/dschach/QuoteCustomSync/commit/c926bfb226641d6b130b570a372342136ef2877c))
+
+
+### Build System
+
+* **deps:** Bump yaml from 2.2.1 to 2.2.2 ([#18](https://github.com/dschach/QuoteCustomSync/issues/18)) ([a45f456](https://github.com/dschach/QuoteCustomSync/commit/a45f456cee2ddbbbda785a71c75a153b4aad9684))
+
+
+### Documentation
+
+* Update ApexDox ([d546120](https://github.com/dschach/QuoteCustomSync/commit/d54612048ef44699b8708f83a939c808a4de4123))
+
+
+### Continuous Integration
+
+* Update codecov target ([275f0d6](https://github.com/dschach/QuoteCustomSync/commit/275f0d644f4fc36618d6bd705e2190041505d6fe))
+
 ## [0.2.0](https://github.com/dschach/QuoteCustomSync/compare/v0.1.1...v0.2.0) (2023-04-22)
 
 
