@@ -121,17 +121,8 @@ jobs:
       - name: 'Push source to scratch org'
         run: sf project deploy start
 
-      # Import sample data
-      #- name: 'Import sample data'
-      #run: sfdx force:data:tree:import -p ./data/data-plan.json
-
-      # Assign permissionset
-      #- name: 'Assign permissionset to default user'
-      #run: sf org assign permset --name QuoteSyncTester --target-org QuoteSyncOrg
-
       # Run Apex tests in scratch org
       - name: 'Run Apex tests'
-        #run: sfdx force:apex:test:run --codecoverage --detailedcoverage --resultformat human -l RunLocalTests --wait 20 --outputdir ./
         run: sf apex run test --code-coverage --detailed-coverage --result-format human --wait 20 --test-level RunLocalTests --output-dir ./
 
       # Upload code coverage to Codecov.io
