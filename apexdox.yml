@@ -19,7 +19,7 @@ engine:
     - testMethod
   homePagePath: '${workspaceFolder}/doc-assets/main.html'
   pages:
-    - '${workspaceFolder}/doc-assets/files/Installation.html'
+    - '${workspaceFolder}/doc-assets/files/installation.html'
     - '${workspaceFolder}/doc-assets/files/changelog.html'
   assets:
     - '${workspaceFolder}/doc-assets/logo.png'
