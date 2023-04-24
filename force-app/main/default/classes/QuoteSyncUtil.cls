@@ -419,13 +419,6 @@ public class QuoteSyncUtil {
 				continue;
 			}
 
-			/* //System.debug('>>>> Investigating ' + field + ' field');
-			//System.debug('isCustom' + f.isCustom());
-			////System.debug('isCreateable' + f.isCreateable());
-			//System.debug('!isNillable' + !f.isNillable());
-			//System.debug('!isAutoNumber' + !f.isAutoNumber());
-			//System.debug('!isCalculated' + !f.isCalculated()); */
-
 			if (
 				f.isCustom() &&
 				!f.isNillable() &&
@@ -464,7 +457,7 @@ public class QuoteSyncUtil {
 				fields = oppLineRequiredFields;
 			}
 			when else {
-				System.assert(false, 'Unknown entity: ' + entity);
+				Assert.fail('Unknown entity: ' + entity);
 			}
 		}
 
@@ -573,54 +566,5 @@ public class QuoteSyncUtil {
 		}
 
 		return value;
-
-		/* Object value = null;
-		String strValue = entity + '_' + field + '_' + System.currentTimeMillis();
-
-		Schema.DisplayType ftype = result.getType();
-
-		if (!setNullOrFalse) {
-			if (ftype == DisplayType.Base64) {
-				value = Blob.valueOf(strValue);
-			} else if (ftype == DisplayType.Boolean) {
-				if (sobj.get(field) != null) {
-					value = !Boolean.valueOf(sobj.get(field));
-				} else if (entity == 'Quote' || entity == 'QuoteLineItem') {
-					value = false;
-				} else {
-					value = true;
-				}
-			} else if (ftype == DisplayType.Currency) {
-				value = Decimal.valueOf(Math.random());
-			} else if (ftype == DisplayType.Date) {
-				value = Date.today();
-			} else if (ftype == DisplayType.DateTime) {
-				value = DateTime.now();
-			} else if (ftype == DisplayType.Integer) {
-				value = Integer.valueOf(Math.random());
-			} else if (ftype == DisplayType.Double || ftype == DisplayType.Percent) {
-				value = Math.random();
-			} else if (ftype == DisplayType.Email) {
-				value = System.currentTimeMillis() + '@quotesync.test';
-			} else if (ftype == DisplayType.Phone) {
-				value = String.valueOf(System.currentTimeMillis());
-			} else if (ftype == DisplayType.Picklist) {
-				List<Schema.PicklistEntry> values = result.getPicklistValues();
-				value = values.get(0).getValue();
-			} else if (ftype == DisplayType.MultiPicklist) {
-				List<Schema.PicklistEntry> values = result.getPicklistValues();
-				value = values.get(0).getValue();
-			} else if (ftype == DisplayType.String || ftype == DisplayType.TextArea || ftype == DisplayType.Url) {
-				value = strValue;
-			} else {
-				value = strValue;
-			}
-		} else {
-			if (ftype == DisplayType.Boolean) {
-				value = false;
-			}
-		}
-
-		return value; */
 	}
 }
