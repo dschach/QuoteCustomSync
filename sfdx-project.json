@@ -1,20 +1,34 @@
 {
-	"packageDirectories": [
-		{
-			"path": "force-app",
-			"default": true,
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true,
+      "unpackagedMetadata": {
+        "path": "unpackaged"
+      },
+      "package": "Quote Custom Sync",
+      "versionName": "ver 0.2 (beta)",
 			"versionNumber": "0.2.0.NEXT",
-			"unpackagedMetadata": {
-				"path": "unpackaged"
-			}
-		},
-		{
-			"path": "unpackaged",
-			"default": false
-		}
-	],
-	"name": "QuoteCustomSync",
-	"namespace": "",
-	"sfdcLoginUrl": "https://login.salesforce.com",
-	"sourceApiVersion": "57.0"
+      "versionDescription": "Quote (and Line Item) sync for custom fields, using custom metadata for field mappings.",
+      "releaseNotesUrl": "https://dschach.github.io/QuoteCustomSync/assets/changelog.html",
+      "definitionFile": "config/package-scratch-def.json",
+      "apexTestAccess": {
+        "permissionSets": [
+          "QuoteSyncTester"
+        ]
+      }
+    },
+    {
+      "path": "unpackaged",
+      "default": false
+    }
+  ],
+  "name": "quotecustomsync",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "57.0",
+  "packageAliases": {
+    "Quote Custom Sync": "0Ho3a0000004CAGCA2",
+    "QuoteCustomSync": "0Ho3a0000004CAGCA2"
+  }
 }
