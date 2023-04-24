@@ -102,6 +102,13 @@
           </p>
           <h2 id="changelog"><a href="./changelog.html">Changelog</a></h2>
           <h2 id="installation-instructions"><a href="./installation.html">Installation Instructions</a></h2>
+          <p>
+            Latest unlocked package:
+            <a href="https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3a000001qXnfAAE"
+              >https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3a000001qXnfAAE</a
+            >
+            ver 0.2 (beta)
+          </p>
           <h2 id="general-description">General Description</h2>
           <p>
             This app allows you to configure custom fields mapping between Opportunity and Quote, and custom fields on OpportunityLineItem and
@@ -118,7 +125,7 @@
           </p>
           <h2 id="configuration">Configuration</h2>
           <h3 id="what-salesforce-syncs-automatically">What Salesforce syncs automatically</h3>
-          <h4 id="opportunity-quote">Opportunity-Quote</h4>
+          <h4 id="opportunity---quote">Opportunity - Quote</h4>
           <p>
             Some fields do not need to be specified, as Salesforce will synchronize those values automatically between the Opportunity and the syncing
             Quote. These are the standard fields:
@@ -136,6 +143,16 @@
             one of the fields cannot be written to (such a a formula field). This functionality to check that may be released in a future version
             (SAFE HARBOR).
           </p>
+          <h4 id="opportunity-product---quote-line-item">Opportunity Product - Quote Line Item</h4>
+          <ul>
+            <li>Description</li>
+            <li>Discount</li>
+            <li>PricebookEntryId (updates List Price, Product, etc)</li>
+            <li>Quantity</li>
+            <li>ServiceDate</li>
+            <li>SortOrder</li>
+            <li>UnitPrice (Sales Price)</li>
+          </ul>
           <h3 id="custom-metadata-types">Custom Metadata Types</h3>
           <p>Two CMTs are included: <code>Quote Sync Field</code> and <code>Quote Line Sync Field</code>. Four fields on each must be filled in:</p>
           <ol>
@@ -166,7 +183,6 @@
           </p>
           <h1 id="roadmap-work-in-progress">Roadmap (work in progress)</h1>
           <ol>
-            <li>Create Unlocked Package Version.</li>
             <li>Investigate using namespace for package</li>
             <li>Clean more comments as scratch org tests continue to pass</li>
           </ol>
