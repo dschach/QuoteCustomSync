@@ -120,7 +120,6 @@ jobs:
       # Deploy source to scratch org
       - name: 'Push source to scratch org'
         run: sf project deploy start
-        #run: sf project deploy start --target-org QuoteSyncOrg
 
       # Import sample data
       #- name: 'Import sample data'
@@ -128,7 +127,7 @@ jobs:
 
       # Assign permissionset
       #- name: 'Assign permissionset to default user'
-      #run: sf org assign permset --name Perm_Set --target-org QuoteSyncOrg
+      #run: sf org assign permset --name QuoteSyncTester --target-org QuoteSyncOrg
 
       # Run Apex tests in scratch org
       - name: 'Run Apex tests'
