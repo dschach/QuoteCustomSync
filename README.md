@@ -48,3 +48,9 @@ Two CMTs are included: `Quote Sync Field` and `Quote Line Sync Field`. Four fiel
 3. Save the record and go to the next one.
 
 Again, the same CMT records are used for updating the Opportunity from its syncing Quote, and for updating the syncing Quote from its Opportunity.
+
+# Roadmap (work in progress)
+
+1. Create Unlocked Package Version.
+2. Investigate using namespace for package
+3. Clean more comments as scratch org tests continue to pass

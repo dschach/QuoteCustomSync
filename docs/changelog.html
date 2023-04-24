@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Custom Quote Sync Documentation</title>
+    <meta charset="UTF-8" />
+    <script type="module" src="./assets/index.js"></script>
+    <script type="module" src="./assets/search-idx.js"></script>
+    <script type="module" src="./assets/search.js"></script>
+    <script charset="UTF-8" src="./assets/highlight.js"></script>
+    <script charset="UTF-8" src="./assets/mark.js"></script>
+    <script charset="UTF-8" src="./assets/lunr.js"></script>
+    <link rel="stylesheet" href="./assets/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/index.css" />
+    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+
+  <body>
+    <div id="side-bar">
+      <div id="logo-container">
+        <div class="title">Custom Quote Sync Documentation</div>
+        <img src="assets/logo.png" />
+        <div class="subtitle">
+          Documentation for <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach/QuoteCustomSync">Custom Quote Sync</a>
+        </div>
+      </div>
+      <div id="search-wrapper">
+        <div class="search-icon"></div>
+        <input id="search-input" type="text" autocomplete="off" placeholder="Search..." />
+      </div>
+      <ul id="search-results" class=""></ul>
+      <div class="navbar">
+        <nav role="navigation">
+          <a class="nav-header" id="home" href="javascript:void(0)" onclick="goToLocation('index.html');"> Home </a>
+          <details id="OppQuoteSync" class="group-name">
+            <summary id="header-OppQuoteSync" class="nav-header">
+              <span>OppQuoteSync</span>
+            </summary>
+            <ul>
+              <!-- menu items -->
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
+              </li>
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
+              </li>
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+                <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
+              </li>
+            </ul>
+          </details>
+        </nav>
+      </div>
+    </div>
+    <table id="content">
+      <tr>
+        <td class="scoping-panel">
+          Show: <input type="checkbox" checked="true" id="cbx-all" onclick="toggleAllScopes(this.checked);" />
+          <label for="cbx-all">All</label>&nbsp;&nbsp;
+          <input type="checkbox" checked="true" id="cbx-global" onclick="toggleScope('global', this.checked);" />
+          <label for="cbx-global"> global </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-public"
+            onclick="toggleScope('public', this.checked);" />
+          <label for="cbx-public"> public </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-private"
+            onclick="toggleScope('private', this.checked);" />
+          <label for="cbx-private"> private </label>&nbsp;&nbsp;<input
+            type="checkbox"
+            checked="true"
+            id="cbx-testmethod"
+            onclick="toggleScope('testmethod', this.checked);" />
+          <label for="cbx-testmethod"> testMethod </label>
+        </td>
+      </tr>
+      <tr>
+        <td class="doc-page">
+          <link href="assets/styling.css" rel="stylesheet" />
+          <h1 id="changelog">Changelog</h1>
+          <h2 id="020-2023-04-22"><a href="https://github.com/dschach/QuoteCustomSync/compare/v0.1.1...v0.2.0">0.2.0</a> (2023-04-22)</h2>
+          <h3 id="⚠-breaking-changes">⚠ BREAKING CHANGES</h3>
+          <ul>
+            <li>pre-release code alpha (<a href="https://github.com/dschach/QuoteCustomSync/issues/15">#15</a>)</li>
+          </ul>
+          <h3 id="features">Features</h3>
+          <ul>
+            <li>
+              Add page layouts - may be removed later (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/c0f3da3e28866b3b35ba756f307347e322ed525c"
+                >c0f3da3</a
+              >)
+            </li>
+            <li>
+              Add permission set for unpackaged (<a href="https://github.com/dschach/QuoteCustomSync/commit/60cd32e3ec31f1f5bab1475bcded1bf15340e10b"
+                >60cd32e</a
+              >)
+            </li>
+            <li>
+              Create QuoteSyncHandler (<a href="https://github.com/dschach/QuoteCustomSync/commit/1effbe557438f3c798feed0b0b3fcc13b1f04762">1effbe5</a
+              >)
+            </li>
+            <li>
+              Include unpackaged metadata (<a href="https://github.com/dschach/QuoteCustomSync/commit/cd9a900374f4ea2fa088be68848985a64186f485"
+                >cd9a900</a
+              >)
+            </li>
+            <li>
+              Move all triggers to new handler (<a href="https://github.com/dschach/QuoteCustomSync/commit/08e5e9555a2852b6bdf05fda8057e531690c405e"
+                >08e5e95</a
+              >)
+            </li>
+            <li>
+              Pre-release code alpha (<a href="https://github.com/dschach/QuoteCustomSync/issues/15">#15</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/a1bfd5beb62fa11c39e0c8ff4cfc7efb6b21dfc2"
+                >a1bfd5b</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Include more field types (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/52a08cbb2f655fc88bc64c13cdb26259989811ec"
+                >52a08cb</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Include Text custom metadata &amp; perms (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/81526c3086e680e998979c14b80f073f0125fda4"
+                >81526c3</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Update lineitem handler so tests pass (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/49be9ffa4c5522626b8c7cba3b95687faa48e4aa"
+                >49be9ff</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Use text field until Boolean fixed (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/f5037a696e7df1b2fd9dd5c5b18caacdf83d79d7"
+                >f5037a6</a
+              >)
+            </li>
+          </ul>
+          <h3 id="bug-fixes">Bug Fixes</h3>
+          <ul>
+            <li>
+              Avoid FLS check for all fields (<a href="https://github.com/dschach/QuoteCustomSync/commit/eb1a019d92ff5ec41d6942280e8fdf984c17521a"
+                >eb1a019</a
+              >)
+            </li>
+            <li>
+              Move unpackaged metadata (<a href="https://github.com/dschach/QuoteCustomSync/commit/f7f98e611785386c553d3e8b105d5c86a2f665f4"
+                >f7f98e6</a
+              >)
+            </li>
+            <li>
+              Remove unnecessary trigger handler base class (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/73e61f242d79ae1ea1f231c703b6f3be9e39eb52"
+                >73e61f2</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Make dates &amp; datetimes more unique (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/461c6c9bd2691a442dfca68a9a34b48a812b39e0"
+                >461c6c9</a
+              >)
+            </li>
+            <li>
+              Update API version, remove extra line (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/b26aa69b1944314f956f2ae584a81be5177be8bb"
+                >b26aa69</a
+              >)
+            </li>
+          </ul>
+          <h3 id="continuous-integration">Continuous Integration</h3>
+          <ul>
+            <li>
+              Add permission set (<a href="https://github.com/dschach/QuoteCustomSync/commit/40100b3c8829544c8608b987fadbcb9eb4431b7d">40100b3</a>)
+            </li>
+            <li>
+              Update scripts, project docs (<a href="https://github.com/dschach/QuoteCustomSync/commit/604b7095630ff6306b3a8f88a7705e41cdc8833b"
+                >604b709</a
+              >)
+            </li>
+          </ul>
+          <h3 id="build-system">Build System</h3>
+          <ul>
+            <li>
+              Add scratch org feature (<a href="https://github.com/dschach/QuoteCustomSync/commit/af52c562799cbf830828591bec1f8062a9e583ec">af52c56</a
+              >)
+            </li>
+            <li>
+              <strong>deps-dev:</strong> Bump lint-staged from 13.2.0 to 13.2.1 (<a href="https://github.com/dschach/QuoteCustomSync/issues/10">#10</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/f107d14d9ea80b5e6300d7f4e1380a1487ced834">f107d14</a>)
+            </li>
+            <li>
+              <strong>deps-dev:</strong> Bump release-please from 15.10.1 to 15.10.3 (<a href="https://github.com/dschach/QuoteCustomSync/issues/12"
+                >#12</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/8b13466dbf7f9c6176b35cae6f45c79f27dba3cb">8b13466</a>)
+            </li>
+            <li>
+              <strong>deps-dev:</strong> Bump release-please from 15.10.3 to 15.10.4 (<a href="https://github.com/dschach/QuoteCustomSync/issues/13"
+                >#13</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/eacebdb137cab6a7e11aaa83ac9dde48039dbcfe">eacebdb</a>)
+            </li>
+            <li>
+              <strong>deps-dev:</strong> Bump release-please from 15.9.2 to 15.10.1 (<a href="https://github.com/dschach/QuoteCustomSync/issues/11"
+                >#11</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/84a736d9604e79f71e78a89350f4d965c178a1a7">84a736d</a>)
+            </li>
+            <li>
+              Fix scratch org definition file (<a href="https://github.com/dschach/QuoteCustomSync/commit/88160536d3100643e36475529c13dc53a4e47763"
+                >8816053</a
+              >)
+            </li>
+            <li>
+              Pull scratch org settings for baseline (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/bfc37c07bca7e757c57472ab00ce3596c6ed0b06"
+                >bfc37c0</a
+              >)
+            </li>
+            <li>
+              Remove settings, ApexDox config (<a href="https://github.com/dschach/QuoteCustomSync/commit/fbba24e99bcbc3409d18ea74e9aeda0e0010d6f1"
+                >fbba24e</a
+              >)
+            </li>
+            <li>
+              Reorder project settings file lines (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/d113592f7e71375d6881458c62040b2e22cf60bb"
+                >d113592</a
+              >)
+            </li>
+            <li>
+              Update devDependencies (<a href="https://github.com/dschach/QuoteCustomSync/commit/29160205229d70317942c0e22d6a68a9a0261b39">2916020</a
+              >)
+            </li>
+            <li>
+              Update scratch org definitions (<a href="https://github.com/dschach/QuoteCustomSync/commit/aa8102ff393169ace750ed64950fd05bad5ff4cd"
+                >aa8102f</a
+              >)
+            </li>
+          </ul>
+          <h3 id="miscellaneous-chores">Miscellaneous Chores</h3>
+          <ul>
+            <li>Project files (<a href="https://github.com/dschach/QuoteCustomSync/commit/c821df85a55bac1b436bc5d8dcd929ee74f5772e">c821df8</a>)</li>
+            <li>Release 0.2.0 (<a href="https://github.com/dschach/QuoteCustomSync/commit/830cdf171f9e46e7bcb25e32d3ffc0001f30fe17">830cdf1</a>)</li>
+            <li>
+              Update API to v57 (<a href="https://github.com/dschach/QuoteCustomSync/commit/73bd6fc6e3646e2636a30a7a1d40787479aaaa40">73bd6fc</a>)
+            </li>
+            <li>
+              Update project docs (<a href="https://github.com/dschach/QuoteCustomSync/commit/8272973d6212ba0ea00a358a3b090c4e0acf75b9">8272973</a>)
+            </li>
+          </ul>
+          <h3 id="tests">Tests</h3>
+          <ul>
+            <li>
+              Add start and stop methods (<a href="https://github.com/dschach/QuoteCustomSync/commit/31fbccb0be0b322aae7487bc52fa87af5fd3d977"
+                >31fbccb</a
+              >)
+            </li>
+            <li>
+              Include Boolean in package tests (<a href="https://github.com/dschach/QuoteCustomSync/commit/70049c96523ea5e0494fb152282c613c4dc637ed"
+                >70049c9</a
+              >)
+            </li>
+            <li>
+              Include debug to raise coverage (for now) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/60cafb198786cfaa127766f004ed267f789fd25a"
+                >60cafb1</a
+              >)
+            </li>
+            <li>
+              <strong>packaging:</strong> Add all field types for tests (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/7dc1a46a9c51a9f4800e21d0fc02c38860ad59a4"
+                >7dc1a46</a
+              >)
+            </li>
+          </ul>
+          <h3 id="code-refactoring">Code Refactoring</h3>
+          <ul>
+            <li>
+              Add curly brackets to all if statements (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/0b2d2c307f0129a4898965e253b17416fe3c0cfb"
+                >0b2d2c3</a
+              >)
+            </li>
+            <li>
+              Add debug for handler, write null values (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/fa9a7e197b9ac35e332a2f7e39079a9551db2d76"
+                >fa9a7e1</a
+              >)
+            </li>
+            <li>
+              Mark some methods deprecated (<a href="https://github.com/dschach/QuoteCustomSync/commit/aab17489c21e4fa2015401a1f5d8bf50ef84e7d7"
+                >aab1748</a
+              >)
+            </li>
+            <li>
+              Move TriggerStopper to SyncHandler (<a href="https://github.com/dschach/QuoteCustomSync/commit/dee97162427d50843c8737bb1caab942e43b4fee"
+                >dee9716</a
+              >)
+            </li>
+            <li>
+              Rearrange collection items (<a href="https://github.com/dschach/QuoteCustomSync/commit/91cdf526e99af991f53756c838d6eaa9cf459062"
+                >91cdf52</a
+              >)
+            </li>
+            <li>
+              Remove some comments (<a href="https://github.com/dschach/QuoteCustomSync/commit/887b04a2d9644890a464d73a4a6aa044a7e8ebe6">887b04a</a>)
+            </li>
+            <li>
+              Remove variable from debug (<a href="https://github.com/dschach/QuoteCustomSync/commit/ea094963c8137927fe26e4d5e26a1bc8e711d839"
+                >ea09496</a
+              >)
+            </li>
+            <li>
+              Run prettier, rename variables (<a href="https://github.com/dschach/QuoteCustomSync/commit/382f1c19cbf8d0f3bcdd0a1288c85809b81db873"
+                >382f1c1</a
+              >)
+            </li>
+            <li>
+              <strong>tests:</strong> Specify Id as parameter type (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/c5304f22230470fa29d855e5b4798c61ebfa2b4b"
+                >c5304f2</a
+              >)
+            </li>
+            <li>
+              Use set, not list, for field collections (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/65c3d2c1f0c5a6eb69a73c7c884f14ae3740dc45"
+                >65c3d2c</a
+              >)
+            </li>
+            <li>
+              Use switch for utils, add ApexDocs (<a href="https://github.com/dschach/QuoteCustomSync/commit/a41a8a8c669fe430cc7fb732d9efafadd2c5c172"
+                >a41a8a8</a
+              >)
+            </li>
+            <li>
+              Variable names &amp; uncomment debugs (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/233b8b3cb98860fe603eee5634f8dbb986f8688b"
+                >233b8b3</a
+              >)
+            </li>
+          </ul>
+          <h3 id="documentation">Documentation</h3>
+          <ul>
+            <li>
+              <strong>ApexDox:</strong> Fix URLs in ApexDox (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/1e79aafc9a77205080d0c064054ca7cd431978e3"
+                >1e79aaf</a
+              >)
+            </li>
+            <li>
+              Method documentation, formatting (<a href="https://github.com/dschach/QuoteCustomSync/commit/4ebb6ad12b2e1eae0f005f86142ccdb46d4777a0"
+                >4ebb6ad</a
+              >)
+            </li>
+            <li>Update ApexDox (<a href="https://github.com/dschach/QuoteCustomSync/commit/c95d5597e6ed171f3f630686fdad0783b3a89d8a">c95d559</a>)</li>
+            <li>Update ApexDox (<a href="https://github.com/dschach/QuoteCustomSync/commit/c32c3ebd441f46c14a206d80d0b3a78905725ccd">c32c3eb</a>)</li>
+            <li>
+              Update method descriptions (<a href="https://github.com/dschach/QuoteCustomSync/commit/31fbccb0be0b322aae7487bc52fa87af5fd3d977"
+                >31fbccb</a
+              >)
+            </li>
+            <li>Update README (<a href="https://github.com/dschach/QuoteCustomSync/commit/bd44e3af06c842bf54a8aa10cd68801711570f19">bd44e3a</a>)</li>
+          </ul>
+          <h2 id="011-2023-04-05"><a href="https://github.com/dschach/QuoteCustomSync/compare/v0.1.0...v0.1.1">0.1.1</a> (2023-04-05)</h2>
+          <h3 id="features-1">Features</h3>
+          <ul>
+            <li>
+              Include TriggerHandler and docs (<a href="https://github.com/dschach/QuoteCustomSync/issues/7">#7</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/7a8f26a2e238234e9bad00926fa90ffe0229df1a"
+                >7a8f26a</a
+              >)
+            </li>
+          </ul>
+          <h3 id="continuous-integration-1">Continuous Integration</h3>
+          <ul>
+            <li>
+              <strong>SemVar:</strong> Remove manual version number (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/91c1687f4161a35033da139663db99f1bf8efed3"
+                >91c1687</a
+              >)
+            </li>
+          </ul>
+          <h3 id="build-system-1">Build System</h3>
+          <ul>
+            <li>
+              Sfdx scripts and README updates (<a href="https://github.com/dschach/QuoteCustomSync/issues/8">#8</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/75e1d8124c707f70623c59578e74b098d5bf3148"
+                >75e1d81</a
+              >)
+            </li>
+          </ul>
+          <h3 id="miscellaneous-chores-1">Miscellaneous Chores</h3>
+          <ul>
+            <li>
+              Clean Labs code to create final prerelease (<a href="https://github.com/dschach/QuoteCustomSync/issues/9">#9</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/8e68a173b08464c3cc116a54db49bfed46737c36"
+                >8e68a17</a
+              >)
+            </li>
+          </ul>
+          <h3 id="documentation-1">Documentation</h3>
+          <ul>
+            <li>
+              <strong>ApexDox:</strong> Initialize ApexDox (<a href="https://github.com/dschach/QuoteCustomSync/issues/5">#5</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/6f7d4b92a67630e6a5688488d869204e032c68af"
+                >6f7d4b9</a
+              >)
+            </li>
+            <li>Update ApexDox (<a href="https://github.com/dschach/QuoteCustomSync/commit/7d9264b54000e9795f95f36ab433ab8912c61c00">7d9264b</a>)</li>
+            <li>
+              Update CI badges to show main branch only (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/349afb6400bdadc3ac2b1d19b29321076e2edb29"
+                >349afb6</a
+              >)
+            </li>
+          </ul>
+          <h2 id="010-2023-04-05">0.1.0 (2023-04-05)</h2>
+          <h3 id="features-2">Features</h3>
+          <ul>
+            <li>
+              Initial commit of SalesforceLabs code (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/9d50fce9906dfffce207e848e712955f80f96576"
+                >9d50fce</a
+              >)
+            </li>
+            <li>
+              Initial commit of SalesforceLabs code (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/27496ff6ce99ef6822f9cb1bbcaa184cf4bd4e12"
+                >27496ff</a
+              >)
+            </li>
+            <li>
+              Sfdx format (<a href="https://github.com/dschach/QuoteCustomSync/issues/1">#1</a>) (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/12a969b7f31543d377c917e70de646f5ef6e64e7"
+                >12a969b</a
+              >)
+            </li>
+          </ul>
+          <h3 id="bug-fixes-1">Bug Fixes</h3>
+          <ul>
+            <li>
+              Release-please manifest &amp; changelog reset (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/36edc5d565a84152e3fcda7aaaad6c6d3587718b"
+                >36edc5d</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Add token to action (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/3a494c06f1d77f83b2bd9973c799147532e61373"
+                >3a494c0</a
+              >)
+            </li>
+          </ul>
+          <h3 id="reverts">Reverts</h3>
+          <ul>
+            <li>
+              <strong>release-please:</strong> Remove package name (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/e73ba3a17a08ed1f4381de36b4fd078e0a4af8f7"
+                >e73ba3a</a
+              >)
+            </li>
+          </ul>
+          <h3 id="miscellaneous-chores-2">Miscellaneous Chores</h3>
+          <ul>
+            <li>
+              Base SFDX project (<a href="https://github.com/dschach/QuoteCustomSync/commit/c57d6602c8538f5006ae288c5543cabfa4b9e786">c57d660</a>)
+            </li>
+            <li>
+              Delete sample Apex tests (<a href="https://github.com/dschach/QuoteCustomSync/commit/9d50fce9906dfffce207e848e712955f80f96576"
+                >9d50fce</a
+              >)
+            </li>
+            <li>
+              Delete sample Apex tests (<a href="https://github.com/dschach/QuoteCustomSync/commit/117fc1d13f3ce8d446096f4f6b71b7ce1492f5ca"
+                >117fc1d</a
+              >)
+            </li>
+            <li>
+              Initial project template commit (<a href="https://github.com/dschach/QuoteCustomSync/commit/56dac21e1cc77d3c138571c6337859e05096d7f7"
+                >56dac21</a
+              >)
+            </li>
+          </ul>
+          <h3 id="build-system-2">Build System</h3>
+          <ul>
+            <li>
+              Update package-lock version (<a href="https://github.com/dschach/QuoteCustomSync/commit/f5bf6177dd37e6a65d5b8352e7f346e4a9cec138"
+                >f5bf617</a
+              >)
+            </li>
+          </ul>
+          <h3 id="continuous-integration-2">Continuous Integration</h3>
+          <ul>
+            <li>
+              Deactivate PMD checks until code is revised (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/40ad94b0927b9266c6d45d7cc301be2a0d3db000"
+                >40ad94b</a
+              >)
+            </li>
+            <li>
+              <strong>deps:</strong> Bump google-github-actions/release-please-action from 3.7.4 to 3.7.6 (<a
+                href="https://github.com/dschach/QuoteCustomSync/issues/4"
+                >#4</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/2daf1b174927abd3ed44ae41f98b4b14910ae05b">2daf1b1</a>)
+            </li>
+            <li>
+              <strong>deps:</strong> Bump mitchspano/sfdx-scan-pull-request from 0.1.8 to 0.1.9 (<a
+                href="https://github.com/dschach/QuoteCustomSync/issues/3"
+                >#3</a
+              >) (<a href="https://github.com/dschach/QuoteCustomSync/commit/e3e7d9369e33db6298b176075196c2d52f07c72a">e3e7d93</a>)
+            </li>
+            <li>
+              <strong>pmd:</strong> Update action output check (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/f67e2a0ec7be1a5087799108ef7c3929e2e95ce4"
+                >f67e2a0</a
+              >)
+            </li>
+            <li>
+              <strong>pmd:</strong> Update pmd CLI executable for v7 (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/d470ab67f9fec7630bd046fb09deddca1a2f682c"
+                >d470ab6</a
+              >)
+            </li>
+            <li>
+              <strong>pmd:</strong> Update pmd CLI executable for v7 (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/7dcb9007e4648c28643d81e62bf649935cd941c6"
+                >7dcb900</a
+              >)
+            </li>
+            <li>
+              Release-please to sfdx type (<a href="https://github.com/dschach/QuoteCustomSync/commit/d63b809dda3e007c33d017c105da06057408765e"
+                >d63b809</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Initial version (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/e5f74ef9a4afc578c13e969482e7c6b7db1b4950"
+                >e5f74ef</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Remove package name (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/2138be9f27146547cc2b814353498340970efee7"
+                >2138be9</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Revert to salesforce type (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/fcc4dacfb5e588fcabd03d87c2e856dc1c6b2761"
+                >fcc4dac</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Use custom token (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/442322d0ff80f35473392d3615b7a827e53747d3"
+                >442322d</a
+              >)
+            </li>
+            <li>
+              <strong>release-please:</strong> Use latest RP version (<a
+                href="https://github.com/dschach/QuoteCustomSync/commit/4346ba016727cfbe42ca4fc5ce6363628941a2a3"
+                >4346ba0</a
+              >)
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="footer">
+          <div>
+            <a href="https://github.com/no-stack-dub-sack/apexdox-vs-code" target="_blank" rel="noopener noreferrer"> Powered By ApexDox VS Code </a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
