@@ -200,14 +200,6 @@ global without sharing class QuoteSyncHandler {
 			return;
 		}
 
-		/* 	if (Trigger.isBefore && Trigger.isInsert) {
-			if (Test.isRunningTest()) {
-				for (OpportunityLineItem oli : newRecords) {
-					//QuoteSyncUtil.populateRequiredFields(oli);
-				}
-			}
-			return;
-		} */
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
 
@@ -247,29 +239,6 @@ global without sharing class QuoteSyncHandler {
 
 				Set<QuoteLineItem> matchedQlis = new Set<QuoteLineItem>();
 				for (OpportunityLineItem oli : oppToOliMap.get(opp.Id).OpportunityLineItems) {
-					Boolean updateQli = false;
-
-					/* if (Trigger.isUpdate) {
-						OpportunityLineItem oldOli = oldRecordsMap.get(oli.Id);
-
-						//System.debug('Old oli: ' + oldOli.UnitPrice + ', ' + oldOli.Quantity + ', ' + oldOli.Discount + ', ' + oldOli.ServiceDate);
-						//System.debug('New oli: ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate);
-
-						if (
-							oli.UnitPrice == oldOli.UnitPrice &&
-							oli.Quantity == oldOli.Quantity &&
-							oli.Discount == oldOli.Discount &&
-							oli.ServiceDate == oldOli.ServiceDate &&
-							oli.SortOrder == oldOli.SortOrder
-						) {
-							updateQli = true;
-						} 
-					} */
-
-					// Trying setting the update flag to true for all transactions
-					updateQli = true;
-					// End of trying
-
 					Boolean hasChange = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
@@ -296,14 +265,7 @@ global without sharing class QuoteSyncHandler {
 											oli.put(oliField, qliValue);
 										}
 										hasChange = true;
-									} else if (Trigger.isUpdate && !updateQli) {
-										if (qliValue == null) {
-											oli.put(oliField, null);
-										} else {
-											oli.put(oliField, qliValue);
-										}
-										hasChange = true;
-									} else if (Trigger.isUpdate && updateQli) {
+									} else if (Trigger.isUpdate) {
 										if (oliValue == null) {
 											qli.put(qliField, null);
 										} else {
@@ -314,9 +276,9 @@ global without sharing class QuoteSyncHandler {
 								}
 							}
 							if (hasChange) {
-								if (Trigger.isInsert || (Trigger.isUpdate && !updateQli)) {
+								if (Trigger.isInsert) {
 									updateOlis.add(oli);
-								} else if (Trigger.isUpdate && updateQli) {
+								} else if (Trigger.isUpdate) {
 									updateQlis.add(qli);
 								}
 							}
@@ -352,15 +314,6 @@ global without sharing class QuoteSyncHandler {
 		if (stopQuoteLine) {
 			return;
 		}
-
-		/* if (Trigger.isBefore && Trigger.isInsert) {
-			if (Test.isRunningTest()) {
-				for (QuoteLineItem qli : newRecords) {
-					//QuoteSyncUtil.populateRequiredFields(qli);
-				}
-			}
-			return;
-		} */
 
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
@@ -426,28 +379,6 @@ global without sharing class QuoteSyncHandler {
 				Set<OpportunityLineItem> matchedOlis = new Set<OpportunityLineItem>();
 
 				for (QuoteLineItem qli : quoteToQliMap.get(q.Id).QuoteLineItems) {
-					Boolean updateOli = false;
-
-					/* if (Trigger.isUpdate) {
-						QuoteLineItem oldQli = oldRecordsMap.get(qli.Id);
-						//System.debug('Old qli: ' + oldQli.UnitPrice + ', ' + oldQli.Quantity + ', ' + oldQli.Discount + ', ' + oldQli.ServiceDate);
-						//System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
-
-						if (
-							(qli.UnitPrice == oldQli.UnitPrice &&
-							qli.Quantity == oldQli.Quantity &&
-							qli.Discount == oldQli.Discount &&
-							qli.ServiceDate == oldQli.ServiceDate &&
-							qli.SortOrder == oldQli.SortOrder)
-						) {
-							updateOli = true;
-						} 
-					} */
-
-					// Trying to set updateOli to true for every transaction because we've made an update to the record
-					updateOli = true;
-					// End of trying
-
 					Boolean hasChange = false;
 
 					for (OpportunityLineItem oli : opplines) {
@@ -477,14 +408,7 @@ global without sharing class QuoteSyncHandler {
 											qli.put(qliField, oliValue);
 											hasChange = true;
 										}
-									} else if (Trigger.isUpdate && !updateOli) {
-										if (oliValue == null) {
-											qli.put(qliField, null);
-										} else {
-											qli.put(qliField, oliValue);
-										}
-										hasChange = true;
-									} else if (Trigger.isUpdate && updateOli) {
+									} else if (Trigger.isUpdate) {
 										if (qliValue == null) {
 											oli.put(oliField, null);
 										} else {
@@ -496,9 +420,9 @@ global without sharing class QuoteSyncHandler {
 							}
 
 							if (hasChange) {
-								if (Trigger.isInsert || (Trigger.isUpdate && !updateOli)) {
+								if (Trigger.isInsert) {
 									updateQlis.add(qli);
-								} else if (Trigger.isUpdate && updateOli) {
+								} else if (Trigger.isUpdate) {
 									updateOlis.add(oli);
 								}
 							}

@@ -751,7 +751,7 @@ private without sharing class QuoteSyncTest {
 			qliQuery = 'SELECT Id ' + qliFields + ' FROM QuoteLineItem WHERE QuoteId = \'' + quoteId + '\'';
 		}
 
-		List<QuoteLineItem> qlis = (List<QuoteLineItem>) Database.query(qliQuery, AccessLevel.SYSTEM_MODE);
+		List<QuoteLineItem> qlis = (List<QuoteLineItem>) Database.query(qliQuery);
 
 		if (field != null) {
 			for (QuoteLineItem qli : qlis) {
@@ -922,7 +922,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` create new `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` create new `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLine() {
@@ -941,7 +941,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` create new `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` create new `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncInsertOppLineSetNull() {
@@ -960,7 +960,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` update existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` update existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLine() {
@@ -982,7 +982,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` update existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` update existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncUpdateOppLineSetNull() {
@@ -1004,7 +1004,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1() {
@@ -1045,7 +1045,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine1a() {
@@ -1084,7 +1084,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2() {
@@ -1109,7 +1109,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine2a() {
@@ -1134,7 +1134,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3() {
@@ -1159,7 +1159,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine3a() {
@@ -1199,7 +1199,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4() {
@@ -1228,7 +1228,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine4a() {
@@ -1252,7 +1252,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine5() {
@@ -1276,7 +1276,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine6() {
@@ -1300,7 +1300,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7() {
@@ -1328,7 +1328,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Start sync from quote with `QuoteLineItems` that match existing `OpportunityLineItems` on `Opportunity`. Verify `Opportunity Product` fields are synced
+	 * Start sync from quote with `Quote Line Items` that match existing `Opportunity Products` on `Opportunity`. Verify `Opportunity Product` fields are synced
 	 */
 	@isTest
 	private static void testStartSyncMatchOppLine7a() {
