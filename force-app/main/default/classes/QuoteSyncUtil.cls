@@ -129,9 +129,9 @@ public class QuoteSyncUtil {
 	 * @param id Quote Id
 	 * @deprecated Unused
 	 */
-	public static void removeNewQuoteId(Id id) {
+	/* public static void removeNewQuoteId(Id id) {
 		newQuoteIds.remove(id);
-	}
+	} */
 
 	/**
 	 * @description Remove specific Ids from the `newQuoteIds` set
@@ -146,9 +146,9 @@ public class QuoteSyncUtil {
 	 * @description Remove all Ids from the `newQuoteIds` set
 	 * @deprecated Unused
 	 */
-	public static void clearNewQuoteIds() {
+	/* public static void clearNewQuoteIds() {
 		newQuoteIds.clear();
-	}
+	} */
 
 	/**
 	 * @description Does the set `newQuoteIds` contain this Id?
@@ -285,9 +285,9 @@ public class QuoteSyncUtil {
 	 * @return           `String` The field name
 	 * @deprecated       Unused
 	 */
-	public static String removeQuoteField(String quoteField) {
+	/* public static String removeQuoteField(String quoteField) {
 		return quoteFieldMap.remove(quoteField);
-	}
+	} */
 
 	/**
 	 * @description Remove a QuoteLineItem field from the fields to sync

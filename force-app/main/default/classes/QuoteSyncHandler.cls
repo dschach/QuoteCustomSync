@@ -12,7 +12,7 @@
  * @since 2022-08 New trigger handler framework
  * @since 2022-10 Converted to Custom Metadata
  * @since 2023-04 Refine Quote Sync with new Quote fields
- * @since 2023-04 Remove trigger framework, stoppers into this class
+ * @since 2023-04 Remove trigger framework, move stoppers into this class
  *
  * @group OppQuoteSync
  * @see QuoteSyncUtil

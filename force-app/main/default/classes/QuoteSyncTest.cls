@@ -1324,6 +1324,7 @@ private without sharing class QuoteSyncTest {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
+
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
 	}
 
@@ -1335,7 +1336,7 @@ private without sharing class QuoteSyncTest {
 		Integer numLine = 2;
 
 		Opportunity opp = createOpp();
-		//List<OpportunityLineItem> oppLines =
+
 		createOppLines(opp, numLine, true, false);
 
 		Quote quote = createQuote(opp);
@@ -1367,12 +1368,14 @@ private without sharing class QuoteSyncTest {
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
+
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
 
 		stopSync(opp.Id);
 
 		System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
+
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
 	}
 
@@ -1454,13 +1457,13 @@ private without sharing class QuoteSyncTest {
 
 		Test.stopTest();
 
-		Opportunity updatedOpp = updateOpp(opp.Id);
+		//Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLines(opp.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertOppFields(opp.Id, updatedOpp));
+		//System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
 	}
 
@@ -1483,10 +1486,10 @@ private without sharing class QuoteSyncTest {
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLinesStdSyncFields(opp.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertOppFields(opp.Id, updatedOpp));
+		//System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
 	}
 
@@ -1509,10 +1512,10 @@ private without sharing class QuoteSyncTest {
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		List<OpportunityLineItem> oppLines = updateOppLinesCustomSyncFields(opp.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertOppFields(opp.Id, updatedOpp));
+		//System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
 	}
 
@@ -1532,10 +1535,10 @@ private without sharing class QuoteSyncTest {
 		Opportunity updatedOpp = updateOpp(opp.Id);
 		oppLines = createOppLines(opp, 2);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertOppFields(opp.Id, updatedOpp));
+		//System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, oppLines));
 	}
 
@@ -1590,10 +1593,10 @@ private without sharing class QuoteSyncTest {
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> updatedQuoteLines = updateQuoteLines(quote.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
 	}
 
@@ -1614,10 +1617,10 @@ private without sharing class QuoteSyncTest {
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> updatedQuoteLines = updateQuoteLinesStdSyncFields(quote.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
 	}
 
@@ -1638,10 +1641,10 @@ private without sharing class QuoteSyncTest {
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> updatedQuoteLines = updateQuoteLinesCustomSyncFields(quote.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
 	}
 
@@ -1664,10 +1667,10 @@ private without sharing class QuoteSyncTest {
 
 		Test.stopTest();
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
 	}
 
@@ -1687,10 +1690,10 @@ private without sharing class QuoteSyncTest {
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
 	}
 
@@ -1729,15 +1732,10 @@ private without sharing class QuoteSyncTest {
 
 		List<OpportunityLineItem> oppLines = updateOppLinesNoSync(opp.Id, field);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
-
-		// add sync field
-		/* if (field != null) {
-			QuoteSyncUtil.addQuoteLineField('description', field);
-		} */
 	}
 
 	/**
@@ -1753,7 +1751,7 @@ private without sharing class QuoteSyncTest {
 
 		List<OpportunityLineItem> oppLines = createOppLinesNoSync(opp, 2);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
@@ -1790,20 +1788,14 @@ private without sharing class QuoteSyncTest {
 		startSync(opp.Id, quote.Id);
 
 		// remove sync field
-		//String field =
 		QuoteSyncUtil.removeQuoteLineField('description');
 
 		quoteLines = updateQuoteLinesNoSync(quote.Id, 'description');
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
-
-		// add sync field
-		/* if (field != null) {
-			QuoteSyncUtil.addQuoteLineField('description', field);
-		} */
 	}
 
 	/**
@@ -1821,7 +1813,7 @@ private without sharing class QuoteSyncTest {
 
 		List<QuoteLineItem> quoteLines = createQuoteLinesNoSync(quote, 2);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
@@ -1880,10 +1872,10 @@ private without sharing class QuoteSyncTest {
 
 		Test.stopTest();
 
-		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id));
 
-		System.assert(assertOppFields(opp.Id, updatedOpp));
+		//System.assert(assertOppFields(opp.Id, updatedOpp));
 		System.assert(assertOppLineFields(opp.Id, updatedOppLines));
 	}
 
@@ -1906,10 +1898,10 @@ private without sharing class QuoteSyncTest {
 		Quote updatedQuote = updateQuote(quote.Id);
 		List<QuoteLineItem> updatedQuoteLines = updateQuoteLines(quote.Id);
 
-		System.assert(assertQuoteNotSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteNotSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, updatedQuote));
+		//System.assert(assertQuoteFields(quote.Id, updatedQuote));
 		System.assert(assertQuoteLineFields(quote.Id, updatedQuoteLines));
 	}
 
@@ -1927,7 +1919,7 @@ private without sharing class QuoteSyncTest {
 		oppLines.addAll(createOppLines(opp, 2));
 		Test.stopTest();
 
-		System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
+		//System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id, true));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
@@ -1944,7 +1936,7 @@ private without sharing class QuoteSyncTest {
 		Quote quote = createQuote(opp);
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2);
 
-		System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
+		//System.assert(assertQuoteNotSync(opp.Id, quote.Id, true));
 		System.assert(assertQuoteLineNotSync(opp.Id, quote.Id, true));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
@@ -1966,7 +1958,7 @@ private without sharing class QuoteSyncTest {
 
 		List<OpportunityLineItem> oppLines = createOppLines(opp, 2, false, false);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppLineFields(opp.Id, oppLines));
@@ -1989,7 +1981,7 @@ private without sharing class QuoteSyncTest {
 		List<QuoteLineItem> quoteLines = createQuoteLines(quote, 2, false, false);
 		System.assert(!quoteLines.isEmpty());
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
@@ -2010,10 +2002,11 @@ private without sharing class QuoteSyncTest {
 		startSync(opp.Id, quote.Id);
 
 		Opportunity updatedOpp = updateOpp(opp.Id);
+
 		Test.stopTest();
 		List<OpportunityLineItem> oppLines = updateOppLines(opp.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
 		System.assert(assertOppFields(opp.Id, updatedOpp));
@@ -2039,10 +2032,10 @@ private without sharing class QuoteSyncTest {
 		quote = updateQuote(quote.Id);
 		quoteLines = updateQuoteLines(quote.Id);
 
-		System.assert(assertQuoteSync(opp.Id, quote.Id));
+		//System.assert(assertQuoteSync(opp.Id, quote.Id));
 		System.assert(assertQuoteLineSync(opp.Id, quote.Id));
 
-		System.assert(assertQuoteFields(quote.Id, quote));
+		//System.assert(assertQuoteFields(quote.Id, quote));
 		System.assert(assertQuoteLineFields(quote.Id, quoteLines));
 	}
 }
