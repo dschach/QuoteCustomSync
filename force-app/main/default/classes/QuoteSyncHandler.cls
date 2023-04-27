@@ -351,9 +351,8 @@ global without sharing class QuoteSyncHandler {
 		//System.debug('Filter `Quote` Ids: ' + filterQuoteIds);
 
 		quoteIds.removeAll(filterQuoteIds);
-		for (Id id : filterQuoteIds) {
-			//quoteToQliMap.remove(id);
-			quoteToQliMap.remove(id);
+		for (Id qid : filterQuoteIds) {
+			quoteToQliMap.remove(qid);
 		}
 
 		if (!oppIds.isEmpty()) {

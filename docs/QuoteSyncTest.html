@@ -37,13 +37,13 @@
             </summary>
             <ul>
               <!-- menu items -->
-              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class" onclick="goToLocation('QuoteSyncHandler.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
               </li>
-              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class" onclick="goToLocation('QuoteSyncTest.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
               </li>
-              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class" onclick="goToLocation('QuoteSyncUtil.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
               </li>
             </ul>
@@ -126,7 +126,7 @@
 
                   <th>Description</th>
                 </tr>
-                <tr class="property private">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
@@ -141,7 +141,7 @@
                     <div class="attribute-signature">private static Id standardPricebookId</div>
                   </td>
 
-                  <td class="attribute-description">Store the standard pricebook Id</td>
+                  <td class="attribute-description">Store the standard Price Book Id</td>
                 </tr>
               </table>
             </div>
@@ -206,9 +206,13 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.createQuote"> createQuote (opp) </a>
+
+                    <div class="methods-toc__description">Given an Opportunity, create a Quote with a value in every standard and synced field</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.createQuote_1"> createQuote (opp, setNullOrFalse) </a>
+
+                    <div class="methods-toc__description">Given an Opportunity, create a Quote</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.createQuoteLines"> createQuoteLines (quote, num) </a>
@@ -223,7 +227,7 @@
                     <a class="methods-toc__entry" href="#QuoteSyncTest.getStandardPricebookId"> getStandardPricebookId () </a>
 
                     <div class="methods-toc__description">
-                      Memoized version of <code class="code-inline">Test.getStandardPricebookId()</code> so we call it once and not again in a test
+                      Memoized version of <code class="code-inline">Test.getStandardPricebookId()</code> so we call it once and not again
                     </div>
                   </li>
                   <li class="method private">
@@ -295,7 +299,7 @@
 
                     <div class="methods-toc__description">
                       Create quote from <code class="code-inline">Opportunity</code>. Verify <code class="code-inline">Quote</code> sync fields are
-                      copied from opp
+                      copied from opp.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -304,7 +308,7 @@
                     <div class="methods-toc__description">
                       Create quote from opp with <code class="code-inline">Opportunity Product</code>. Verify
                       <code class="code-inline">Quote Line Item</code> sync fields are copied from
-                      <code class="code-inline">Opportunity Product</code>
+                      <code class="code-inline">Opportunity Product</code>.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -312,7 +316,7 @@
 
                     <div class="methods-toc__description">
                       Insert <code class="code-inline">Opportunity Product</code> without sync fields. Verify fields on
-                      <code class="code-inline">Quote Line Item</code> are synced.
+                      <code class="code-inline">Quote Line Item</code> are synced..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -327,7 +331,7 @@
 
                     <div class="methods-toc__description">
                       Insert <code class="code-inline">Opportunity Product</code> with sync fields set. Verify corresponding fields on
-                      <code class="code-inline">Quote Line Item</code> are synced.
+                      <code class="code-inline">Quote Line Item</code> are synced..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -335,7 +339,7 @@
 
                     <div class="methods-toc__description">
                       Insert <code class="code-inline">Quote Line Item</code> without sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are not synced.
+                      <code class="code-inline">Opportunity Product</code> are not synced..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -351,133 +355,133 @@
 
                     <div class="methods-toc__description">
                       Insert <code class="code-inline">Quote Line Item</code> with sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are synced.
+                      <code class="code-inline">Opportunity Product</code> are synced..
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncInsertOppLine"> testStartSyncInsertOppLine () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> create new
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> create new
+                      <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncInsertOppLineSetNull"> testStartSyncInsertOppLineSetNull () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> create new
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> create new
+                      <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine1"> testStartSyncMatchOppLine1 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine1a"> testStartSyncMatchOppLine1a () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine2"> testStartSyncMatchOppLine2 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine2a"> testStartSyncMatchOppLine2a () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine3"> testStartSyncMatchOppLine3 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine3a"> testStartSyncMatchOppLine3a () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine4"> testStartSyncMatchOppLine4 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine4a"> testStartSyncMatchOppLine4a () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine5"> testStartSyncMatchOppLine5 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine6"> testStartSyncMatchOppLine6 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine7"> testStartSyncMatchOppLine7 () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncMatchOppLine7a"> testStartSyncMatchOppLine7a () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match
+                      existing <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -485,51 +489,57 @@
 
                     <div class="methods-toc__description">
                       Start sync from another quote. Verify opp and <code class="code-inline">Opportunity Product</code> fields are synced from new
-                      quote and <code class="code-inline">Quote Line Item</code>
+                      quote and <code class="code-inline">Quote Line Item</code>.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncQuote"> testStartSyncQuote () </a>
 
-                    <div class="methods-toc__description">Start sync from quote. Verify opp fields are synced from quote</div>
+                    <div class="methods-toc__description">
+                      Start sync from <code class="code-inline">Quote</code>. Verify opp fields are synced from
+                      <code class="code-inline">Quote</code>.
+                    </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncQuoteSetNull"> testStartSyncQuoteSetNull () </a>
 
-                    <div class="methods-toc__description">Start sync from quote. Verify opp fields are synced from quote</div>
+                    <div class="methods-toc__description">
+                      Start sync from <code class="code-inline">Quote</code>. Verify opp fields are synced from
+                      <code class="code-inline">Quote</code>.
+                    </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncUpdateOppLine"> testStartSyncUpdateOppLine () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> update existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> update existing
+                      <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncUpdateOppLineSetNull"> testStartSyncUpdateOppLineSetNull () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">QuoteLineItems</code> update existing
-                      <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code>. Update existing
+                      <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncWithQuoteLine"> testStartSyncWithQuoteLine () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">Quote Line Item</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Item</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>.
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testStartSyncWithQuoteLineSetNull"> testStartSyncWithQuoteLineSetNull () </a>
 
                     <div class="methods-toc__description">
-                      Start sync from quote with <code class="code-inline">Quote Line Item</code>. Verify
-                      <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>
+                      Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Item</code>. Verify
+                      <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -537,7 +547,7 @@
 
                     <div class="methods-toc__description">
                       Stop sync on verify no changeson <code class="code-inline">Opportunity</code> &amp;
-                      <code class="code-inline">Opportunity Product</code>, quote &amp; <code class="code-inline">Quote Line Item</code> fields
+                      <code class="code-inline">Opportunity Product</code>, quote &amp; <code class="code-inline">Quote Line Item</code> fields.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -561,7 +571,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Opportunity Product</code> non-sync fields. Verify fields on
-                      <code class="code-inline">Quote Line Item</code> are not updated.
+                      <code class="code-inline">Quote Line Item</code> are not updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -576,7 +586,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Opportunity Product</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Quote Line Item</code> are updated.
+                      <code class="code-inline">Quote Line Item</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -584,7 +594,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Opportunity Product</code> standard fields. Verify corresponding fields on
-                      <code class="code-inline">Quote Line Item</code> are updated.
+                      <code class="code-inline">Quote Line Item</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -592,7 +602,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Opportunity Product</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Quote Line Item</code> are updated.
+                      <code class="code-inline">Quote Line Item</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -600,14 +610,14 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Opportunity Product</code> sync fields to null. Verify corresponding fields on
-                      <code class="code-inline">Quote Line Item</code> are updated.
+                      <code class="code-inline">Quote Line Item</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testUpdateOppNoSync"> testUpdateOppNoSync () </a>
 
                     <div class="methods-toc__description">
-                      Update opp non-sync fields. Verify fields on <code class="code-inline">Quote</code> are not updated.
+                      Update opp non-sync fields. Verify fields on <code class="code-inline">Quote</code> are not updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -621,14 +631,16 @@
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testUpdateOppSync"> testUpdateOppSync () </a>
 
                     <div class="methods-toc__description">
-                      Update &#39;Opportunity&#39; sync fields. Verify corresponding fields on <code class="code-inline">Quote</code> are updated.
+                      Update <code class="code-inline">Opportunity</code> sync fields. Verify corresponding fields on
+                      <code class="code-inline">Quote</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testUpdateOppSyncSetNull"> testUpdateOppSyncSetNull () </a>
 
                     <div class="methods-toc__description">
-                      Update &#39;Opportunity&#39; sync fields. Verify corresponding fields on <code class="code-inline">Quote</code> are updated.
+                      Update <code class="code-inline">Opportunity</code> sync fields. Verify corresponding fields on
+                      <code class="code-inline">Quote</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -636,7 +648,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote Line Item</code> non-sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are not updated.
+                      <code class="code-inline">Opportunity Product</code> are not updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -652,7 +664,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are updated.
+                      <code class="code-inline">Opportunity Product</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -660,7 +672,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are updated.
+                      <code class="code-inline">Opportunity Product</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -668,7 +680,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are updated.
+                      <code class="code-inline">Opportunity Product</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -676,7 +688,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                      <code class="code-inline">Opportunity Product</code> are updated.
+                      <code class="code-inline">Opportunity Product</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -684,7 +696,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote</code> non-sync fields. Verify corresponding fieldson
-                      <code class="code-inline">Opportunity</code> are not updated.
+                      <code class="code-inline">Opportunity</code> are not updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -699,7 +711,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote</code> sync fields. Verify corresponding fieldson
-                      <code class="code-inline">Opportunity</code> are updated.
+                      <code class="code-inline">Opportunity</code> are updated..
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -707,7 +719,7 @@
 
                     <div class="methods-toc__description">
                       Update <code class="code-inline">Quote</code> sync fields. Verify corresponding fieldson
-                      <code class="code-inline">Opportunity</code> are updated.
+                      <code class="code-inline">Opportunity</code> are updated..
                     </div>
                   </li>
                   <li class="method private">
@@ -721,20 +733,35 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLines_1"> updateOppLines (oppId, stdSyncField, customSyncField) </a>
+
+                    <div class="methods-toc__description">
+                      Update all standard and synced fields on <code class="code-inline">OpportunityLineItem</code> records and put a value in each
+                      field
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLines_2">
                       updateOppLines (oppId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
+
+                    <div class="methods-toc__description">Update fields on <code class="code-inline">OpportunityLineItem</code> records</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesCustomSyncFields"> updateOppLinesCustomSyncFields (oppId) </a>
+
+                    <div class="methods-toc__description">
+                      Update only custom fields on <code class="code-inline">OpportunityLineItem</code> records
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesNoSync"> updateOppLinesNoSync (oppId, field) </a>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesStdSyncFields"> updateOppLinesStdSyncFields (oppId) </a>
+
+                    <div class="methods-toc__description">
+                      Update only standard fields on <code class="code-inline">OpportunityLineItem</code> records
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppNoSync"> updateOppNoSync (oppId) </a>
@@ -742,7 +769,7 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuote"> updateQuote (quoteId) </a>
 
-                    <div class="methods-toc__description">Re-fill Quote fields and updateOpp(oppId)</div>
+                    <div class="methods-toc__description">Re-fill <code class="code-inline">Quote</code> fields and updateOpp(oppId)</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuote_1"> updateQuote (quoteId, updateNullOrFalse) </a>
@@ -751,27 +778,45 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLines"> updateQuoteLines (quoteId) </a>
+
+                    <div class="methods-toc__description">
+                      Update all standard and synced fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLines_1">
                       updateQuoteLines (quoteId, stdSyncField, customSyncField)
                     </a>
+
+                    <div class="methods-toc__description">
+                      Update fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLines_2">
                       updateQuoteLines (quoteId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
+
+                    <div class="methods-toc__description">Update fields on <code class="code-inline">QuoteLineItem</code> records</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesCustomSyncFields">
                       updateQuoteLinesCustomSyncFields (quoteId)
                     </a>
+
+                    <div class="methods-toc__description">
+                      Update custom sync fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesNoSync"> updateQuoteLinesNoSync (quoteId, field) </a>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesStdSyncFields"> updateQuoteLinesStdSyncFields (quoteId) </a>
+
+                    <div class="methods-toc__description">
+                      Update all standard fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteNoSync"> updateQuoteNoSync (quoteId) </a>
@@ -1044,13 +1089,20 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L500">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L505">
                       createQuote(opp)
                     </a>
                   </h4>
+                  <div class="method-description">Given an Opportunity, create a Quote with a value in every standard and synced field</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote createQuote(Opportunity opp)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">opp</div>
+                  <div class="param-type">Type: <code class="code-inline">Opportunity</code></div>
+                  <div class="param-description">The parent Opportunity record</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> The created record</div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.createQuote_1">
@@ -1059,13 +1111,23 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L504">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L516">
                       createQuote(opp, setNullOrFalse)
                     </a>
                   </h4>
+                  <div class="method-description">Given an Opportunity, create a Quote</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote createQuote(Opportunity opp, Boolean setNullOrFalse)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">opp</div>
+                  <div class="param-type">Type: <code class="code-inline">Opportunity</code></div>
+                  <div class="param-description">The parent Opportunity record</div>
+                  <div class="param-name">setNullOrFalse</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Put null in custom fields if true. Put a value if false.</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> The created record</div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.createQuoteLines">
@@ -1074,7 +1136,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L519">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L531">
                       createQuoteLines(quote, num)
                     </a>
                   </h4>
@@ -1089,7 +1151,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L523">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L535">
                       createQuoteLines(quote, num, unique, setNullOrFalse)
                     </a>
                   </h4>
@@ -1106,7 +1168,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L564">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L576">
                       createQuoteLinesNoSync(quote, num)
                     </a>
                   </h4>
@@ -1126,7 +1188,7 @@
                     </a>
                   </h4>
                   <div class="method-description">
-                    Memoized version of <code class="code-inline">Test.getStandardPricebookId()</code> so we call it once and not again in a test
+                    Memoized version of <code class="code-inline">Test.getStandardPricebookId()</code> so we call it once and not again
                   </div>
                   <div class="method-subtitle">Signature</div>
 
@@ -1327,7 +1389,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L771">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L846">
                       startSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -1350,7 +1412,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L782">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L857">
                       stopSync(oppId)
                     </a>
                   </h4>
@@ -1370,7 +1432,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1957">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2034">
                       testCreateDuplicateOppLine()
                     </a>
                   </h4>
@@ -1389,7 +1451,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1979">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2056">
                       testCreateDuplicateQuoteLine()
                     </a>
                   </h4>
@@ -1407,13 +1469,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L792">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L867">
                       testCreateQuote()
                     </a>
                   </h4>
                   <div class="method-description">
                     Create quote from <code class="code-inline">Opportunity</code>. Verify <code class="code-inline">Quote</code> sync fields are
-                    copied from opp
+                    copied from opp.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1426,13 +1488,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L803">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L878">
                       testCreateQuoteWithQuoteLine()
                     </a>
                   </h4>
                   <div class="method-description">
                     Create quote from opp with <code class="code-inline">Opportunity Product</code>. Verify
-                    <code class="code-inline">Quote Line Item</code> sync fields are copied from <code class="code-inline">Opportunity Product</code>
+                    <code class="code-inline">Quote Line Item</code> sync fields are copied from <code class="code-inline">Opportunity Product</code>.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1445,13 +1507,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1747">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1828">
                       testInsertOppLineNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Insert <code class="code-inline">Opportunity Product</code> without sync fields. Verify fields on
-                    <code class="code-inline">Quote Line Item</code> are synced.
+                    <code class="code-inline">Quote Line Item</code> are synced..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1464,7 +1526,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1920">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1997">
                       testInsertOppLineNotSync()
                     </a>
                   </h4>
@@ -1482,13 +1544,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1523">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1603">
                       testInsertOppLineSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Insert <code class="code-inline">Opportunity Product</code> with sync fields set. Verify corresponding fields on
-                    <code class="code-inline">Quote Line Item</code> are synced.
+                    <code class="code-inline">Quote Line Item</code> are synced..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1501,13 +1563,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1813">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1888">
                       testInsertQuoteLineNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Insert <code class="code-inline">Quote Line Item</code> without sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are not synced.
+                    <code class="code-inline">Opportunity Product</code> are not synced..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1520,7 +1582,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1940">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2017">
                       testInsertQuoteLineNotSync()
                     </a>
                   </h4>
@@ -1539,13 +1601,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1678">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1763">
                       testInsertQuoteLineSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Insert <code class="code-inline">Quote Line Item</code> with sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are synced.
+                    <code class="code-inline">Opportunity Product</code> are synced..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1558,14 +1620,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L928">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1003">
                       testStartSyncInsertOppLine()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> create new
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> create new
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1578,14 +1640,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L947">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1022">
                       testStartSyncInsertOppLineSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> create new
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> create new
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1598,14 +1660,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1010">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1085">
                       testStartSyncMatchOppLine1()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1618,14 +1680,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1051">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1126">
                       testStartSyncMatchOppLine1a()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1638,14 +1700,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1090">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1165">
                       testStartSyncMatchOppLine2()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1658,14 +1720,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1115">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1190">
                       testStartSyncMatchOppLine2a()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1678,14 +1740,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1140">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1215">
                       testStartSyncMatchOppLine3()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1698,14 +1760,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1165">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1240">
                       testStartSyncMatchOppLine3a()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1718,14 +1780,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1205">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1280">
                       testStartSyncMatchOppLine4()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1738,14 +1800,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1234">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1309">
                       testStartSyncMatchOppLine4a()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1758,14 +1820,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1258">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1333">
                       testStartSyncMatchOppLine5()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1778,14 +1840,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1282">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1357">
                       testStartSyncMatchOppLine6()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1798,14 +1860,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1306">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1381">
                       testStartSyncMatchOppLine7()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1818,14 +1880,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1334">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1410">
                       testStartSyncMatchOppLine7a()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> that match existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> that match existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1838,13 +1900,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L899">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L974">
                       testStartSyncOtherQuote()
                     </a>
                   </h4>
                   <div class="method-description">
                     Start sync from another quote. Verify opp and <code class="code-inline">Opportunity Product</code> fields are synced from new
-                    quote and <code class="code-inline">Quote Line Item</code>
+                    quote and <code class="code-inline">Quote Line Item</code>.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1857,11 +1919,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L822">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L897">
                       testStartSyncQuote()
                     </a>
                   </h4>
-                  <div class="method-description">Start sync from quote. Verify opp fields are synced from quote</div>
+                  <div class="method-description">
+                    Start sync from <code class="code-inline">Quote</code>. Verify opp fields are synced from <code class="code-inline">Quote</code>.
+                  </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
                   <div class="method-signature">private static void testStartSyncQuote()</div>
@@ -1873,11 +1937,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L840">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L915">
                       testStartSyncQuoteSetNull()
                     </a>
                   </h4>
-                  <div class="method-description">Start sync from quote. Verify opp fields are synced from quote</div>
+                  <div class="method-description">
+                    Start sync from <code class="code-inline">Quote</code>. Verify opp fields are synced from <code class="code-inline">Quote</code>.
+                  </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
                   <div class="method-signature">private static void testStartSyncQuoteSetNull()</div>
@@ -1889,14 +1955,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L966">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1041">
                       testStartSyncUpdateOppLine()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> update existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code> update existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1909,14 +1975,14 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L988">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1063">
                       testStartSyncUpdateOppLineSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">QuoteLineItems</code> update existing
-                    <code class="code-inline">OpportunityLineItems</code> on <code class="code-inline">Opportunity</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Items</code>. Update existing
+                    <code class="code-inline">Opportunity Products</code> on <code class="code-inline">Opportunity</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1929,13 +1995,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L855">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L930">
                       testStartSyncWithQuoteLine()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">Quote Line Item</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Item</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1948,13 +2014,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L878">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L953">
                       testStartSyncWithQuoteLineSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Start sync from quote with <code class="code-inline">Quote Line Item</code>. Verify
-                    <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>
+                    Start sync from <code class="code-inline">Quote</code> with <code class="code-inline">Quote Line Item</code>. Verify
+                    <code class="code-inline">Opportunity Product</code> fields are synced from <code class="code-inline">Quote Line Item</code>.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1967,13 +2033,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1356">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1432">
                       testStopSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Stop sync on verify no changeson <code class="code-inline">Opportunity</code> &amp;
-                    <code class="code-inline">Opportunity Product</code>, quote &amp; <code class="code-inline">Quote Line Item</code> fields
+                    <code class="code-inline">Opportunity Product</code>, quote &amp; <code class="code-inline">Quote Line Item</code> fields.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -1986,7 +2052,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2002">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2079">
                       testUpdateDuplicateOppLine()
                     </a>
                   </h4>
@@ -2005,7 +2071,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2028">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2106">
                       testUpdateDuplicateQuoteLine()
                     </a>
                   </h4>
@@ -2023,13 +2089,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1718">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1804">
                       testUpdateOppLineNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Opportunity Product</code> non-sync fields. Verify fields on
-                    <code class="code-inline">Quote Line Item</code> are not updated.
+                    <code class="code-inline">Quote Line Item</code> are not updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2042,7 +2108,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1868">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1943">
                       testUpdateOppLineNotSync()
                     </a>
                   </h4>
@@ -2060,13 +2126,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1445">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1523">
                       testUpdateOppLineSync1()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Opportunity Product</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Quote Line Item</code> are updated.
+                    <code class="code-inline">Quote Line Item</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2079,13 +2145,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1471">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1549">
                       testUpdateOppLineSync2()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Opportunity Product</code> standard fields. Verify corresponding fields on
-                    <code class="code-inline">Quote Line Item</code> are updated.
+                    <code class="code-inline">Quote Line Item</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2098,13 +2164,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1497">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1576">
                       testUpdateOppLineSync3()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Opportunity Product</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Quote Line Item</code> are updated.
+                    <code class="code-inline">Quote Line Item</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2117,13 +2183,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1421">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1499">
                       testUpdateOppLineSyncSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Opportunity Product</code> sync fields to null. Verify corresponding fields on
-                    <code class="code-inline">Quote Line Item</code> are updated.
+                    <code class="code-inline">Quote Line Item</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2136,12 +2202,12 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1701">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1787">
                       testUpdateOppNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Update opp non-sync fields. Verify fields on <code class="code-inline">Quote</code> are not updated.
+                    Update opp non-sync fields. Verify fields on <code class="code-inline">Quote</code> are not updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2154,7 +2220,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1834">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1909">
                       testUpdateOppNotSync()
                     </a>
                   </h4>
@@ -2172,12 +2238,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1383">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1461">
                       testUpdateOppSync()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Update &#39;Opportunity&#39; sync fields. Verify corresponding fields on <code class="code-inline">Quote</code> are updated.
+                    Update <code class="code-inline">Opportunity</code> sync fields. Verify corresponding fields on
+                    <code class="code-inline">Quote</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2190,12 +2257,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1402">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1480">
                       testUpdateOppSyncSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
-                    Update &#39;Opportunity&#39; sync fields. Verify corresponding fields on <code class="code-inline">Quote</code> are updated.
+                    Update <code class="code-inline">Opportunity</code> sync fields. Verify corresponding fields on
+                    <code class="code-inline">Quote</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2208,13 +2276,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1783">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1864">
                       testUpdateQuoteLineNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote Line Item</code> non-sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are not updated.
+                    <code class="code-inline">Opportunity Product</code> are not updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2227,7 +2295,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1894">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1970">
                       testUpdateQuoteLineNotSync()
                     </a>
                   </h4>
@@ -2246,13 +2314,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1580">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1661">
                       testUpdateQuoteLineSync1()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are updated.
+                    <code class="code-inline">Opportunity Product</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2265,13 +2333,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1604">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1686">
                       testUpdateQuoteLineSync2()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are updated.
+                    <code class="code-inline">Opportunity Product</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2284,13 +2352,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1628">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1711">
                       testUpdateQuoteLineSync3()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are updated.
+                    <code class="code-inline">Opportunity Product</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2303,13 +2371,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1652">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1736">
                       testUpdateQuoteLineSyncSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote Line Item</code> sync fields. Verify corresponding fields on
-                    <code class="code-inline">Opportunity Product</code> are updated.
+                    <code class="code-inline">Opportunity Product</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2322,13 +2390,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1766">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1847">
                       testUpdateQuoteNoSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote</code> non-sync fields. Verify corresponding fieldson
-                    <code class="code-inline">Opportunity</code> are not updated.
+                    <code class="code-inline">Opportunity</code> are not updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2341,7 +2409,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1851">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1926">
                       testUpdateQuoteNotSync()
                     </a>
                   </h4>
@@ -2359,13 +2427,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1546">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1627">
                       testUpdateQuoteSync()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote</code> sync fields. Verify corresponding fieldson
-                    <code class="code-inline">Opportunity</code> are updated.
+                    <code class="code-inline">Opportunity</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2378,13 +2446,13 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1563">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1644">
                       testUpdateQuoteSyncSetNull()
                     </a>
                   </h4>
                   <div class="method-description">
                     Update <code class="code-inline">Quote</code> sync fields. Verify corresponding fieldson
-                    <code class="code-inline">Opportunity</code> are updated.
+                    <code class="code-inline">Opportunity</code> are updated..
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2397,7 +2465,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L585">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L597">
                       updateOpp(oppId)
                     </a>
                   </h4>
@@ -2412,7 +2480,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L589">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L601">
                       updateOpp(oppId, updateNullOrFalse)
                     </a>
                   </h4>
@@ -2427,7 +2495,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L630">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L644">
                       updateOppLines(oppId)
                     </a>
                   </h4>
@@ -2442,14 +2510,32 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L642">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L676">
                       updateOppLines(oppId, stdSyncField, customSyncField)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update all standard and synced fields on <code class="code-inline">OpportunityLineItem</code> records and put a value in each
+                    field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
                     private static List&lt;OpportunityLineItem&gt; updateOppLines(Id oppId, Boolean stdSyncField, Boolean customSyncField)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">OpportunityId</div>
+                  <div class="param-name">stdSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update standard fields?</div>
+                  <div class="param-name">customSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update custom sync fields?</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
                   </div>
                 </div>
                 <div class="method private">
@@ -2459,15 +2545,33 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L646">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L689">
                       updateOppLines(oppId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
                   </h4>
+                  <div class="method-description">Update fields on <code class="code-inline">OpportunityLineItem</code> records</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
                     private static List&lt;OpportunityLineItem&gt; updateOppLines(Id oppId, Boolean stdSyncField, Boolean customSyncField, Boolean
                     updateNullOrFalse)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">OpportunityId</div>
+                  <div class="param-name">stdSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update standard fields?</div>
+                  <div class="param-name">customSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update custom sync fields?</div>
+                  <div class="param-name">updateNullOrFalse</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Put null in custom fields if true. Put values if false.</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
                   </div>
                 </div>
                 <div class="method private">
@@ -2477,13 +2581,22 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L638">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L664">
                       updateOppLinesCustomSyncFields(oppId)
                     </a>
                   </h4>
+                  <div class="method-description">Update only custom fields on <code class="code-inline">OpportunityLineItem</code> records</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;OpportunityLineItem&gt; updateOppLinesCustomSyncFields(Id oppId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLinesNoSync">
@@ -2492,7 +2605,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L726">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L801">
                       updateOppLinesNoSync(oppId, field)
                     </a>
                   </h4>
@@ -2507,13 +2620,22 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L634">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L654">
                       updateOppLinesStdSyncFields(oppId)
                     </a>
                   </h4>
+                  <div class="method-description">Update only standard fields on <code class="code-inline">OpportunityLineItem</code> records</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;OpportunityLineItem&gt; updateOppLinesStdSyncFields(Id oppId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppNoSync">
@@ -2522,7 +2644,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L706">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L781">
                       updateOppNoSync(oppId)
                     </a>
                   </h4>
@@ -2537,11 +2659,11 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L607">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L620">
                       updateQuote(quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Re-fill Quote fields and updateOpp(oppId)</div>
+                  <div class="method-description">Re-fill <code class="code-inline">Quote</code> fields and updateOpp(oppId)</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote updateQuote(Id quoteId)</div>
@@ -2550,10 +2672,11 @@
                   <div class="param-type">Type: <code class="code-inline">Id</code></div>
                   <div class="param-description">Quote Id</div>
                   <div class="method-subtitle">Returns</div>
-                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> the updated Quote</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> The updated Quote</div>
                   <div class="method-subtitle">See</div>
                   <div class="method-subtitle-description">
-                    <span title="A valid link could not be created with this identifier.">updateQuote</span>
+                    <span title="A valid link could not be created with this identifier.">updateQuote</span>,
+                    <span title="A valid link could not be created with this identifier.">updateOpp</span>
                   </div>
                 </div>
                 <div class="method private">
@@ -2563,7 +2686,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L619">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L633">
                       updateQuote(quoteId, updateNullOrFalse)
                     </a>
                   </h4>
@@ -2578,10 +2701,11 @@
                   <div class="param-name">updateNullOrFalse</div>
                   <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
                   <div class="method-subtitle">Returns</div>
-                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> the updated Quote</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> The updated Quote</div>
                   <div class="method-subtitle">See</div>
                   <div class="method-subtitle-description">
-                    <span title="A valid link could not be created with this identifier.">updateQuote</span>
+                    <span title="A valid link could not be created with this identifier.">updateQuote</span>,
+                    <span title="A valid link could not be created with this identifier.">updateOpp</span>
                   </div>
                 </div>
                 <div class="method private">
@@ -2591,13 +2715,24 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L668">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L717">
                       updateQuoteLines(quoteId)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update all standard and synced fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;QuoteLineItem&gt; updateQuoteLines(Id quoteId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLines_1">
@@ -2606,14 +2741,31 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L680">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L746">
                       updateQuoteLines(quoteId, stdSyncField, customSyncField)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
                     private static List&lt;QuoteLineItem&gt; updateQuoteLines(Id quoteId, Boolean stdSyncField, Boolean customSyncField)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="param-name">stdSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update standard fields?</div>
+                  <div class="param-name">customSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update custom sync fields?</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
                   </div>
                 </div>
                 <div class="method private">
@@ -2623,15 +2775,33 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L684">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L759">
                       updateQuoteLines(quoteId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
                   </h4>
+                  <div class="method-description">Update fields on <code class="code-inline">QuoteLineItem</code> records</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">
                     private static List&lt;QuoteLineItem&gt; updateQuoteLines(Id quoteId, Boolean stdSyncField, Boolean customSyncField, Boolean
                     updateNullOrFalse)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="param-name">stdSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update standard fields?</div>
+                  <div class="param-name">customSyncField</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Update custom sync fields?</div>
+                  <div class="param-name">updateNullOrFalse</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Put null in fields if true. Put values if false.</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
                   </div>
                 </div>
                 <div class="method private">
@@ -2641,13 +2811,24 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L676">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L735">
                       updateQuoteLinesCustomSyncFields(quoteId)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update custom sync fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;QuoteLineItem&gt; updateQuoteLinesCustomSyncFields(Id quoteId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLinesNoSync">
@@ -2656,7 +2837,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L745">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L820">
                       updateQuoteLinesNoSync(quoteId, field)
                     </a>
                   </h4>
@@ -2671,13 +2852,24 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L672">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L726">
                       updateQuoteLinesStdSyncFields(quoteId)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update all standard fields on <code class="code-inline">QuoteLineItem</code> records and put a value in each field
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;QuoteLineItem&gt; updateQuoteLinesStdSyncFields(Id quoteId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteNoSync">
@@ -2686,7 +2878,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L716">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L791">
                       updateQuoteNoSync(quoteId)
                     </a>
                   </h4>

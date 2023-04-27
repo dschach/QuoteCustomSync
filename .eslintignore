@@ -13,6 +13,6 @@
 #**/aura/**/*.tokens
 #**/aura/**/*.xml
 #**/aura/**/*.app
-.sfdx
-.sf
+.sfdx/
+.sf/
 *.json
