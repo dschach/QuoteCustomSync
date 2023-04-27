@@ -6,11 +6,12 @@
  * <br>Code adapted from QuoteSync AppExchange package, moved to single handler class
  *
  * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
- * @since  2014 Original Author
+ * @since 2014 Original Author
  *
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-08 New trigger handler framework
  * @since 2022-10 Converted to Custom Metadata
+ * @since 2022-10 Change SOQL to use IN collection, not comma-separated Ids
  * @since 2023-04 Refine Quote Sync with new Quote fields
  * @since 2023-04 Remove trigger framework, move stoppers into this class
  *
@@ -21,8 +22,6 @@
 global without sharing class QuoteSyncHandler {
 	/**
 	 * @description Sync `Opportunities` with `Quotes`
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords New `Opportunities` from Trigger.new
 	 * @param oldRecordsMap Old `Opportunities` in a map from Trigger.oldMap
 	 */
@@ -99,9 +98,6 @@ global without sharing class QuoteSyncHandler {
 	/**
 	 * @description        Sync `Quote` fields with `Opportunity` fields
 	 *
-	 * @author             {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `Quotes` from Trigger.new
 	 * @param oldRecordsMap Old `Quotes` in a map from Trigger.oldMap
 	 */
@@ -190,8 +186,6 @@ global without sharing class QuoteSyncHandler {
 
 	/**
 	 * @description         Sync `Opportunity Products` with `Quote Line Items`
-	 * @author              {@link [David Schach](https://github.com/dschach)}
-	 * @since               2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `OpportunityLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `OpportunityLineItems` in a map from Trigger.oldMap
 	 */
@@ -304,10 +298,9 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * Sync `Quote Line Items` with `Opportunity Products`
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
-	 * @param newRecords New `QuoteLineItems` from Trigger.new
+	 * @description         Sync `Quote Line Items` with `Opportunity Products`
+	 *
+	 * @param newRecords    New `QuoteLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `QuoteLineItems` in a map from Trigger.oldMap
 	 */
 	global void syncQuoteLines(List<QuoteLineItem> newRecords, Map<Id, QuoteLineItem> oldRecordsMap) {
@@ -512,12 +505,12 @@ global without sharing class QuoteSyncHandler {
 	 * @author David Schach
 	 * @since 2022
 	 *
-	 * @param oppIds Set of `Opportunity` Ids
-	 * @param quoteIds Set of `Quote` Ids
-	 * @param oppFieldsString List of comma separated  `Opportunity` fields to be compared
+	 * @param oppIds            Set of `Opportunity` Ids
+	 * @param quoteIds          Set of `Quote` Ids
+	 * @param oppFieldsString   List of comma separated  `Opportunity` fields to be compared
 	 * @param quoteFieldsString List of comma separated quote fields to be compared (in a string)
-	 * @param quoteFields List of `Quote` fields in a list
-	 * @return `List<Quote>` That should be updated
+	 * @param quoteFields       List of `Quote` fields in a list
+	 * @return `List<Quote>`    that should be updated
 	 */
 	private static List<Quote> getQuotesToUpdate(
 		Set<Id> oppIds,
@@ -527,7 +520,7 @@ global without sharing class QuoteSyncHandler {
 		Set<String> quoteFields
 	) {
 		//prettier-ignore
-		String oppQuery = 'SELECT Id, SyncedQuoteId' + oppFieldsString + ' FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != null';
+		String oppQuery            = 'SELECT Id, SyncedQuoteId' + oppFieldsString + ' FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != null';
 		//System.debug(oppQuery);
 
 		Map<Id, Opportunity> oppMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oppQuery)); //NOPMD
@@ -561,11 +554,11 @@ global without sharing class QuoteSyncHandler {
 	 * @description Method that takes a set of `Quote` Ids, a set of `Opportunity` Ids and a map
 	 * linking them together and returns a list of `Opportunity Products` that should be updated to be synced
 	 *
-	 * @param syncQuoteIds Set of `Quote` Ids
-	 * @param syncOppIds Set of `Opportunity` Ids
-	 * @param startSyncQuoteMap Map that links each `Quote` Id with its synced `Opportunity` Id
-	 * @param qliFields List of `QuoteLineItem` fields to be compared
-	 * @param oliFields List of `OpportunityLineItem` fields to be compared
+	 * @param syncQuoteIds                Set of `Quote` Ids
+	 * @param syncOppIds                  Set of `Opportunity` Ids
+	 * @param startSyncQuoteMap           Map that links each `Quote` Id with its synced `Opportunity` Id
+	 * @param qliFields                   List of `QuoteLineItem` fields to be compared
+	 * @param oliFields                   List of `OpportunityLineItem` fields to be compared
 	 * @return `Set<OpportunityLineItem>` that should be updated
 	 */
 	private static Set<OpportunityLineItem> getOpportunityLineItemsToUpdate(

@@ -3,9 +3,10 @@
  *
  * @see [QuoteSync](https://github.com/SalesforceLabs/CustomQuoteSync)
  * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
- * @since  2014 Original Author
+ * @since 2014 Original Author
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-10 Converted to Custom Metadata
+ * @since 2022-10 Change else if to switch
  * @since 2023 Refine Quote Sync with new Quote fields
  * @group OppQuoteSync
  */
@@ -162,6 +163,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Return `quoteLineFieldMap` values as a set
+	 * @since 2023 Return a Set for uniqueness instead of a List
 	 *
 	 * @return      `Set<String>` all `OpportunityLineItem` fields in CMT records
 	 */
@@ -171,6 +173,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Return `quoteFieldMap` values as a set
+	 * @since 2023 Return a Set for uniqueness instead of a List
 	 *
 	 * @return      `Set<String>` all Opp fields in CMT records
 	 */
@@ -200,6 +203,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Join `quoteFieldMap` keyset with commas
+	 * @since 2023 Use String.join instead of a loop and concatenating with a comma
 	 *
 	 * @return      `String` Quote fields separated by commas
 	 */
@@ -210,6 +214,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Join `quoteFieldMap` values (`Opportunity` fields) with commas
+	 * @since 2023 Use String.join instead of a loop and concatenating with a comma
 	 *
 	 * @return      `String` Opportunity fields separated by commas
 	 */
@@ -220,6 +225,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Concatenate all mapped QuoteLineItem fields with a comma
+	 * @since 2023 Use String.join instead of a loop and concatenating with a comma
 	 *
 	 * @return      `String` Comma-separated list of QuoteLineItem fields
 	 */
@@ -230,6 +236,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description Concatenate all mapped OpportunityLineItem fields with a comma
+	 * @since 2023 Use String.join instead of a loop and concatenating with a comma
 	 *
 	 * @return      `String` Comma-separated list of OpportunityLineItem fields
 	 */
@@ -271,6 +278,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * Global describe - memoized
+	 * @since 2023 Lazy load global describe to save resources
 	 */
 	private static Map<String, Schema.SObjectType> gd {
 		get {
@@ -301,6 +309,7 @@ public class QuoteSyncUtil {
 
 	/**
 	 * @description  Given an object and field, return the `Schema.DescribeFieldResult`
+	 * @since 2022 Use switch statement
 	 *
 	 * @param entity Object name
 	 * @param field  Field name
@@ -349,6 +358,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description  Collect all custom fields for an object, and skip fields we need to sync.
 	 * <br>We may be able to memoize this, but since it's not called directly, there's low risk
+	 * @since 2022 Use switch statement
 	 *
 	 * @param entity Object name - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem
 	 * @return       `Map<String, Schema.DescribeFieldResult>` For the given object, a list of field describe results (minus our synced non-Boolean fields)
@@ -442,6 +452,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description          Create a standard value for each field in our org. This could be done more elegantly with fewer parameters,
 	 * but it is effective like this.
+	 * @since 2022 Use switch statement
 	 *
 	 * @param sobj           SObject (not the object name)
 	 * @param entity         Object Name

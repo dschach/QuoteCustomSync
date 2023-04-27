@@ -2,7 +2,7 @@
  * Test class for Quote/Opportunity sync
  *
  * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
- * @since  2014
+ * @since 2014
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-10 Converted to Custom Metadata
  * @since 2023-04 Lazy load and memoize Standard Pricebook Id
