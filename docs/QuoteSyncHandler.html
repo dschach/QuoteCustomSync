@@ -37,13 +37,13 @@
             </summary>
             <ul>
               <!-- menu items -->
-              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class" onclick="goToLocation('QuoteSyncHandler.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
               </li>
-              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class" onclick="goToLocation('QuoteSyncTest.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
               </li>
-              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class" onclick="goToLocation('QuoteSyncUtil.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
               </li>
             </ul>
@@ -118,7 +118,7 @@
                 <li>2022-08 New trigger handler framework</li>
                 <li>2022-10 Converted to Custom Metadata</li>
                 <li>2023-04 Refine Quote Sync with new Quote fields</li>
-                <li>2023-04 Remove trigger framework, stoppers into this class</li>
+                <li>2023-04 Remove trigger framework, move stoppers into this class</li>
               </div>
             </div>
             <div class="subsection properties QuoteSyncHandler">
@@ -130,14 +130,14 @@
 
                   <th>Description</th>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L542">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L465">
                       stopOpp
                     </a>
                   </td>
@@ -147,14 +147,14 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">Opportunity</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L538">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L461">
                       stopOppLine
                     </a>
                   </td>
@@ -164,14 +164,14 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">OppoortunityLineItem</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L550">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L473">
                       stopQuote
                     </a>
                   </td>
@@ -181,14 +181,14 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">Quote</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L546">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L469">
                       stopQuoteLine
                     </a>
                   </td>
@@ -279,7 +279,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L555">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L478">
                       bypassAll()
                     </a>
                   </h4>
@@ -295,7 +295,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L565">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L488">
                       clearAllBypasses()
                     </a>
                   </h4>
@@ -311,7 +311,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L648">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L571">
                       getOpportunityLineItemsToUpdate(syncQuoteIds, syncOppIds, startSyncQuoteMap, qliFields, oliFields)
                     </a>
                   </h4>
@@ -353,7 +353,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L599">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L522">
                       getQuotesToUpdate(oppIds, quoteIds, oppFieldsString, quoteFieldsString, quoteFields)
                     </a>
                   </h4>
@@ -396,7 +396,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L577">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L500">
                       getStringFromFieldSet(fields)
                     </a>
                   </h4>
@@ -524,7 +524,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L351">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L313">
                       syncQuoteLines(newRecords, oldRecordsMap)
                     </a>
                   </h4>

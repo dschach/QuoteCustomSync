@@ -6,13 +6,14 @@
  * <br>Code adapted from QuoteSync AppExchange package, moved to single handler class
  *
  * @author {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
- * @since  2014 Original Author
+ * @since 2014 Original Author
  *
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-08 New trigger handler framework
  * @since 2022-10 Converted to Custom Metadata
+ * @since 2022-10 Change SOQL to use IN collection, not comma-separated Ids
  * @since 2023-04 Refine Quote Sync with new Quote fields
- * @since 2023-04 Remove trigger framework, stoppers into this class
+ * @since 2023-04 Remove trigger framework, move stoppers into this class
  *
  * @group OppQuoteSync
  * @see QuoteSyncUtil
@@ -21,8 +22,6 @@
 global without sharing class QuoteSyncHandler {
 	/**
 	 * @description Sync `Opportunities` with `Quotes`
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords New `Opportunities` from Trigger.new
 	 * @param oldRecordsMap Old `Opportunities` in a map from Trigger.oldMap
 	 */
@@ -99,9 +98,6 @@ global without sharing class QuoteSyncHandler {
 	/**
 	 * @description        Sync `Quote` fields with `Opportunity` fields
 	 *
-	 * @author             {@link [Salesforce Labs](https://github.com/SalesforceLabs)}
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `Quotes` from Trigger.new
 	 * @param oldRecordsMap Old `Quotes` in a map from Trigger.oldMap
 	 */
@@ -190,8 +186,6 @@ global without sharing class QuoteSyncHandler {
 
 	/**
 	 * @description         Sync `Opportunity Products` with `Quote Line Items`
-	 * @author              {@link [David Schach](https://github.com/dschach)}
-	 * @since               2022 Change SOQL to use IN collection, not comma-separated Ids
 	 * @param newRecords    New `OpportunityLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `OpportunityLineItems` in a map from Trigger.oldMap
 	 */
@@ -200,14 +194,6 @@ global without sharing class QuoteSyncHandler {
 			return;
 		}
 
-		/* 	if (Trigger.isBefore && Trigger.isInsert) {
-			if (Test.isRunningTest()) {
-				for (OpportunityLineItem oli : newRecords) {
-					//QuoteSyncUtil.populateRequiredFields(oli);
-				}
-			}
-			return;
-		} */
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
 
@@ -247,29 +233,6 @@ global without sharing class QuoteSyncHandler {
 
 				Set<QuoteLineItem> matchedQlis = new Set<QuoteLineItem>();
 				for (OpportunityLineItem oli : oppToOliMap.get(opp.Id).OpportunityLineItems) {
-					Boolean updateQli = false;
-
-					/* if (Trigger.isUpdate) {
-						OpportunityLineItem oldOli = oldRecordsMap.get(oli.Id);
-
-						//System.debug('Old oli: ' + oldOli.UnitPrice + ', ' + oldOli.Quantity + ', ' + oldOli.Discount + ', ' + oldOli.ServiceDate);
-						//System.debug('New oli: ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate);
-
-						if (
-							oli.UnitPrice == oldOli.UnitPrice &&
-							oli.Quantity == oldOli.Quantity &&
-							oli.Discount == oldOli.Discount &&
-							oli.ServiceDate == oldOli.ServiceDate &&
-							oli.SortOrder == oldOli.SortOrder
-						) {
-							updateQli = true;
-						} 
-					} */
-
-					// Trying setting the update flag to true for all transactions
-					updateQli = true;
-					// End of trying
-
 					Boolean hasChange = false;
 					for (QuoteLineItem qli : quotelines) {
 						if (
@@ -296,14 +259,7 @@ global without sharing class QuoteSyncHandler {
 											oli.put(oliField, qliValue);
 										}
 										hasChange = true;
-									} else if (Trigger.isUpdate && !updateQli) {
-										if (qliValue == null) {
-											oli.put(oliField, null);
-										} else {
-											oli.put(oliField, qliValue);
-										}
-										hasChange = true;
-									} else if (Trigger.isUpdate && updateQli) {
+									} else if (Trigger.isUpdate) {
 										if (oliValue == null) {
 											qli.put(qliField, null);
 										} else {
@@ -314,9 +270,9 @@ global without sharing class QuoteSyncHandler {
 								}
 							}
 							if (hasChange) {
-								if (Trigger.isInsert || (Trigger.isUpdate && !updateQli)) {
+								if (Trigger.isInsert) {
 									updateOlis.add(oli);
-								} else if (Trigger.isUpdate && updateQli) {
+								} else if (Trigger.isUpdate) {
 									updateQlis.add(qli);
 								}
 							}
@@ -342,25 +298,15 @@ global without sharing class QuoteSyncHandler {
 	}
 
 	/**
-	 * Sync `Quote Line Items` with `Opportunity Products`
-	 * @author {@link [David Schach](https://github.com/dschach)}
-	 * @since  2022 Change SOQL to use IN collection, not comma-separated Ids
-	 * @param newRecords New `QuoteLineItems` from Trigger.new
+	 * @description         Sync `Quote Line Items` with `Opportunity Products`
+	 *
+	 * @param newRecords    New `QuoteLineItems` from Trigger.new
 	 * @param oldRecordsMap Old `QuoteLineItems` in a map from Trigger.oldMap
 	 */
 	global void syncQuoteLines(List<QuoteLineItem> newRecords, Map<Id, QuoteLineItem> oldRecordsMap) {
 		if (stopQuoteLine) {
 			return;
 		}
-
-		/* if (Trigger.isBefore && Trigger.isInsert) {
-			if (Test.isRunningTest()) {
-				for (QuoteLineItem qli : newRecords) {
-					//QuoteSyncUtil.populateRequiredFields(qli);
-				}
-			}
-			return;
-		} */
 
 		Set<String> quoteLineFields = QuoteSyncUtil.getQuoteLineFields();
 		Set<String> oppLineFields = QuoteSyncUtil.getOppLineFields(); //NOPMD
@@ -398,9 +344,8 @@ global without sharing class QuoteSyncHandler {
 		//System.debug('Filter `Quote` Ids: ' + filterQuoteIds);
 
 		quoteIds.removeAll(filterQuoteIds);
-		for (Id id : filterQuoteIds) {
-			//quoteToQliMap.remove(id);
-			quoteToQliMap.remove(id);
+		for (Id qid : filterQuoteIds) {
+			quoteToQliMap.remove(qid);
 		}
 
 		if (!oppIds.isEmpty()) {
@@ -426,28 +371,6 @@ global without sharing class QuoteSyncHandler {
 				Set<OpportunityLineItem> matchedOlis = new Set<OpportunityLineItem>();
 
 				for (QuoteLineItem qli : quoteToQliMap.get(q.Id).QuoteLineItems) {
-					Boolean updateOli = false;
-
-					/* if (Trigger.isUpdate) {
-						QuoteLineItem oldQli = oldRecordsMap.get(qli.Id);
-						//System.debug('Old qli: ' + oldQli.UnitPrice + ', ' + oldQli.Quantity + ', ' + oldQli.Discount + ', ' + oldQli.ServiceDate);
-						//System.debug('New qli: ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate);
-
-						if (
-							(qli.UnitPrice == oldQli.UnitPrice &&
-							qli.Quantity == oldQli.Quantity &&
-							qli.Discount == oldQli.Discount &&
-							qli.ServiceDate == oldQli.ServiceDate &&
-							qli.SortOrder == oldQli.SortOrder)
-						) {
-							updateOli = true;
-						} 
-					} */
-
-					// Trying to set updateOli to true for every transaction because we've made an update to the record
-					updateOli = true;
-					// End of trying
-
 					Boolean hasChange = false;
 
 					for (OpportunityLineItem oli : opplines) {
@@ -477,14 +400,7 @@ global without sharing class QuoteSyncHandler {
 											qli.put(qliField, oliValue);
 											hasChange = true;
 										}
-									} else if (Trigger.isUpdate && !updateOli) {
-										if (oliValue == null) {
-											qli.put(qliField, null);
-										} else {
-											qli.put(qliField, oliValue);
-										}
-										hasChange = true;
-									} else if (Trigger.isUpdate && updateOli) {
+									} else if (Trigger.isUpdate) {
 										if (qliValue == null) {
 											oli.put(oliField, null);
 										} else {
@@ -496,9 +412,9 @@ global without sharing class QuoteSyncHandler {
 							}
 
 							if (hasChange) {
-								if (Trigger.isInsert || (Trigger.isUpdate && !updateOli)) {
+								if (Trigger.isInsert) {
 									updateQlis.add(qli);
-								} else if (Trigger.isUpdate && updateOli) {
+								} else if (Trigger.isUpdate) {
 									updateOlis.add(oli);
 								}
 							}
@@ -589,12 +505,12 @@ global without sharing class QuoteSyncHandler {
 	 * @author David Schach
 	 * @since 2022
 	 *
-	 * @param oppIds Set of `Opportunity` Ids
-	 * @param quoteIds Set of `Quote` Ids
-	 * @param oppFieldsString List of comma separated  `Opportunity` fields to be compared
+	 * @param oppIds            Set of `Opportunity` Ids
+	 * @param quoteIds          Set of `Quote` Ids
+	 * @param oppFieldsString   List of comma separated  `Opportunity` fields to be compared
 	 * @param quoteFieldsString List of comma separated quote fields to be compared (in a string)
-	 * @param quoteFields List of `Quote` fields in a list
-	 * @return `List<Quote>` That should be updated
+	 * @param quoteFields       List of `Quote` fields in a list
+	 * @return `List<Quote>`    that should be updated
 	 */
 	private static List<Quote> getQuotesToUpdate(
 		Set<Id> oppIds,
@@ -604,7 +520,7 @@ global without sharing class QuoteSyncHandler {
 		Set<String> quoteFields
 	) {
 		//prettier-ignore
-		String oppQuery = 'SELECT Id, SyncedQuoteId' + oppFieldsString + ' FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != null';
+		String oppQuery            = 'SELECT Id, SyncedQuoteId' + oppFieldsString + ' FROM Opportunity WHERE Id IN :oppIds AND SyncedQuoteId != null';
 		//System.debug(oppQuery);
 
 		Map<Id, Opportunity> oppMap = new Map<Id, Opportunity>((List<Opportunity>) Database.query(oppQuery)); //NOPMD
@@ -638,11 +554,11 @@ global without sharing class QuoteSyncHandler {
 	 * @description Method that takes a set of `Quote` Ids, a set of `Opportunity` Ids and a map
 	 * linking them together and returns a list of `Opportunity Products` that should be updated to be synced
 	 *
-	 * @param syncQuoteIds Set of `Quote` Ids
-	 * @param syncOppIds Set of `Opportunity` Ids
-	 * @param startSyncQuoteMap Map that links each `Quote` Id with its synced `Opportunity` Id
-	 * @param qliFields List of `QuoteLineItem` fields to be compared
-	 * @param oliFields List of `OpportunityLineItem` fields to be compared
+	 * @param syncQuoteIds                Set of `Quote` Ids
+	 * @param syncOppIds                  Set of `Opportunity` Ids
+	 * @param startSyncQuoteMap           Map that links each `Quote` Id with its synced `Opportunity` Id
+	 * @param qliFields                   List of `QuoteLineItem` fields to be compared
+	 * @param oliFields                   List of `OpportunityLineItem` fields to be compared
 	 * @return `Set<OpportunityLineItem>` that should be updated
 	 */
 	private static Set<OpportunityLineItem> getOpportunityLineItemsToUpdate(
