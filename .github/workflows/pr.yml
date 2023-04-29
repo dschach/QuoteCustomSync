@@ -8,7 +8,7 @@ on:
     paths:
       - 'force-app/**'
       - 'pmd/**'
-      - 'package.json'
+      #- 'package.json'
 
 # Jobs to be executed
 jobs:
