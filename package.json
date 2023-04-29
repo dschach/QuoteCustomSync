@@ -15,7 +15,7 @@
 		"prettier:verify:apex": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
 		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --target-branch=main --dry-run --debug",
+		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --dry-run --debug --target-branch=main",
 		"setup:docs": ". doc-assets/setupApexDox.sh",
 		"scratchorg": ". scripts/scratchorg.sh",
 		"updateHighlight": ". doc-assets/updateHighlight.sh",
