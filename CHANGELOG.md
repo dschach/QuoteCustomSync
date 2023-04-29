@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/dschach/QuoteCustomSync/compare/v1.0.0...v1.0.1) (2023-04-29)
+
+
+### Bug Fixes
+
+* **ci:** Stop PR validation on package.json change ([a498e78](https://github.com/dschach/QuoteCustomSync/commit/a498e78815d2fd4140cccf62e28a6c8834157cc7))
+* **packaging:** Run action on released package ([da6c973](https://github.com/dschach/QuoteCustomSync/commit/da6c973707e6535fdb8af96eb600beefdec21d16))
+
 ## [1.0.0](https://github.com/dschach/QuoteCustomSync/compare/v0.2.1...v1.0.0) (2023-04-29)
 
 
