@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.0.0](https://github.com/dschach/QuoteCustomSync/compare/v0.2.1...v1.0.0) (2023-04-29)
+
+
+### Build System
+
+* **deps-dev:** Bump lint-staged from 13.2.1 to 13.2.2 ([#20](https://github.com/dschach/QuoteCustomSync/issues/20)) ([743c54f](https://github.com/dschach/QuoteCustomSync/commit/743c54fba67c168febe8fe8a39efdeb4811fb574))
+
+
+### Code Refactoring
+
+* Code cleanup ([#21](https://github.com/dschach/QuoteCustomSync/issues/21)) ([16fbe73](https://github.com/dschach/QuoteCustomSync/commit/16fbe73ba1bed60b7dccda9b8f28aca34fea8d12))
+
+
+### Miscellaneous Chores
+
+* Release 1.0.0 ([#24](https://github.com/dschach/QuoteCustomSync/issues/24)) ([25b6b2b](https://github.com/dschach/QuoteCustomSync/commit/25b6b2b12aeb4ce64c12f356f11ba7ab72fb34d7))
+
+
+### Continuous Integration
+
+* **deps:** Bump mitchspano/sfdx-scan-pull-request from 0.1.9 to 0.1.10 ([#23](https://github.com/dschach/QuoteCustomSync/issues/23)) ([b265d9f](https://github.com/dschach/QuoteCustomSync/commit/b265d9ff720bc6bc889d58abeb19f30b5dde7684))
+* **packaging:** Action to create package version ([#25](https://github.com/dschach/QuoteCustomSync/issues/25)) ([e3105ba](https://github.com/dschach/QuoteCustomSync/commit/e3105baf0e586df0ac35966d35231e4b8656f741))
+
 ## [0.2.1](https://github.com/dschach/QuoteCustomSync/compare/v0.2.0...v0.2.1) (2023-04-24)
 
 
