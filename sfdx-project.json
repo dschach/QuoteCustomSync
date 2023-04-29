@@ -8,7 +8,7 @@
       },
       "package": "Quote Custom Sync",
       "versionName": "ver 0.2 (beta)",
-      "versionNumber": "0.2.1.NEXT",
+      "versionNumber": "1.0.0.NEXT",
       "versionDescription": "Quote (and Line Item) sync for custom fields, using custom metadata for field mappings.",
       "releaseNotesUrl": "https://dschach.github.io/QuoteCustomSync",
       "definitionFile": "config/package-scratch-def.json",
