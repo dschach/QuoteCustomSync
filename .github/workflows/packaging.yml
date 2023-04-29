@@ -5,8 +5,8 @@ name: Packaging
 on:
   workflow_dispatch:
 
-  #release:
-  #  types: [released]
+  release:
+    types: [released]
 
 # Jobs to be executed
 jobs:
