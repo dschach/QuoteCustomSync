@@ -78,9 +78,9 @@ jobs:
           exit $status
 
       # Update sfdx-project.json and README to use only latest package version
-      #- name: 'Update sfdx-project.json and README'
-      #  id: packaging-updater
-      #  uses: trailheadapps/github-action-sfdx-packaging-updater@main
+      - name: 'Update sfdx-project.json and README'
+        id: packaging-updater
+        uses: trailheadapps/github-action-sfdx-packaging-updater@main
 
       # Remove namespace from project config
       - name: Remove namespace from project config
@@ -91,5 +91,5 @@ jobs:
       - name: 'Commit changes'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'Created new package version'
+          commit_message: 'chore(packaging): created new package version'
           file_pattern: sfdx-project.json README.md
