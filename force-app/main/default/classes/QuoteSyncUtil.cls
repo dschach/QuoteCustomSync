@@ -24,22 +24,22 @@ public class QuoteSyncUtil {
 		set;
 	}
 
-	/* //prettier-ignore
-	private static Set<String> standardQuoteFields = new Set<String>{ 
+	//prettier-ignore
+	public static Set<String> standardQuoteFields = new Set<String>{ 
 		'IsSyncing',
 		'Name',
 		'OpportunityId',
 		'Pricebook2Id'
 	};
 	//prettier-ignore
-	private static Set<String> standardOppFields = new Set<String>{ 
+	public static Set<String> standardOppFields = new Set<String>{ 
 		'HasOpportunityLineItem', 
 		'Name', 
 		'Pricebook2Id',
 		'SyncedQuoteId'
 	};
 	//prettier-ignore
-	private static Set<String> standardQuoteLineItemFields = new Set<String>{
+	public static Set<String> standardQuoteLineItemFields = new Set<String>{
 		'Discount',
 		'OpportunityLineItemId',
 		'PricebookEntryId',
@@ -50,7 +50,7 @@ public class QuoteSyncUtil {
 		'UnitPrice'
 	};
 	//prettier-ignore
-	private static Set<String> standardOppLineItemFields = new Set<String>{ 
+	public static Set<String> standardOppLineItemFields = new Set<String>{ 
 		'Discount',
 		'OpportunityId',
 		'PricebookEntryId',
@@ -58,7 +58,7 @@ public class QuoteSyncUtil {
 		'ServiceDate',
 		'SortOrder',
 		'UnitPrice'
-	}; */
+	};
 	/**
 	 * Map `Quote` field => `Opportunity` for syncing
 	 */
@@ -104,15 +104,6 @@ public class QuoteSyncUtil {
 			return quoteLineFieldMap;
 		}
 		set;
-	}
-
-	/**
-	 * @description Getter for `newQuoteIds` variable
-	 *
-	 * @return      `Set<Id>` newQuoteIds
-	 */
-	public static Set<Id> getNewQuoteIds() {
-		return newQuoteIds;
 	}
 
 	/**
@@ -385,7 +376,7 @@ public class QuoteSyncUtil {
 				excludeFields.addAll(getOppLineFields());
 			}
 			when else {
-				System.assert(false, 'Unknown entity: ' + entity);
+				Assert.fail('Unknown entity: ' + entity);
 			}
 		}
 
@@ -549,6 +540,15 @@ public class QuoteSyncUtil {
 	}
 
 	// UNUSED METHODS TO BE DELETED
+
+	/**
+	 * @description Getter for `newQuoteIds` variable
+	 *
+	 * @return      `Set<Id>` newQuoteIds
+	 */
+	/* public static Set<Id> getNewQuoteIds() {
+		return newQuoteIds;
+	} */
 
 	/**
 	 * @description Remove all Ids from the `newQuoteIds` set

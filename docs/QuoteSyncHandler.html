@@ -84,7 +84,7 @@
                 rel="noopener noreferrer"
                 title="Go to source"
                 class="source-link"
-                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L21">
+                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L22">
                 QuoteSyncHandler
               </a>
             </h2>
@@ -117,6 +117,7 @@
               <div class="class-subtitle-description">
                 <li>2022-08 New trigger handler framework</li>
                 <li>2022-10 Converted to Custom Metadata</li>
+                <li>2022-10 Change SOQL to use IN collection, not comma-separated Ids</li>
                 <li>2023-04 Refine Quote Sync with new Quote fields</li>
                 <li>2023-04 Remove trigger framework, move stoppers into this class</li>
               </div>
@@ -137,7 +138,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L465">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L458">
                       stopOpp
                     </a>
                   </td>
@@ -154,7 +155,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L461">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L454">
                       stopOppLine
                     </a>
                   </td>
@@ -171,7 +172,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L473">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L466">
                       stopQuote
                     </a>
                   </td>
@@ -188,7 +189,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L469">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L462">
                       stopQuoteLine
                     </a>
                   </td>
@@ -279,7 +280,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L478">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L471">
                       bypassAll()
                     </a>
                   </h4>
@@ -295,7 +296,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L488">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L481">
                       clearAllBypasses()
                     </a>
                   </h4>
@@ -311,7 +312,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L571">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L564">
                       getOpportunityLineItemsToUpdate(syncQuoteIds, syncOppIds, startSyncQuoteMap, qliFields, oliFields)
                     </a>
                   </h4>
@@ -353,7 +354,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L522">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L515">
                       getQuotesToUpdate(oppIds, quoteIds, oppFieldsString, quoteFieldsString, quoteFields)
                     </a>
                   </h4>
@@ -381,7 +382,7 @@
                   <div class="param-name">quoteFields</div>
                   <div class="param-description">List of <code class="code-inline">Quote</code> fields in a list</div>
                   <div class="method-subtitle">Returns</div>
-                  <div class="method-subtitle-description"><code class="code-inline">List&lt;Quote&gt;</code> That should be updated</div>
+                  <div class="method-subtitle-description"><code class="code-inline">List&lt;Quote&gt;</code> that should be updated</div>
                   <div class="method-subtitle">Author</div>
                   <div class="method-subtitle-description">David Schach</div>
                   <div class="method-subtitle">Since</div>
@@ -396,7 +397,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L500">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L493">
                       getStringFromFieldSet(fields)
                     </a>
                   </h4>
@@ -420,7 +421,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L198">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L192">
                       syncOppLines(newRecords, oldRecordsMap)
                     </a>
                   </h4>
@@ -439,14 +440,6 @@
                   <div class="param-name">oldRecordsMap</div>
                   <div class="param-type">Type: <code class="code-inline">Map&lt;Id, OpportunityLineItem&gt;</code></div>
                   <div class="param-description">Old <code class="code-inline">OpportunityLineItems</code> in a map from Trigger.oldMap</div>
-                  <div class="method-subtitle">Author</div>
-                  <div class="method-subtitle-description">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
-                  </div>
-                  <div class="method-subtitle">Since</div>
-                  <div class="method-subtitle-description">
-                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
-                  </div>
                 </div>
                 <div class="method global">
                   <h4 class="method-title" id="QuoteSyncHandler.syncOpportunities">
@@ -455,7 +448,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L29">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L28">
                       syncOpportunities(newRecords, oldRecordsMap)
                     </a>
                   </h4>
@@ -474,14 +467,6 @@
                   <div class="param-name">oldRecordsMap</div>
                   <div class="param-type">Type: <code class="code-inline">Map&lt;Id, Opportunity&gt;</code></div>
                   <div class="param-description">Old <code class="code-inline">Opportunities</code> in a map from Trigger.oldMap</div>
-                  <div class="method-subtitle">Author</div>
-                  <div class="method-subtitle-description">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
-                  </div>
-                  <div class="method-subtitle">Since</div>
-                  <div class="method-subtitle-description">
-                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
-                  </div>
                 </div>
                 <div class="method global">
                   <h4 class="method-title" id="QuoteSyncHandler.syncQuote">
@@ -490,7 +475,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L108">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L104">
                       syncQuote(newRecords, oldRecordsMap)
                     </a>
                   </h4>
@@ -507,15 +492,6 @@
                   <div class="param-name">oldRecordsMap</div>
                   <div class="param-type">Type: <code class="code-inline">Map&lt;Id, Quote&gt;</code></div>
                   <div class="param-description">Old <code class="code-inline">Quotes</code> in a map from Trigger.oldMap</div>
-                  <div class="method-subtitle">Authors</div>
-                  <div class="method-subtitle-description">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/SalesforceLabs">Salesforce Labs</a>,
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
-                  </div>
-                  <div class="method-subtitle">Since</div>
-                  <div class="method-subtitle-description">
-                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
-                  </div>
                 </div>
                 <div class="method global">
                   <h4 class="method-title" id="QuoteSyncHandler.syncQuoteLines">
@@ -524,7 +500,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L313">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncHandler.cls#L306">
                       syncQuoteLines(newRecords, oldRecordsMap)
                     </a>
                   </h4>
@@ -543,14 +519,6 @@
                   <div class="param-name">oldRecordsMap</div>
                   <div class="param-type">Type: <code class="code-inline">Map&lt;Id, QuoteLineItem&gt;</code></div>
                   <div class="param-description">Old <code class="code-inline">QuoteLineItems</code> in a map from Trigger.oldMap</div>
-                  <div class="method-subtitle">Author</div>
-                  <div class="method-subtitle-description">
-                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/dschach">David Schach</a>
-                  </div>
-                  <div class="method-subtitle">Since</div>
-                  <div class="method-subtitle-description">
-                    <li>2022 Change SOQL to use IN collection, not comma-separated Ids</li>
-                  </div>
                 </div>
               </div>
             </div>

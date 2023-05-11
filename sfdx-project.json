@@ -7,8 +7,8 @@
         "path": "unpackaged"
       },
       "package": "Quote Custom Sync",
-      "versionName": "ver 0.2 (beta)",
-      "versionNumber": "1.0.1.NEXT",
+      "versionName": "First Release",
+      "versionNumber": "1.0.2.NEXT",
       "versionDescription": "Quote (and Line Item) sync for custom fields, using custom metadata for field mappings.",
       "releaseNotesUrl": "https://dschach.github.io/QuoteCustomSync",
       "definitionFile": "config/package-scratch-def.json",
@@ -31,6 +31,8 @@
     "Quote Custom Sync (Managed)": "0Ho3a0000004CAGCA2",
     "QuoteCustomSync_Managed": "0Ho3a0000004CAGCA2",
     "Quote Custom Sync": "0Ho3a0000004CALCA2",
-    "Quote Custom Sync@0.2.0-1": "04t3a000001qXnfAAE"
+    "QuoteCustomSync": "0Ho3a0000004CALCA2",
+    "Quote Custom Sync@0.2.0-1": "04t3a000001qXnfAAE",
+    "Quote Custom Sync@1.0.2-1": "04t3a000000LddNAAS"
   }
 }

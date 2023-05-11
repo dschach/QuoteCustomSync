@@ -13,7 +13,7 @@ Metadata-driven Quote-Opportunity custom field synchronization
 
 ## [Installation Instructions](./INSTALLATION.md)
 
-Latest unlocked package: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3a000001qXnfAAE ver 0.2 (beta)
+Latest unlocked package: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3a000000LddNAAS ver 1.0.2
 
 ## General Description
 

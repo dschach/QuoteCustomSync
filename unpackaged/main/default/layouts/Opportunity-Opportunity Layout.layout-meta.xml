@@ -125,9 +125,6 @@
         <editHeading>false</editHeading>
         <label>Custom Links</label>
         <layoutColumns>
-            <layoutItems>
-                <customLink>DeliveryStatus</customLink>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <layoutColumns/>

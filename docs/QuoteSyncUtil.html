@@ -84,7 +84,7 @@
                 rel="noopener noreferrer"
                 title="Go to source"
                 class="source-link"
-                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L12">
+                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L13">
                 QuoteSyncUtil
               </a>
             </h2>
@@ -112,6 +112,7 @@
               <div class="class-subtitle">Since</div>
               <div class="class-subtitle-description">
                 <li>2022-10 Converted to Custom Metadata</li>
+                <li>2022-10 Change else if to switch</li>
                 <li>2023 Refine Quote Sync with new Quote fields</li>
               </div>
             </div>
@@ -131,7 +132,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L275">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L274">
                       gd
                     </a>
                   </td>
@@ -148,7 +149,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L16">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L17">
                       newQuoteIds
                     </a>
                   </td>
@@ -165,7 +166,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L296">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L295">
                       OPP_FIELDS
                     </a>
                   </td>
@@ -182,7 +183,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L300">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L299">
                       OPP_LINE_FIELDS
                     </a>
                   </td>
@@ -233,7 +234,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L288">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L287">
                       QUOTE_FIELDS
                     </a>
                   </td>
@@ -250,7 +251,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L292">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L291">
                       QUOTE_LINE_FIELDS
                     </a>
                   </td>
@@ -267,7 +268,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L64">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L65">
                       quoteFieldMap
                     </a>
                   </td>
@@ -286,7 +287,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L87">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L88">
                       quoteLineFieldMap
                     </a>
                   </td>
@@ -332,6 +333,74 @@
 
                   <td class="attribute-description">Custom, non-synced fields</td>
                 </tr>
+                <tr class="property">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L35">
+                      standardOppFields
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Set&lt;String&gt; standardOppFields</div>
+                  </td>
+
+                  <td class="attribute-description"></td>
+                </tr>
+                <tr class="property">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L53">
+                      standardOppLineItemFields
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Set&lt;String&gt; standardOppLineItemFields</div>
+                  </td>
+
+                  <td class="attribute-description"></td>
+                </tr>
+                <tr class="property">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L28">
+                      standardQuoteFields
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Set&lt;String&gt; standardQuoteFields</div>
+                  </td>
+
+                  <td class="attribute-description"></td>
+                </tr>
+                <tr class="property">
+                  <td class="attribute-name">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L42">
+                      standardQuoteLineItemFields
+                    </a>
+                  </td>
+                  <td>
+                    <div class="attribute-signature">public static Set&lt;String&gt; standardQuoteLineItemFields</div>
+                  </td>
+
+                  <td class="attribute-description"></td>
+                </tr>
               </table>
             </div>
             <div class="subsection methods">
@@ -375,11 +444,6 @@
                     <div class="methods-toc__description">
                       Given an object and field, return the <code class="code-inline">Schema.DescribeFieldResult</code>
                     </div>
-                  </li>
-                  <li class="method public">
-                    <a class="methods-toc__entry" href="#QuoteSyncUtil.getNewQuoteIds"> getNewQuoteIds () </a>
-
-                    <div class="methods-toc__description">Getter for <code class="code-inline">newQuoteIds</code> variable</div>
                   </li>
                   <li class="method public">
                     <a class="methods-toc__entry" href="#QuoteSyncUtil.getOppFields"> getOppFields () </a>
@@ -467,7 +531,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L122">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L114">
                       addNewQuoteId(qid)
                     </a>
                   </h4>
@@ -487,7 +551,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L247">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L245">
                       addQuoteField(quoteField, oppField)
                     </a>
                   </h4>
@@ -510,7 +574,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L257">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L255">
                       addQuoteLineField(qliField, oliField)
                     </a>
                   </h4>
@@ -533,7 +597,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L453">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L455">
                       createValue(sobj, entity, field, result, setNullOrFalse)
                     </a>
                   </h4>
@@ -567,6 +631,10 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">Object</code>
                   </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Use switch statement</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getCustomRequiredFields">
@@ -575,7 +643,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L356">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L357">
                       getCustomRequiredFields(entity)
                     </a>
                   </h4>
@@ -596,6 +664,10 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">Map&lt;String, Schema.DescribeFieldResult&gt;</code> For the given object, a list of field describe
                     results (minus our synced non-Boolean fields)
+                  </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Use switch statement</li>
                   </div>
                 </div>
                 <div class="method public">
@@ -624,24 +696,10 @@
                   <div class="param-description">Field name</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">Schema.DescribeFieldResult</code> for that field</div>
-                </div>
-                <div class="method public">
-                  <h4 class="method-title" id="QuoteSyncUtil.getNewQuoteIds">
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Go to source"
-                      class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L113">
-                      getNewQuoteIds()
-                    </a>
-                  </h4>
-                  <div class="method-description">Getter for <code class="code-inline">newQuoteIds</code> variable</div>
-                  <div class="method-subtitle">Signature</div>
-
-                  <div class="method-signature">public static Set&lt;Id&gt; getNewQuoteIds()</div>
-                  <div class="method-subtitle">Returns</div>
-                  <div class="method-subtitle-description"><code class="code-inline">Set&lt;Id&gt;</code> newQuoteIds</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2022 Use switch statement</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppFields">
@@ -650,7 +708,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L177">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L171">
                       getOppFields()
                     </a>
                   </h4>
@@ -660,6 +718,10 @@
                   <div class="method-signature">public static Set&lt;String&gt; getOppFields()</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">Set&lt;String&gt;</code> all Opp fields in CMT records</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Return a Set for uniqueness instead of a List</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppFieldsString">
@@ -668,7 +730,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L216">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L212">
                       getOppFieldsString()
                     </a>
                   </h4>
@@ -680,6 +742,10 @@
                   <div class="method-signature">public static String getOppFieldsString()</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">String</code> Opportunity fields separated by commas</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Use String.join instead of a loop and concatenating with a comma</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppLineFields">
@@ -688,7 +754,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L168">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L161">
                       getOppLineFields()
                     </a>
                   </h4>
@@ -700,6 +766,10 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">Set&lt;String&gt;</code> all <code class="code-inline">OpportunityLineItem</code> fields in CMT records
                   </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Return a Set for uniqueness instead of a List</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getOppLineFieldsString">
@@ -708,7 +778,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L236">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L234">
                       getOppLineFieldsString()
                     </a>
                   </h4>
@@ -720,6 +790,10 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">String</code> Comma-separated list of OpportunityLineItem fields
                   </div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Use String.join instead of a loop and concatenating with a comma</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteFieldMapTo">
@@ -728,7 +802,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L187">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L181">
                       getQuoteFieldMapTo(quoteField)
                     </a>
                   </h4>
@@ -754,7 +828,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L159">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L151">
                       getQuoteFields()
                     </a>
                   </h4>
@@ -774,7 +848,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L206">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L201">
                       getQuoteFieldsString()
                     </a>
                   </h4>
@@ -784,6 +858,10 @@
                   <div class="method-signature">public static String getQuoteFieldsString()</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">String</code> Quote fields separated by commas</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Use String.join instead of a loop and concatenating with a comma</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.getQuoteLineFieldMapTo">
@@ -792,7 +870,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L197">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L191">
                       getQuoteLineFieldMapTo(quoteLineField)
                     </a>
                   </h4>
@@ -816,7 +894,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L150">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L142">
                       getQuoteLineFields()
                     </a>
                   </h4>
@@ -836,7 +914,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L226">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L223">
                       getQuoteLineFieldsString()
                     </a>
                   </h4>
@@ -846,6 +924,10 @@
                   <div class="method-signature">public static String getQuoteLineFieldsString()</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">String</code> Comma-separated list of QuoteLineItem fields</div>
+                  <div class="method-subtitle">Since</div>
+                  <div class="method-subtitle-description">
+                    <li>2023 Use String.join instead of a loop and concatenating with a comma</li>
+                  </div>
                 </div>
                 <div class="method public">
                   <h4 class="method-title" id="QuoteSyncUtil.isNewQuote">
@@ -854,7 +936,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L141">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L133">
                       isNewQuote(qid)
                     </a>
                   </h4>
@@ -876,7 +958,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L410">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L411">
                       populateRequiredFields(sobj)
                     </a>
                   </h4>
@@ -896,7 +978,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L131">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L123">
                       removeAllNewQuoteIds(ids)
                     </a>
                   </h4>
@@ -916,7 +998,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L268">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncUtil.cls#L266">
                       removeQuoteLineField(qliField)
                     </a>
                   </h4>
