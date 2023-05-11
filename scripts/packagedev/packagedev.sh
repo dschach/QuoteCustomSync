@@ -11,7 +11,8 @@ sf org create scratch --definition-file config/project-scratch-def.json --alias 
 
 # For use with non-namespaced scratch org in package development process
 echo "Pushing managed metadata"
-sf deploy metadata  --source-dir force-app
+sf project deploy start --source-dir force-app
+sf project deploy start --source-dir unpackaged
 
 #echo "Assigning permission set"
 #sf org assign permset --name QuoteSyncTester
