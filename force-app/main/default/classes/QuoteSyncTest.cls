@@ -114,27 +114,27 @@ private without sharing class QuoteSyncTest {
 				Integer n = 0;
 				for (OpportunityLineItem oli : olis) {
 					n++;
-					//prettier-ignore
-					String oliValues = '#################   OppLine ' + n +': ' + oli.PricebookEntryId + ', ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate;
-					for (String oliField : QuoteSyncUtil.getOppLineFields()) {
-						oliValues += ', ' + oli.get(oliField);
-					}
-
-					System.debug(oliValues);
-					errorMsg += oliValues + '\n';
+					String oliString = printSObject(
+						oli,
+						'#################   OppLine ' + n + ': Id=' + oli.Id,
+						QuoteSyncUtil.standardOppLineItemFields,
+						QuoteSyncUtil.getOppLineFields(),
+						false
+					);
+					errorMsg += oliString + '\n';
 				}
 
 				n = 0;
 				for (QuoteLineItem qli : qlis) {
 					n++;
-					//prettier-ignore
-					String qliValues ='#################   QuoteLine ' + n + ': ' + qli.PricebookEntryId + ', ' + qli.UnitPrice + ', ' +qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate;
-					for (String qliField : QuoteSyncUtil.getQuoteLineFields()) {
-						qliValues += ', ' + qli.get(qliField);
-					}
-
-					System.debug(qliValues);
-					errorMsg += qliValues + '\n';
+					String qliString = printSObject(
+						qli,
+						'#################   QuoteLine ' + n + ': Id=' + qli.Id,
+						QuoteSyncUtil.standardQuoteLineItemFields,
+						QuoteSyncUtil.getQuoteLineFields(),
+						false
+					);
+					errorMsg += qliString + '\n';
 				}
 			}
 			//prettier-ignore
@@ -229,10 +229,6 @@ private without sharing class QuoteSyncTest {
 						Object qliValue = qli.get(qliField);
 						Object expectedValue = qline.get(qliField);
 
-						//System.debug('>>>Field: ' + qliField);
-						//System.debug('expected: ' + expectedValue);
-						//System.debug('oliValue: ' + qliValue);
-
 						System.assertEquals(expectedValue, qliValue, 'QuoteLineItem.' + qliField + ' value does not match');
 					}
 					break;
@@ -258,10 +254,6 @@ private without sharing class QuoteSyncTest {
 						Object oliValue = oli.get(oliField);
 						Object expectedValue = oppline.get(oliField);
 
-						//System.debug('>>>Field: ' + oliField);
-						//System.debug('expected: ' + expectedValue);
-						//System.debug('oliValue: ' + oliValue);
-
 						System.assertEquals(expectedValue, oliValue, 'OpportunityLineItem.' + oliField + ' value does not match');
 					}
 					break;
@@ -283,13 +275,8 @@ private without sharing class QuoteSyncTest {
 		String oppQuery = 'SELECT Id, SyncedQuoteId' + oppFields + ' FROM Opportunity WHERE Id = \'' + oppId + '\'';
 
 		Opportunity opp = ((List<Opportunity>) Database.query(oppQuery))[0];
-		String oppValues = 'OpportunityId: ' + opp.Id;
 
-		for (String oppField : QuoteSyncUtil.getOppFields()) {
-			oppValues = ', ' + opp.get(oppField);
-		}
-
-		System.debug(oppValues);
+		printSObject(opp, 'Opportunity: ' + opp.Id, QuoteSyncUtil.standardOppFields, QuoteSyncUtil.getOppFields(), true);
 	}
 
 	/**
@@ -304,13 +291,8 @@ private without sharing class QuoteSyncTest {
 		String quoteQuery = 'SELECT Id, OpportunityId' + quoteFields + ' FROM Quote WHERE Id = \'' + quoteId + '\'';
 
 		Quote quote = ((List<Quote>) Database.query(quoteQuery))[0];
-		String quoteValues = 'QuoteId: ' + quote.Id;
 
-		for (String quoteField : QuoteSyncUtil.getQuoteFields()) {
-			quoteValues = ', ' + quote.get(quoteField);
-		}
-
-		System.debug(quoteValues);
+		printSObject(quote, 'QuoteId: ' + quote.Id, QuoteSyncUtil.standardQuoteFields, QuoteSyncUtil.getQuoteFields(), true);
 	}
 
 	/**
@@ -331,13 +313,14 @@ private without sharing class QuoteSyncTest {
 		Integer n = 0;
 		for (OpportunityLineItem oli : olis) {
 			n++;
-			//prettier-ignore
-			String oliValues ='*******************   OppLine ' + n + ': ' + oli.PricebookEntryId + ', ' + oli.UnitPrice + ', ' + oli.Quantity + ', ' + oli.Discount + ', ' + oli.ServiceDate;
-			for (String oliField : QuoteSyncUtil.getOppLineFields()) {
-				oliValues += ', ' + oli.get(oliField);
-			}
 
-			System.debug(oliValues);
+			printSObject(
+				oli,
+				'*******************   OppLine ' + n + ': ' + 'Id=' + oli.Id,
+				QuoteSyncUtil.standardOppLineItemFields,
+				QuoteSyncUtil.getOppLineFields(),
+				true
+			);
 		}
 	}
 
@@ -359,14 +342,39 @@ private without sharing class QuoteSyncTest {
 		Integer n = 0;
 		for (QuoteLineItem qli : qlis) {
 			n++;
-			//prettier-ignore
-			String qliValues ='*******************   QuoteLine ' + n + ': ' + qli.PricebookEntryId + ', ' + qli.UnitPrice + ', ' + qli.Quantity + ', ' + qli.Discount + ', ' + qli.ServiceDate;
-			for (String qliField : QuoteSyncUtil.getQuoteLineFields()) {
-				qliValues += ', ' + qli.get(qliField);
-			}
 
-			System.debug(qliValues);
+			printSObject(
+				qli,
+				'*******************   QuoteLine ' + n + ': ' + 'Id=' + qli.Id,
+				QuoteSyncUtil.standardQuoteLineItemFields,
+				QuoteSyncUtil.getQuoteLineFields(),
+				true
+			);
 		}
+	}
+
+	/**
+	 * @description          This method generates the debug string for use in testing. It uses a set of strings hard-coded as standard object fields and the synced fields specified in our metadata.
+	 *
+	 * @param so             SObject to print
+	 * @param leader         Leading part of describe string
+	 * @param standardFields Set of standard fields
+	 * @param customFields   All synced custom fields
+	 * @example
+	 * printSObject(oli, #################   OppLine ' + n +': Id=' + oli.Id, QuoteSyncUtil.standardOppLineItemFields, QuoteSyncUtil.getOppLineFields());
+	 */
+	private static String printSObject(SObject so, String leader, Set<String> standardFields, Set<String> customFields, Boolean doDebug) {
+		String soString = leader;
+		for (String s : standardFields) {
+			soString += ', ' + s + '=' + so.get(s);
+		}
+		for (String s : customFields) {
+			soString += ', ' + s + '=' + so.get(s);
+		}
+		if (doDebug) {
+			System.debug(soString);
+		}
+		return soString;
 	}
 
 	/**
