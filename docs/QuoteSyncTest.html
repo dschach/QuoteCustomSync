@@ -84,7 +84,7 @@
                 rel="noopener noreferrer"
                 title="Go to source"
                 class="source-link"
-                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L16">
+                href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L17">
                 QuoteSyncTest
               </a>
             </h2>
@@ -115,6 +115,7 @@
               <div class="class-subtitle-description">
                 <li>2022-10 Converted to Custom Metadata</li>
                 <li>2023-04 Lazy load and memoize Standard Pricebook Id</li>
+                <li>2023-05 Streamline testing by testing sync/no-sync only when necessary</li>
               </div>
             </div>
             <div class="subsection properties QuoteSyncTest">
@@ -133,7 +134,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L20">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L21">
                       standardPricebookId
                     </a>
                   </td>
@@ -232,6 +233,8 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.makeData"> makeData () </a>
+
+                    <div class="methods-toc__description">Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.populateField"> populateField (sobj, entity, field) </a>
@@ -267,6 +270,16 @@
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printQuoteLines"> printQuoteLines (quoteId) </a>
 
                     <div class="methods-toc__description">Debug method for use in checking unit tests.</div>
+                  </li>
+                  <li class="method private">
+                    <a class="methods-toc__entry" href="#QuoteSyncTest.printSObject">
+                      printSObject (so, leader, standardFields, customFields, doDebug)
+                    </a>
+
+                    <div class="methods-toc__description">
+                      This method generates the debug string for use in testing. It uses a set of strings hard-coded as standard object fields and the
+                      synced fields specified in our metadata.
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.startSync"> startSync (oppId, quoteId) </a>
@@ -724,12 +737,22 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOpp"> updateOpp (oppId) </a>
+
+                    <div class="methods-toc__description">
+                      Re-fill <code class="code-inline">Opportunity</code> fields and update Opportunity. Do not set fields to false.
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOpp_1"> updateOpp (oppId, updateNullOrFalse) </a>
+
+                    <div class="methods-toc__description">Re-fill <code class="code-inline">Opportunity</code> fields and update Opportunity</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLines"> updateOppLines (oppId) </a>
+
+                    <div class="methods-toc__description">
+                      Update standard and custom fields on <code class="code-inline">OpportunityLineItem</code> records
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLines_1"> updateOppLines (oppId, stdSyncField, customSyncField) </a>
@@ -755,6 +778,8 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesNoSync"> updateOppLinesNoSync (oppId, field) </a>
+
+                    <div class="methods-toc__description">Update a specific field on Opportunity Product records for a specific Opportunity</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesStdSyncFields"> updateOppLinesStdSyncFields (oppId) </a>
@@ -765,16 +790,18 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppNoSync"> updateOppNoSync (oppId) </a>
+
+                    <div class="methods-toc__description">Change the Opportunity CloseDate to today and update.</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuote"> updateQuote (quoteId) </a>
 
-                    <div class="methods-toc__description">Re-fill <code class="code-inline">Quote</code> fields and updateOpp(oppId)</div>
+                    <div class="methods-toc__description">Re-fill <code class="code-inline">Quote</code> fields and update Quote</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuote_1"> updateQuote (quoteId, updateNullOrFalse) </a>
 
-                    <div class="methods-toc__description">Re-fill Quote fields and updateOpp(oppId)</div>
+                    <div class="methods-toc__description">Re-fill <code class="code-inline">Quote</code> fields and update Quote</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLines"> updateQuoteLines (quoteId) </a>
@@ -810,6 +837,8 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesNoSync"> updateQuoteLinesNoSync (quoteId, field) </a>
+
+                    <div class="methods-toc__description">Update a specific on Quote Line Item records for a specific Quote</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesStdSyncFields"> updateQuoteLinesStdSyncFields (quoteId) </a>
@@ -820,6 +849,8 @@
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteNoSync"> updateQuoteNoSync (quoteId) </a>
+
+                    <div class="methods-toc__description">Change the Quote Expiration date to today and update.</div>
                   </li>
                 </ul>
                 <div class="method private">
@@ -829,7 +860,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L203">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L207">
                       assertOppFields(oppId, expectedOpp)
                     </a>
                   </h4>
@@ -859,7 +890,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L189">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L193">
                       assertQuoteFields(quoteId, expectedQuote)
                     </a>
                   </h4>
@@ -874,7 +905,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L217">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L221">
                       assertQuoteLineFields(quoteId, quoteLines)
                     </a>
                   </h4>
@@ -889,7 +920,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L92">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L96">
                       assertQuoteLineNotSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -904,7 +935,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L96">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L100">
                       assertQuoteLineNotSync(oppId, quoteId, isCreate)
                     </a>
                   </h4>
@@ -919,7 +950,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L88">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L92">
                       assertQuoteLineSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -934,7 +965,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L100">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L104">
                       assertQuoteLineSync(oppId, quoteId, sync, isCreate)
                     </a>
                   </h4>
@@ -949,7 +980,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L53">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L57">
                       assertQuoteNotSync(oppId, quoteId, isCreate)
                     </a>
                   </h4>
@@ -964,7 +995,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L57">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L61">
                       assertQuoteNotSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -979,7 +1010,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L49">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L53">
                       assertQuoteSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -994,7 +1025,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L61">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L65">
                       assertQuoteSync(oppId, quoteId, sync, isCreate)
                     </a>
                   </h4>
@@ -1009,7 +1040,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L411">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L424">
                       createOpp()
                     </a>
                   </h4>
@@ -1024,7 +1055,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L415">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L428">
                       createOpp(setNullOrFalse)
                     </a>
                   </h4>
@@ -1039,7 +1070,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L437">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L450">
                       createOppLines(opp, num)
                     </a>
                   </h4>
@@ -1054,7 +1085,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L441">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L454">
                       createOppLines(opp, num, unique, setNullOrFalse)
                     </a>
                   </h4>
@@ -1072,7 +1103,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L479">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L492">
                       createOppLinesNoSync(opp, num)
                     </a>
                   </h4>
@@ -1089,7 +1120,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L505">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L518">
                       createQuote(opp)
                     </a>
                   </h4>
@@ -1111,7 +1142,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L516">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L529">
                       createQuote(opp, setNullOrFalse)
                     </a>
                   </h4>
@@ -1136,7 +1167,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L531">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L544">
                       createQuoteLines(quote, num)
                     </a>
                   </h4>
@@ -1151,7 +1182,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L535">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L548">
                       createQuoteLines(quote, num, unique, setNullOrFalse)
                     </a>
                   </h4>
@@ -1168,7 +1199,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L576">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L589">
                       createQuoteLinesNoSync(quote, num)
                     </a>
                   </h4>
@@ -1183,7 +1214,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L27">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L28">
                       getStandardPricebookId()
                     </a>
                   </h4>
@@ -1203,10 +1234,11 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L35">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L39">
                       makeData()
                     </a>
                   </h4>
+                  <div class="method-description">Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)</div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@TestSetup</div>
                   <div class="method-signature">private static void makeData()</div>
@@ -1218,7 +1250,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L379">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L392">
                       populateField(sobj, entity, field)
                     </a>
                   </h4>
@@ -1244,7 +1276,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L392">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L405">
                       populateFields(sobj, entity, fields)
                     </a>
                   </h4>
@@ -1270,7 +1302,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L404">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L417">
                       populateFields(sobj, entity, fields, setNullOrFalse)
                     </a>
                   </h4>
@@ -1301,7 +1333,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L281">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L277">
                       printOpp(oppId)
                     </a>
                   </h4>
@@ -1323,7 +1355,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L323">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L309">
                       printOppLines(oppId)
                     </a>
                   </h4>
@@ -1345,7 +1377,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L302">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L293">
                       printQuote(quoteId)
                     </a>
                   </h4>
@@ -1367,7 +1399,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L351">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L338">
                       printQuoteLines(quoteId)
                     </a>
                   </h4>
@@ -1383,13 +1415,54 @@
                   <pre class="code-example"><code> printQuoteLines(quote.Id)</code></pre>
                 </div>
                 <div class="method private">
+                  <h4 class="method-title" id="QuoteSyncTest.printSObject">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Go to source"
+                      class="source-link"
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L371">
+                      printSObject(so, leader, standardFields, customFields, doDebug)
+                    </a>
+                  </h4>
+                  <div class="method-description">
+                    This method generates the debug string for use in testing. It uses a set of strings hard-coded as standard object fields and the
+                    synced fields specified in our metadata.
+                  </div>
+                  <div class="method-subtitle">Signature</div>
+
+                  <div class="method-signature">
+                    private static String printSObject(SObject so, String leader, Set&lt;String&gt; standardFields, Set&lt;String&gt; customFields,
+                    Boolean doDebug)
+                  </div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">so</div>
+                  <div class="param-type">Type: <code class="code-inline">SObject</code></div>
+                  <div class="param-description">SObject to print</div>
+                  <div class="param-name">leader</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Leading part of describe string</div>
+                  <div class="param-name">standardFields</div>
+                  <div class="param-type">Type: <code class="code-inline">Set&lt;String&gt;</code></div>
+                  <div class="param-description">Set of standard fields</div>
+                  <div class="param-name">customFields</div>
+                  <div class="param-type">Type: <code class="code-inline">Set&lt;String&gt;</code></div>
+                  <div class="param-description">All synced custom fields</div>
+                  <div class="param-name">doDebug</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Send output to System.debug</div>
+                  <div class="method-subtitle">Example</div>
+                  <pre
+                    class="code-example"><code> printSObject(oli, #################   OppLine &#39; + n +&#39;: Id=&#39; + oli.Id, QuoteSyncUtil.standardOppLineItemFields, QuoteSyncUtil.getOppLineFields(), true);</code></pre>
+                </div>
+                <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.startSync">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L846">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L910">
                       startSync(oppId, quoteId)
                     </a>
                   </h4>
@@ -1412,7 +1485,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L857">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L921">
                       stopSync(oppId)
                     </a>
                   </h4>
@@ -1432,7 +1505,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2034">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2098">
                       testCreateDuplicateOppLine()
                     </a>
                   </h4>
@@ -1451,7 +1524,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2056">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2120">
                       testCreateDuplicateQuoteLine()
                     </a>
                   </h4>
@@ -1469,7 +1542,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L867">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L931">
                       testCreateQuote()
                     </a>
                   </h4>
@@ -1488,7 +1561,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L878">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L942">
                       testCreateQuoteWithQuoteLine()
                     </a>
                   </h4>
@@ -1507,7 +1580,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1828">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1892">
                       testInsertOppLineNoSync()
                     </a>
                   </h4>
@@ -1526,7 +1599,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1997">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2061">
                       testInsertOppLineNotSync()
                     </a>
                   </h4>
@@ -1544,7 +1617,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1603">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1667">
                       testInsertOppLineSync()
                     </a>
                   </h4>
@@ -1563,7 +1636,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1888">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1952">
                       testInsertQuoteLineNoSync()
                     </a>
                   </h4>
@@ -1582,7 +1655,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2017">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2081">
                       testInsertQuoteLineNotSync()
                     </a>
                   </h4>
@@ -1601,7 +1674,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1763">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1827">
                       testInsertQuoteLineSync()
                     </a>
                   </h4>
@@ -1620,7 +1693,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1003">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1067">
                       testStartSyncInsertOppLine()
                     </a>
                   </h4>
@@ -1640,7 +1713,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1022">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1086">
                       testStartSyncInsertOppLineSetNull()
                     </a>
                   </h4>
@@ -1660,7 +1733,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1085">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1149">
                       testStartSyncMatchOppLine1()
                     </a>
                   </h4>
@@ -1680,7 +1753,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1126">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1190">
                       testStartSyncMatchOppLine1a()
                     </a>
                   </h4>
@@ -1700,7 +1773,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1165">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1229">
                       testStartSyncMatchOppLine2()
                     </a>
                   </h4>
@@ -1720,7 +1793,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1190">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1254">
                       testStartSyncMatchOppLine2a()
                     </a>
                   </h4>
@@ -1740,7 +1813,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1215">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1279">
                       testStartSyncMatchOppLine3()
                     </a>
                   </h4>
@@ -1760,7 +1833,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1240">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1304">
                       testStartSyncMatchOppLine3a()
                     </a>
                   </h4>
@@ -1780,7 +1853,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1280">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1344">
                       testStartSyncMatchOppLine4()
                     </a>
                   </h4>
@@ -1800,7 +1873,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1309">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1373">
                       testStartSyncMatchOppLine4a()
                     </a>
                   </h4>
@@ -1820,7 +1893,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1333">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1397">
                       testStartSyncMatchOppLine5()
                     </a>
                   </h4>
@@ -1840,7 +1913,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1357">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1421">
                       testStartSyncMatchOppLine6()
                     </a>
                   </h4>
@@ -1860,7 +1933,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1381">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1445">
                       testStartSyncMatchOppLine7()
                     </a>
                   </h4>
@@ -1880,7 +1953,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1410">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1474">
                       testStartSyncMatchOppLine7a()
                     </a>
                   </h4>
@@ -1900,7 +1973,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L974">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1038">
                       testStartSyncOtherQuote()
                     </a>
                   </h4>
@@ -1919,7 +1992,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L897">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L961">
                       testStartSyncQuote()
                     </a>
                   </h4>
@@ -1937,7 +2010,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L915">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L979">
                       testStartSyncQuoteSetNull()
                     </a>
                   </h4>
@@ -1955,7 +2028,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1041">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1105">
                       testStartSyncUpdateOppLine()
                     </a>
                   </h4>
@@ -1975,7 +2048,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1063">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1127">
                       testStartSyncUpdateOppLineSetNull()
                     </a>
                   </h4>
@@ -1995,7 +2068,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L930">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L994">
                       testStartSyncWithQuoteLine()
                     </a>
                   </h4>
@@ -2014,7 +2087,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L953">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1017">
                       testStartSyncWithQuoteLineSetNull()
                     </a>
                   </h4>
@@ -2033,7 +2106,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1432">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1496">
                       testStopSync()
                     </a>
                   </h4>
@@ -2052,7 +2125,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2079">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2143">
                       testUpdateDuplicateOppLine()
                     </a>
                   </h4>
@@ -2071,7 +2144,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2106">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2170">
                       testUpdateDuplicateQuoteLine()
                     </a>
                   </h4>
@@ -2089,7 +2162,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1804">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1868">
                       testUpdateOppLineNoSync()
                     </a>
                   </h4>
@@ -2108,7 +2181,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1943">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2007">
                       testUpdateOppLineNotSync()
                     </a>
                   </h4>
@@ -2126,7 +2199,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1523">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1587">
                       testUpdateOppLineSync1()
                     </a>
                   </h4>
@@ -2145,7 +2218,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1549">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1613">
                       testUpdateOppLineSync2()
                     </a>
                   </h4>
@@ -2164,7 +2237,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1576">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1640">
                       testUpdateOppLineSync3()
                     </a>
                   </h4>
@@ -2183,7 +2256,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1499">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1563">
                       testUpdateOppLineSyncSetNull()
                     </a>
                   </h4>
@@ -2202,7 +2275,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1787">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1851">
                       testUpdateOppNoSync()
                     </a>
                   </h4>
@@ -2220,7 +2293,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1909">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1973">
                       testUpdateOppNotSync()
                     </a>
                   </h4>
@@ -2238,7 +2311,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1461">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1525">
                       testUpdateOppSync()
                     </a>
                   </h4>
@@ -2257,7 +2330,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1480">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1544">
                       testUpdateOppSyncSetNull()
                     </a>
                   </h4>
@@ -2276,7 +2349,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1864">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1928">
                       testUpdateQuoteLineNoSync()
                     </a>
                   </h4>
@@ -2295,7 +2368,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1970">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L2034">
                       testUpdateQuoteLineNotSync()
                     </a>
                   </h4>
@@ -2314,7 +2387,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1661">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1725">
                       testUpdateQuoteLineSync1()
                     </a>
                   </h4>
@@ -2333,7 +2406,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1686">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1750">
                       testUpdateQuoteLineSync2()
                     </a>
                   </h4>
@@ -2352,7 +2425,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1711">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1775">
                       testUpdateQuoteLineSync3()
                     </a>
                   </h4>
@@ -2371,7 +2444,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1736">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1800">
                       testUpdateQuoteLineSyncSetNull()
                     </a>
                   </h4>
@@ -2390,7 +2463,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1847">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1911">
                       testUpdateQuoteNoSync()
                     </a>
                   </h4>
@@ -2409,7 +2482,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1926">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1990">
                       testUpdateQuoteNotSync()
                     </a>
                   </h4>
@@ -2427,7 +2500,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1627">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1691">
                       testUpdateQuoteSync()
                     </a>
                   </h4>
@@ -2446,7 +2519,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1644">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L1708">
                       testUpdateQuoteSyncSetNull()
                     </a>
                   </h4>
@@ -2465,13 +2538,26 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L597">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L617">
                       updateOpp(oppId)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Re-fill <code class="code-inline">Opportunity</code> fields and update Opportunity. Do not set fields to false.
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Opportunity updateOpp(Id oppId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Opportunity</code> The updated Opportunity</div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateOpp_1')">QuoteSyncTest.updateOpp</a>
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOpp_1">
@@ -2480,13 +2566,23 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L601">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L628">
                       updateOpp(oppId, updateNullOrFalse)
                     </a>
                   </h4>
+                  <div class="method-description">Re-fill <code class="code-inline">Opportunity</code> fields and update Opportunity</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Opportunity updateOpp(Id oppId, Boolean updateNullOrFalse)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="param-name">updateNullOrFalse</div>
+                  <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Put null in custom fields if true. Put values if false.</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Opportunity</code> The updated Opportunity</div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLines">
@@ -2495,13 +2591,30 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L644">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L675">
                       updateOppLines(oppId)
                     </a>
                   </h4>
+                  <div class="method-description">
+                    Update standard and custom fields on <code class="code-inline">OpportunityLineItem</code> records
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;OpportunityLineItem&gt; updateOppLines(Id oppId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateOppLines_2')"
+                      >QuoteSyncTest.updateOppLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLines_1">
@@ -2510,7 +2623,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L676">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L710">
                       updateOppLines(oppId, stdSyncField, customSyncField)
                     </a>
                   </h4>
@@ -2537,6 +2650,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateOppLines_2')"
+                      >QuoteSyncTest.updateOppLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLines_2">
@@ -2545,7 +2664,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L689">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L723">
                       updateOppLines(oppId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
                   </h4>
@@ -2581,7 +2700,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L664">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L697">
                       updateOppLinesCustomSyncFields(oppId)
                     </a>
                   </h4>
@@ -2597,6 +2716,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateOppLines_2')"
+                      >QuoteSyncTest.updateOppLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLinesNoSync">
@@ -2605,13 +2730,25 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L801">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L858">
                       updateOppLinesNoSync(oppId, field)
                     </a>
                   </h4>
+                  <div class="method-description">Update a specific field on Opportunity Product records for a specific Opportunity</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;OpportunityLineItem&gt; updateOppLinesNoSync(Id oppId, String field)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportuniyt Id</div>
+                  <div class="param-name">field</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">The field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppLinesStdSyncFields">
@@ -2620,7 +2757,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L654">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L686">
                       updateOppLinesStdSyncFields(oppId)
                     </a>
                   </h4>
@@ -2636,6 +2773,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;OpportunityLineItem&gt;</code> Updated Opportunity Product records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateOppLines_2')"
+                      >QuoteSyncTest.updateOppLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateOppNoSync">
@@ -2644,13 +2787,20 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L781">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L825">
                       updateOppNoSync(oppId)
                     </a>
                   </h4>
+                  <div class="method-description">Change the Opportunity CloseDate to today and update.</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Opportunity updateOppNoSync(Id oppId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">oppId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Opportunity Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Opportunity</code> Updated Opportunity</div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuote">
@@ -2659,11 +2809,11 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L620">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L646">
                       updateQuote(quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Re-fill <code class="code-inline">Quote</code> fields and updateOpp(oppId)</div>
+                  <div class="method-description">Re-fill <code class="code-inline">Quote</code> fields and update Quote</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote updateQuote(Id quoteId)</div>
@@ -2675,8 +2825,9 @@
                   <div class="method-subtitle-description"><code class="code-inline">Quote</code> The updated Quote</div>
                   <div class="method-subtitle">See</div>
                   <div class="method-subtitle-description">
-                    <span title="A valid link could not be created with this identifier.">updateQuote</span>,
-                    <span title="A valid link could not be created with this identifier.">updateOpp</span>
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateQuote_1')"
+                      >QuoteSyncTest.updateQuote</a
+                    >
                   </div>
                 </div>
                 <div class="method private">
@@ -2686,11 +2837,11 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L633">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L657">
                       updateQuote(quoteId, updateNullOrFalse)
                     </a>
                   </h4>
-                  <div class="method-description">Re-fill Quote fields and updateOpp(oppId)</div>
+                  <div class="method-description">Re-fill <code class="code-inline">Quote</code> fields and update Quote</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote updateQuote(Id quoteId, Boolean updateNullOrFalse)</div>
@@ -2700,13 +2851,9 @@
                   <div class="param-description">Quote Id</div>
                   <div class="param-name">updateNullOrFalse</div>
                   <div class="param-type">Type: <code class="code-inline">Boolean</code></div>
+                  <div class="param-description">Put null in custom fields if true. Put values if false.</div>
                   <div class="method-subtitle">Returns</div>
                   <div class="method-subtitle-description"><code class="code-inline">Quote</code> The updated Quote</div>
-                  <div class="method-subtitle">See</div>
-                  <div class="method-subtitle-description">
-                    <span title="A valid link could not be created with this identifier.">updateQuote</span>,
-                    <span title="A valid link could not be created with this identifier.">updateOpp</span>
-                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLines">
@@ -2715,7 +2862,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L717">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L752">
                       updateQuoteLines(quoteId)
                     </a>
                   </h4>
@@ -2733,6 +2880,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Opportunity Product records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateQuoteLines_2')"
+                      >QuoteSyncTest.updateQuoteLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLines_1">
@@ -2741,7 +2894,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L746">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L784">
                       updateQuoteLines(quoteId, stdSyncField, customSyncField)
                     </a>
                   </h4>
@@ -2767,6 +2920,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateQuoteLines_2')"
+                      >QuoteSyncTest.updateQuoteLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLines_2">
@@ -2775,7 +2934,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L759">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L797">
                       updateQuoteLines(quoteId, stdSyncField, customSyncField, updateNullOrFalse)
                     </a>
                   </h4>
@@ -2811,7 +2970,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L735">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L772">
                       updateQuoteLinesCustomSyncFields(quoteId)
                     </a>
                   </h4>
@@ -2829,6 +2988,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateQuoteLines_2')"
+                      >QuoteSyncTest.updateQuoteLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLinesNoSync">
@@ -2837,13 +3002,25 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L820">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L884">
                       updateQuoteLinesNoSync(quoteId, field)
                     </a>
                   </h4>
+                  <div class="method-description">Update a specific on Quote Line Item records for a specific Quote</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;QuoteLineItem&gt; updateQuoteLinesNoSync(Id quoteId, String field)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="param-name">field</div>
+                  <div class="param-type">Type: <code class="code-inline">String</code></div>
+                  <div class="param-description">Field name</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description">
+                    <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Quote Line Item records
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteLinesStdSyncFields">
@@ -2852,7 +3029,7 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L726">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L762">
                       updateQuoteLinesStdSyncFields(quoteId)
                     </a>
                   </h4>
@@ -2870,6 +3047,12 @@
                   <div class="method-subtitle-description">
                     <code class="code-inline">List&lt;QuoteLineItem&gt;</code> Updated Opportunity Product records
                   </div>
+                  <div class="method-subtitle">See</div>
+                  <div class="method-subtitle-description">
+                    <a href="javascript:void(0)" onclick="goToLocation('QuoteSyncTest.html#QuoteSyncTest.updateQuoteLines_2')"
+                      >QuoteSyncTest.updateQuoteLines</a
+                    >
+                  </div>
                 </div>
                 <div class="method private">
                   <h4 class="method-title" id="QuoteSyncTest.updateQuoteNoSync">
@@ -2878,13 +3061,20 @@
                       rel="noopener noreferrer"
                       title="Go to source"
                       class="source-link"
-                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L791">
+                      href="https://github.com/dschach/QuoteCustomSync/blob/main/force-app/main/default/classes/QuoteSyncTest.cls#L841">
                       updateQuoteNoSync(quoteId)
                     </a>
                   </h4>
+                  <div class="method-description">Change the Quote Expiration date to today and update.</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote updateQuoteNoSync(Id quoteId)</div>
+                  <div class="method-subtitle">Parameters</div>
+                  <div class="param-name">quoteId</div>
+                  <div class="param-type">Type: <code class="code-inline">Id</code></div>
+                  <div class="param-description">Quote Id</div>
+                  <div class="method-subtitle">Returns</div>
+                  <div class="method-subtitle-description"><code class="code-inline">Quote</code> Updated Quote</div>
                 </div>
               </div>
             </div>

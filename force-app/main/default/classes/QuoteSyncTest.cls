@@ -6,6 +6,7 @@
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-10 Converted to Custom Metadata
  * @since 2023-04 Lazy load and memoize Standard Pricebook Id
+ * @since 2023-05 Streamline testing by testing sync/no-sync only when necessary
  * @see [QuoteSync](https://github.com/SalesforceLabs/CustomQuoteSync)
  * @see QuoteSyncUtil
  * @see QuoteSyncHandler
@@ -31,6 +32,9 @@ private without sharing class QuoteSyncTest {
 		return standardPricebookId;
 	}
 
+	/**
+	 * @description Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)
+	 */
 	@TestSetup
 	private static void makeData() {
 		Product2 prod = new Product2(Name = 'test product', IsActive = true);
@@ -334,7 +338,7 @@ private without sharing class QuoteSyncTest {
 	private static void printQuoteLines(Id quoteId) {
 		String qliFields = QuoteSyncUtil.getQuoteLineFieldsString();
 		//prettier-ignore
-		String qliQuery = 'SELECT Id, QuoteId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + 
+		String qliQuery = 'SELECT Id, QuoteId, OpportunityLineItemId, PricebookEntryId, UnitPrice, Quantity, Discount, ServiceDate, SortOrder' + 
 		//prettier-ignore
 		qliFields + ' FROM QuoteLineItem WHERE QuoteId = \'' + quoteId + '\'';
 		List<QuoteLineItem> qlis = Database.query(qliQuery);
@@ -360,8 +364,9 @@ private without sharing class QuoteSyncTest {
 	 * @param leader         Leading part of describe string
 	 * @param standardFields Set of standard fields
 	 * @param customFields   All synced custom fields
+	 * @param doDebug        Send output to System.debug
 	 * @example
-	 * printSObject(oli, #################   OppLine ' + n +': Id=' + oli.Id, QuoteSyncUtil.standardOppLineItemFields, QuoteSyncUtil.getOppLineFields());
+	 * printSObject(oli, #################   OppLine ' + n +': Id=' + oli.Id, QuoteSyncUtil.standardOppLineItemFields, QuoteSyncUtil.getOppLineFields(), true);
 	 */
 	private static String printSObject(SObject so, String leader, Set<String> standardFields, Set<String> customFields, Boolean doDebug) {
 		String soString = leader;
@@ -602,10 +607,24 @@ private without sharing class QuoteSyncTest {
 		return qlis;
 	}
 
+	/**
+	 * @description             Re-fill `Opportunity` fields and update Opportunity. Do not set fields to false.
+	 *
+	 * @param oppId             Opportunity Id
+	 * @return                  `Opportunity` The updated Opportunity
+	 * @see QuoteSyncTest.updateOpp[1]
+	 */
 	private static Opportunity updateOpp(Id oppId) {
 		return updateOpp(oppId, false);
 	}
 
+	/**
+	 * @description             Re-fill `Opportunity` fields and update Opportunity
+	 *
+	 * @param oppId             Opportunity Id
+	 * @param updateNullOrFalse Put null in custom fields if true. Put values if false.
+	 * @return                  `Opportunity` The updated Opportunity
+	 */
 	private static Opportunity updateOpp(Id oppId, Boolean updateNullOrFalse) {
 		String oppFields = QuoteSyncUtil.getOppFieldsString();
 		String oppQuery = 'SELECT Id' + oppFields + ' FROM Opportunity WHERE Id = \'' + oppId + '\'';
@@ -618,25 +637,22 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description             Re-fill `Quote` fields and updateOpp(oppId)
+	 * @description             Re-fill `Quote` fields and update Quote
 	 *
 	 * @param quoteId           Quote Id
 	 * @return                  `Quote` The updated Quote
-	 * @see updateQuote[0]
-	 * @see updateOpp[0]
+	 * @see QuoteSyncTest.updateQuote[1]
 	 */
 	private static Quote updateQuote(Id quoteId) {
 		return updateQuote(quoteId, false);
 	}
 
 	/**
-	 * @description             Re-fill Quote fields and updateOpp(oppId)
+	 * @description             Re-fill `Quote` fields and update Quote
 	 *
 	 * @param quoteId           Quote Id
-	 * @param updateNullOrFalse
+	 * @param updateNullOrFalse Put null in custom fields if true. Put values if false.
 	 * @return                  `Quote` The updated Quote
-	 * @see updateQuote[0]
-	 * @see updateOpp[0]
 	 */
 	private static Quote updateQuote(Id quoteId, Boolean updateNullOrFalse) {
 		String quoteFields = QuoteSyncUtil.getQuoteFieldsString();
@@ -649,6 +665,13 @@ private without sharing class QuoteSyncTest {
 		return quote;
 	}
 
+	/**
+	 * @description Update standard and custom fields on `OpportunityLineItem` records
+	 *
+	 * @param oppId Opportunity Id
+	 * @return      `List<OpportunityLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateOppLines[2]
+	 */
 	private static List<OpportunityLineItem> updateOppLines(Id oppId) {
 		return updateOppLines(oppId, true, true);
 	}
@@ -658,6 +681,7 @@ private without sharing class QuoteSyncTest {
 	 *
 	 * @param oppId Opportunity Id
 	 * @return      `List<OpportunityLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateOppLines[2]
 	 */
 	private static List<OpportunityLineItem> updateOppLinesStdSyncFields(Id oppId) {
 		return updateOppLines(oppId, true, false);
@@ -668,6 +692,7 @@ private without sharing class QuoteSyncTest {
 	 *
 	 * @param oppId Opportunity Id
 	 * @return      `List<OpportunityLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateOppLines[2]
 	 */
 	private static List<OpportunityLineItem> updateOppLinesCustomSyncFields(Id oppId) {
 		return updateOppLines(oppId, false, true);
@@ -680,6 +705,7 @@ private without sharing class QuoteSyncTest {
 	 * @param stdSyncField    Update standard fields?
 	 * @param customSyncField Update custom sync fields?
 	 * @return                `List<OpportunityLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateOppLines[2]
 	 */
 	private static List<OpportunityLineItem> updateOppLines(Id oppId, Boolean stdSyncField, Boolean customSyncField) {
 		return updateOppLines(oppId, stdSyncField, customSyncField, false);
@@ -721,6 +747,7 @@ private without sharing class QuoteSyncTest {
 	 *
 	 * @param quoteId           Quote Id
 	 * @return                `List<QuoteLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateQuoteLines[2]
 	 */
 	private static List<QuoteLineItem> updateQuoteLines(Id quoteId) {
 		return updateQuoteLines(quoteId, true, true);
@@ -730,6 +757,7 @@ private without sharing class QuoteSyncTest {
 	 *
 	 * @param quoteId           Quote Id
 	 * @return                `List<QuoteLineItem>` Updated Opportunity Product records
+	 * @see QuoteSyncTest.updateQuoteLines[2]
 	 */
 	private static List<QuoteLineItem> updateQuoteLinesStdSyncFields(Id quoteId) {
 		return updateQuoteLines(quoteId, true, false);
@@ -739,6 +767,7 @@ private without sharing class QuoteSyncTest {
 	 *
 	 * @param quoteId             Quote Id
 	 * @return                  `List<QuoteLineItem>` Updated Quote Line Item records
+	 * @see QuoteSyncTest.updateQuoteLines[2]
 	 */
 	private static List<QuoteLineItem> updateQuoteLinesCustomSyncFields(Id quoteId) {
 		return updateQuoteLines(quoteId, false, true);
@@ -750,6 +779,7 @@ private without sharing class QuoteSyncTest {
 	 * @param stdSyncField      Update standard fields?
 	 * @param customSyncField   Update custom sync fields?
 	 * @return                  `List<QuoteLineItem>` Updated Quote Line Item records
+	 * @see QuoteSyncTest.updateQuoteLines[2]
 	 */
 	private static List<QuoteLineItem> updateQuoteLines(Id quoteId, Boolean stdSyncField, Boolean customSyncField) {
 		return updateQuoteLines(quoteId, stdSyncField, customSyncField, false);
@@ -786,6 +816,12 @@ private without sharing class QuoteSyncTest {
 		return qlis;
 	}
 
+	/**
+	 * @description Change the Opportunity CloseDate to today and update.
+	 *
+	 * @param oppId Opportunity Id
+	 * @return      `Opportunity` Updated Opportunity
+	 */
 	private static Opportunity updateOppNoSync(Id oppId) {
 		String oppQuery = 'SELECT Id, CloseDate from Opportunity WHERE Id = \'' + oppId + '\'';
 
@@ -796,6 +832,12 @@ private without sharing class QuoteSyncTest {
 		return opp;
 	}
 
+	/**
+	 * @description   Change the Quote Expiration date to today and update.
+	 *
+	 * @param quoteId Quote Id
+	 * @return        `Quote` Updated Quote
+	 */
 	private static Quote updateQuoteNoSync(Id quoteId) {
 		String quoteQuery = 'SELECT Id, ExpirationDate from Quote WHERE Id = \'' + quoteId + '\'';
 
@@ -806,6 +848,13 @@ private without sharing class QuoteSyncTest {
 		return quote;
 	}
 
+	/**
+	 * @description Update a specific field on Opportunity Product records for a specific Opportunity
+	 *
+	 * @param oppId Opportuniyt Id
+	 * @param field The field name
+	 * @return      `List<OpportunityLineItem>` Updated Opportunity Product records
+	 */
 	private static List<OpportunityLineItem> updateOppLinesNoSync(Id oppId, String field) {
 		String oliFields = QuoteSyncUtil.getOppLineFieldsString();
 		//prettier-ignore
@@ -825,6 +874,13 @@ private without sharing class QuoteSyncTest {
 		return olis;
 	}
 
+	/**
+	 * @description   Update a specific on Quote Line Item records for a specific Quote
+	 *
+	 * @param quoteId Quote Id
+	 * @param field   Field name
+	 * @return        `List<QuoteLineItem>` Updated Quote Line Item records
+	 */
 	private static List<QuoteLineItem> updateQuoteLinesNoSync(Id quoteId, String field) {
 		String qliFields = QuoteSyncUtil.getQuoteLineFieldsString();
 		//prettier-ignore

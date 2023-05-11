@@ -376,7 +376,7 @@ public class QuoteSyncUtil {
 				excludeFields.addAll(getOppLineFields());
 			}
 			when else {
-				System.assert(false, 'Unknown entity: ' + entity);
+				Assert.fail('Unknown entity: ' + entity);
 			}
 		}
 
