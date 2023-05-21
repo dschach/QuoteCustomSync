@@ -23,11 +23,11 @@ sf org create scratch --set-default --definition-file config/project-scratch-def
 echo "" && \
 
 echo "Pushing package source..." && \
-sf project deploy start --source-dir force-app && \
+sf project deploy start --source-dir sfdx-source/QuoteCustomSync && \
 echo "" && \
 
-echo "Pushing unpackaged metadata..." && \
-sf project deploy start --source-dir unpackaged && \
+echo "Pushing sfdx-source/unpackaged metadata..." && \
+sf project deploy start --source-dir sfdx-source/unpackaged && \
 echo "" && \
 
 echo "Assigning permission sets..." && \

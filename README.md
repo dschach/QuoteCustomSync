@@ -55,13 +55,12 @@ Two CMTs are included: `Quote Sync Field` and `Quote Line Sync Field`. Four fiel
 
 1. Go to Setup > Custom Metadata Types and click `Manage Records` on one of the metadata types. We will use `Quote Sync Field` as our example.
 2. If you are syncing two text fields, named `QuoteText__c` on Quote and `OpportunityText__c` on Opportunity, create a custom metadata type with the following:
-   1. Name and DeveloperName are friendly fields and are not used by the app. Perhaps call this entry `Text`. Significantly, the DeveloperName must be unique.
-   2. Type the field names into the `Quote Field` (QuoteText**c) and `Opportunity Field` (OpportunityText**c) fields. this single record is used for both directions of synchronization.
+   1. Name and DeveloperName are user-friendly fields and are not used by the app. Perhaps call this entry `Text`. `DeveloperName` must be unique.
+   2. Type the field names into the `Quote Field` (`QuoteText__c`) and `Opportunity Field` (`OpportunityText__c`) fields. this single record is used for both directions of synchronization.
 3. Save the record and go to the next one.
 
 Again, the same CMT records are used for updating the Opportunity from its syncing Quote, and for updating the syncing Quote from its Opportunity.
 
 # Roadmap (work in progress)
 
-1. Investigate using namespace for package
-1. Clean more comments as scratch org tests continue to pass
+1. Investigate using namespace for a managed package

@@ -1,10 +1,10 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
+      "path": "sfdx-source/QuoteCustomSync",
       "default": true,
       "unpackagedMetadata": {
-        "path": "unpackaged"
+        "path": "sfdx-source/unpackaged"
       },
       "package": "Quote Custom Sync",
       "versionName": "First Release",
@@ -19,7 +19,7 @@
       }
     },
     {
-      "path": "unpackaged",
+      "path": "sfdx-source/unpackaged",
       "default": false
     }
   ],
