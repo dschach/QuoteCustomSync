@@ -38,8 +38,8 @@
 <ol>
 <li>Go to Setup &gt; Custom Metadata Types and click <code>Manage Records</code> on one of the metadata types. We will use <code>Quote Sync Field</code> as our example.</li>
 <li>If you are syncing two text fields, named <code>QuoteText__c</code> on Quote and <code>OpportunityText__c</code> on Opportunity, create a custom metadata type with the following:<ol>
-<li>Name and DeveloperName are friendly fields and are not used by the app. Perhaps call this entry <code>Text</code>. Significantly, the DeveloperName must be unique.</li>
-<li>Type the field names into the <code>Quote Field</code> (QuoteText<strong>c) and <code>Opportunity Field</code> (OpportunityText</strong>c) fields. this single record is used for both directions of synchronization.</li>
+<li>Name and DeveloperName are user-friendly fields and are not used by the app. Perhaps call this entry <code>Text</code>. <code>DeveloperName</code> must be unique.</li>
+<li>Type the field names into the <code>Quote Field</code> (<code>QuoteText__c</code>) and <code>Opportunity Field</code> (<code>OpportunityText__c</code>) fields. this single record is used for both directions of synchronization.</li>
 </ol>
 </li>
 <li>Save the record and go to the next one.</li>
@@ -47,7 +47,6 @@
 <p>Again, the same CMT records are used for updating the Opportunity from its syncing Quote, and for updating the syncing Quote from its Opportunity.</p>
 <h1 id="roadmap-work-in-progress">Roadmap (work in progress)</h1>
 <ol>
-<li>Investigate using namespace for package</li>
-<li>Clean more comments as scratch org tests continue to pass</li>
+<li>Investigate using namespace for a managed package</li>
 </ol>
 
