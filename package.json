@@ -6,16 +6,16 @@
 	"scripts": {
 		"apex:test": "rm testresults/* && sf apex run test --test-level RunLocalTests --output-dir testresults --result-format human --code-coverage",
 		"myinfo": "sf org display --verbose",
-		"pmd:scan:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/ruleset.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
-		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check --dir force-app --rulesets pmd/deployRules.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
+		"pmd:scan:csv": "$HOME/pmd/bin/pmd check --dir sfdx-source/QuoteCustomSync --rulesets pmd/ruleset.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
+		"pmd:scan:deploy:csv": "$HOME/pmd/bin/pmd check --dir sfdx-source/QuoteCustomSync --rulesets pmd/deployRules.xml --format csv --report-file pmd/pmd.csv --cache .pmdCache",
 		"precommit": "lint-staged",
 		"prepare": "husky install",
-		"prettier:apex": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
+		"prettier:apex": "prettier --write \"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
 		"prettier:docs": "prettier --write \"docs/*.html\"",
-		"prettier:verify:apex": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
+		"prettier:verify:apex": "prettier --list-different \"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
 		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --dry-run --debug --target-branch=main",
+		"release:preview": "branch=$(git symbolic-ref --short -q HEAD) && release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --dry-run --debug --target-branch=$branch",
 		"setup:docs": ". doc-assets/setupApexDox.sh",
 		"scratchorg": ". scripts/scratchorg.sh",
 		"updateHighlight": ". doc-assets/updateHighlight.sh",
@@ -31,16 +31,16 @@
 		"release-please": "^15.10.4"
 	},
 	"lint-staged": {
-		"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}": [
+		"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}": [
 			"prettier --write"
-		],
-		"force-app/**/{aura,lwc}/**": [
-			"eslint"
 		],
 		"docs/assets/*.css": [
 			"prettier --write"
 		],
 		"docs/*.html": [
+			"prettier --write --tab-width 2"
+		],
+		"doc-assets/**/*.html": [
 			"prettier --write --tab-width 2"
 		]
 	}
