@@ -66,7 +66,7 @@ jobs:
         id: create-package-version
         run: |
           set +e
-          json=$(sf package version create --code-coverage --package QuoteCustomSync --path force-app --installationkeybypass --wait 20 --json)
+          json=$(sf package version create --code-coverage --package QuoteCustomSync --path sfdx-source/QuoteCustomSync --installationkeybypass --wait 20 --json)
           echo $json
           status=$(echo $json | jq '.status')
           if [ $status == "0" ]; then
