@@ -1,6 +1,6 @@
 engine:
   source:
-    - path: '${workspaceFolder}/force-app/main/default/classes'
+    - path: '${workspaceFolder}/sfdx-source'
       sourceUrl: https://github.com/dschach/QuoteCustomSync/blob/main
   targetDirectory: '${workspaceFolder}/docs'
   # excludes:
