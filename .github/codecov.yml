@@ -19,4 +19,4 @@ coverage:
         flags:
           - Apex
 ignore:
-  - 'force-app/main/default/staticresources/**'
+  - 'sfdx-source/QuoteCustomSync/main/default/staticresources/**'

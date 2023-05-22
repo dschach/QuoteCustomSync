@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [edited, opened, synchronize, reopened, review_requested]
     paths:
-      - 'force-app/**'
+      - 'sfdx-source/**'
       - 'pmd/**'
       #- 'package.json'
 
@@ -63,7 +63,7 @@ jobs:
         id: pmd-action
         with:
           version: 'latest'
-          sourcePath: 'force-app'
+          sourcePath: 'sfdx-source/QuoteCustomSync'
           rulesets: 'pmd/deployRules.xml'
           analyzeModifiedFilesOnly: false
           createGitHubAnnotations: true
