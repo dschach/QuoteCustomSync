@@ -6,6 +6,7 @@
 !**/staticresources/*.js
 .localdevserver
 .sfdx
+.sf
 .vscode
 
 scripts/soql/**
@@ -21,4 +22,6 @@ pmd/
 
 # Exclude project config
 sfdx-project.json
+package-lock.json
 dependencies.json
+CHANGELOG.md

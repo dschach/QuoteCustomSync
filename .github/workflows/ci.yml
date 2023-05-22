@@ -5,17 +5,18 @@ name: On Push
 on:
   workflow_dispatch:
   push:
-    # paths-ignore:
-    #   - 'sfdx-project.json'
-    #   - 'README.md'
-    #   - 'docs/**'
-    #   - 'doc-assets/**'
-    #   - '.vscode/**'
-    #   - '.github/**'
+    #paths-ignore:
+    #- 'sfdx-project.json'
+    #- 'README.md'
+    #- 'docs/**'
+    #- 'doc-assets/**'
+    #- '.github/**'
     paths:
       - 'sfdx-source/**'
       - 'pmd/**'
       - 'config/**'
+      - '.vscode/**'
+      - '.prettier*'
 
 # Jobs to be executed
 jobs:

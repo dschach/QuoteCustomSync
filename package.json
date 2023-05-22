@@ -11,11 +11,11 @@
 		"precommit": "lint-staged",
 		"prepare": "husky install",
 		"prettier:apex": "prettier --write \"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
-		"prettier:docs": "prettier --write \"docs/*.html\"",
+		"prettier:docs": "prettier --write \"doc*/**/*.html\"",
 		"prettier:verify:apex": "prettier --list-different \"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}\"",
 		"prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
 		"prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-		"release:preview": "release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --dry-run --debug --target-branch=main",
+		"release:preview": "branch=$(git symbolic-ref --short -q HEAD) && release-please release-pr --token=$GITHUB_TOKEN --repo-url=dschach/QuoteCustomSync --dry-run --debug --target-branch=$branch",
 		"setup:docs": ". doc-assets/setupApexDox.sh",
 		"scratchorg": ". scripts/scratchorg.sh",
 		"updateHighlight": ". doc-assets/updateHighlight.sh",
@@ -31,16 +31,13 @@
 		"release-please": "^15.10.4"
 	},
 	"lint-staged": {
-		"sfdx-source/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,yaml,yml}": [
+		"sfdx-source/**/*.{cls,cmp,component,css,js,json,md,page,trigger,yaml,yml}": [
 			"prettier --write"
-		],
-		"sfdx-source/**/{aura,lwc}/**": [
-			"eslint"
 		],
 		"docs/assets/*.css": [
 			"prettier --write"
 		],
-		"docs/*.html": [
+		"*.html": [
 			"prettier --write --tab-width 2"
 		]
 	}
