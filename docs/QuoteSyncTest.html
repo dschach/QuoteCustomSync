@@ -37,13 +37,13 @@
             </summary>
             <ul>
               <!-- menu items -->
-              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class" onclick="goToLocation('QuoteSyncHandler.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
               </li>
-              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class" onclick="goToLocation('QuoteSyncTest.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
               </li>
-              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class" onclick="goToLocation('QuoteSyncUtil.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
               </li>
             </ul>
@@ -127,7 +127,7 @@
 
                   <th>Description</th>
                 </tr>
-                <tr class="property private">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
@@ -234,7 +234,10 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.makeData"> makeData () </a>
 
-                    <div class="methods-toc__description">Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)</div>
+                    <div class="methods-toc__description">
+                      Set up relevant records (<code class="code-inline">Product2</code>, <code class="code-inline">Pricebook2</code>,
+                      <code class="code-inline">PricebookEntry</code>, and an <code class="code-inline">Account</code>)
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.populateField"> populateField (sobj, entity, field) </a>
@@ -254,22 +257,22 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printOpp"> printOpp (oppId) </a>
 
-                    <div class="methods-toc__description">Debug method for use in checking unit tests.</div>
+                    <div class="methods-toc__description">Debug method for use in checking unit tests</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printOppLines"> printOppLines (oppId) </a>
 
-                    <div class="methods-toc__description">Debug method for use in checking unit tests.</div>
+                    <div class="methods-toc__description">Debug method for use in checking unit tests</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printQuote"> printQuote (quoteId) </a>
 
-                    <div class="methods-toc__description">Debug method for use in checking unit tests.</div>
+                    <div class="methods-toc__description">Debug method for use in checking unit tests</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printQuoteLines"> printQuoteLines (quoteId) </a>
 
-                    <div class="methods-toc__description">Debug method for use in checking unit tests.</div>
+                    <div class="methods-toc__description">Debug method for use in checking unit tests</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.printSObject">
@@ -284,12 +287,14 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.startSync"> startSync (oppId, quoteId) </a>
 
-                    <div class="methods-toc__description">Set a specific Quote as the syncing quote</div>
+                    <div class="methods-toc__description">
+                      Set a specific <code class="code-inline">Quote</code> as the syncing <code class="code-inline">Quote</code>
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.stopSync"> stopSync (oppId) </a>
 
-                    <div class="methods-toc__description">Set no Quote to synd with this Opportunity</div>
+                    <div class="methods-toc__description">Set no Quote to synd with this <code class="code-inline">Opportunity</code></div>
                   </li>
                   <li class="method testmethod">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.testCreateDuplicateOppLine"> testCreateDuplicateOppLine () </a>
@@ -312,7 +317,7 @@
 
                     <div class="methods-toc__description">
                       Create quote from <code class="code-inline">Opportunity</code>. Verify <code class="code-inline">Quote</code> sync fields are
-                      copied from opp.
+                      copied from the <code class="code-inline">Opportunity</code>.
                     </div>
                   </li>
                   <li class="method testmethod">
@@ -779,7 +784,10 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesNoSync"> updateOppLinesNoSync (oppId, field) </a>
 
-                    <div class="methods-toc__description">Update a specific field on Opportunity Product records for a specific Opportunity</div>
+                    <div class="methods-toc__description">
+                      Update a specific field on <code class="code-inline">OpportunityLineItem</code> records for a specific
+                      <code class="code-inline">Opportunity</code>
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppLinesStdSyncFields"> updateOppLinesStdSyncFields (oppId) </a>
@@ -791,7 +799,7 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateOppNoSync"> updateOppNoSync (oppId) </a>
 
-                    <div class="methods-toc__description">Change the Opportunity CloseDate to today and update.</div>
+                    <div class="methods-toc__description">Change the <code class="code-inline">Opportunity</code> CloseDate to today and update.</div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuote"> updateQuote (quoteId) </a>
@@ -838,7 +846,10 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesNoSync"> updateQuoteLinesNoSync (quoteId, field) </a>
 
-                    <div class="methods-toc__description">Update a specific on Quote Line Item records for a specific Quote</div>
+                    <div class="methods-toc__description">
+                      Update a specific on <code class="code-inline">QuoteLineItem</code> records for a specific
+                      <code class="code-inline">Quote</code>
+                    </div>
                   </li>
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteLinesStdSyncFields"> updateQuoteLinesStdSyncFields (quoteId) </a>
@@ -850,7 +861,7 @@
                   <li class="method private">
                     <a class="methods-toc__entry" href="#QuoteSyncTest.updateQuoteNoSync"> updateQuoteNoSync (quoteId) </a>
 
-                    <div class="methods-toc__description">Change the Quote Expiration date to today and update.</div>
+                    <div class="methods-toc__description">Change the <code class="code-inline">Quote</code> Expiration date to today and update.</div>
                   </li>
                 </ul>
                 <div class="method private">
@@ -1238,7 +1249,10 @@
                       makeData()
                     </a>
                   </h4>
-                  <div class="method-description">Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)</div>
+                  <div class="method-description">
+                    Set up relevant records (<code class="code-inline">Product2</code>, <code class="code-inline">Pricebook2</code>,
+                    <code class="code-inline">PricebookEntry</code>, and an <code class="code-inline">Account</code>)
+                  </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@TestSetup</div>
                   <div class="method-signature">private static void makeData()</div>
@@ -1337,7 +1351,7 @@
                       printOpp(oppId)
                     </a>
                   </h4>
-                  <div class="method-description">Debug method for use in checking unit tests.</div>
+                  <div class="method-description">Debug method for use in checking unit tests</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void printOpp(Id oppId)</div>
@@ -1359,7 +1373,7 @@
                       printOppLines(oppId)
                     </a>
                   </h4>
-                  <div class="method-description">Debug method for use in checking unit tests.</div>
+                  <div class="method-description">Debug method for use in checking unit tests</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void printOppLines(Id oppId)</div>
@@ -1381,7 +1395,7 @@
                       printQuote(quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Debug method for use in checking unit tests.</div>
+                  <div class="method-description">Debug method for use in checking unit tests</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void printQuote(Id quoteId)</div>
@@ -1403,7 +1417,7 @@
                       printQuoteLines(quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Debug method for use in checking unit tests.</div>
+                  <div class="method-description">Debug method for use in checking unit tests</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void printQuoteLines(Id quoteId)</div>
@@ -1466,7 +1480,9 @@
                       startSync(oppId, quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Set a specific Quote as the syncing quote</div>
+                  <div class="method-description">
+                    Set a specific <code class="code-inline">Quote</code> as the syncing <code class="code-inline">Quote</code>
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void startSync(Id oppId, Id quoteId)</div>
@@ -1489,7 +1505,7 @@
                       stopSync(oppId)
                     </a>
                   </h4>
-                  <div class="method-description">Set no Quote to synd with this Opportunity</div>
+                  <div class="method-description">Set no Quote to synd with this <code class="code-inline">Opportunity</code></div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static void stopSync(Id oppId)</div>
@@ -1548,7 +1564,7 @@
                   </h4>
                   <div class="method-description">
                     Create quote from <code class="code-inline">Opportunity</code>. Verify <code class="code-inline">Quote</code> sync fields are
-                    copied from opp.
+                    copied from the <code class="code-inline">Opportunity</code>.
                   </div>
                   <div class="method-subtitle">Signature</div>
                   <div class="method-annotations">@isTest</div>
@@ -2734,7 +2750,10 @@
                       updateOppLinesNoSync(oppId, field)
                     </a>
                   </h4>
-                  <div class="method-description">Update a specific field on Opportunity Product records for a specific Opportunity</div>
+                  <div class="method-description">
+                    Update a specific field on <code class="code-inline">OpportunityLineItem</code> records for a specific
+                    <code class="code-inline">Opportunity</code>
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;OpportunityLineItem&gt; updateOppLinesNoSync(Id oppId, String field)</div>
@@ -2791,7 +2810,7 @@
                       updateOppNoSync(oppId)
                     </a>
                   </h4>
-                  <div class="method-description">Change the Opportunity CloseDate to today and update.</div>
+                  <div class="method-description">Change the <code class="code-inline">Opportunity</code> CloseDate to today and update.</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Opportunity updateOppNoSync(Id oppId)</div>
@@ -3006,7 +3025,9 @@
                       updateQuoteLinesNoSync(quoteId, field)
                     </a>
                   </h4>
-                  <div class="method-description">Update a specific on Quote Line Item records for a specific Quote</div>
+                  <div class="method-description">
+                    Update a specific on <code class="code-inline">QuoteLineItem</code> records for a specific <code class="code-inline">Quote</code>
+                  </div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static List&lt;QuoteLineItem&gt; updateQuoteLinesNoSync(Id quoteId, String field)</div>
@@ -3065,7 +3086,7 @@
                       updateQuoteNoSync(quoteId)
                     </a>
                   </h4>
-                  <div class="method-description">Change the Quote Expiration date to today and update.</div>
+                  <div class="method-description">Change the <code class="code-inline">Quote</code> Expiration date to today and update.</div>
                   <div class="method-subtitle">Signature</div>
 
                   <div class="method-signature">private static Quote updateQuoteNoSync(Id quoteId)</div>

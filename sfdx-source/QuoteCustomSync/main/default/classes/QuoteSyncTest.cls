@@ -33,7 +33,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description Set up relevant records (Product, Pricebook2, PricebookEntry, and an Account)
+	 * @description Set up relevant records (`Product2`, `Pricebook2`, `PricebookEntry`, and an `Account`)
 	 */
 	@TestSetup
 	private static void makeData() {
@@ -268,7 +268,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests.
+	 * Debug method for use in checking unit tests
 	 *
 	 * @param oppId The `Opportunity` to debug
 	 * @example
@@ -284,7 +284,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests.
+	 * Debug method for use in checking unit tests
 	 *
 	 * @param quoteId The `Quote` to debug
 	 * @example
@@ -300,7 +300,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests.
+	 * Debug method for use in checking unit tests
 	 *
 	 * @param oppId The `Opportunity` to debug
 	 * @example
@@ -329,7 +329,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Debug method for use in checking unit tests.
+	 * Debug method for use in checking unit tests
 	 *
 	 * @param quoteId The `Quote` to debug
 	 * @example
@@ -817,7 +817,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description Change the Opportunity CloseDate to today and update.
+	 * @description Change the `Opportunity` CloseDate to today and update.
 	 *
 	 * @param oppId Opportunity Id
 	 * @return      `Opportunity` Updated Opportunity
@@ -833,7 +833,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description   Change the Quote Expiration date to today and update.
+	 * @description   Change the `Quote` Expiration date to today and update.
 	 *
 	 * @param quoteId Quote Id
 	 * @return        `Quote` Updated Quote
@@ -849,7 +849,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description Update a specific field on Opportunity Product records for a specific Opportunity
+	 * @description Update a specific field on `OpportunityLineItem` records for a specific `Opportunity`
 	 *
 	 * @param oppId Opportuniyt Id
 	 * @param field The field name
@@ -875,7 +875,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description   Update a specific on Quote Line Item records for a specific Quote
+	 * @description   Update a specific on `QuoteLineItem` records for a specific `Quote`
 	 *
 	 * @param quoteId Quote Id
 	 * @param field   Field name
@@ -902,7 +902,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description   Set a specific Quote as the syncing quote
+	 * @description   Set a specific `Quote` as the syncing `Quote`
 	 *
 	 * @param oppId   Opportunity Id
 	 * @param quoteId Quote Id (to set as syncing quote)
@@ -914,7 +914,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * @description Set no Quote to synd with this Opportunity
+	 * @description Set no Quote to synd with this `Opportunity`
 	 *
 	 * @param oppId Opportunity Id
 	 */
@@ -925,7 +925,7 @@ private without sharing class QuoteSyncTest {
 	}
 
 	/**
-	 * Create quote from `Opportunity`. Verify `Quote` sync fields are copied from opp.
+	 * Create quote from `Opportunity`. Verify `Quote` sync fields are copied from the `Opportunity`.
 	 */
 	@isTest
 	private static void testCreateQuote() {

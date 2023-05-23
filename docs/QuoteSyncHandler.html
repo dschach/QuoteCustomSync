@@ -37,13 +37,13 @@
             </summary>
             <ul>
               <!-- menu items -->
-              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class global" onclick="goToLocation('QuoteSyncHandler.html');">
+              <li title="QuoteSyncHandler" id="item-QuoteSyncHandler" class="nav-item class" onclick="goToLocation('QuoteSyncHandler.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncHandler</a>
               </li>
-              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class private" onclick="goToLocation('QuoteSyncTest.html');">
+              <li title="QuoteSyncTest" id="item-QuoteSyncTest" class="nav-item class" onclick="goToLocation('QuoteSyncTest.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncTest</a>
               </li>
-              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class public" onclick="goToLocation('QuoteSyncUtil.html');">
+              <li title="QuoteSyncUtil" id="item-QuoteSyncUtil" class="nav-item class" onclick="goToLocation('QuoteSyncUtil.html');">
                 <a tabindex="1" href="javascript:void(0)">QuoteSyncUtil</a>
               </li>
             </ul>
@@ -116,7 +116,7 @@
               <div class="class-subtitle">Since</div>
               <div class="class-subtitle-description">
                 <li>2022-08 New trigger handler framework</li>
-                <li>2022-10 Converted to Custom Metadata</li>
+                <li>2022-10 Converted to Custom Metadata Types (from Custom Settings)</li>
                 <li>2022-10 Change SOQL to use IN collection, not comma-separated Ids</li>
                 <li>2023-04 Refine Quote Sync with new Quote fields</li>
                 <li>2023-04 Remove trigger framework, move stoppers into this class</li>
@@ -131,7 +131,7 @@
 
                   <th>Description</th>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
@@ -148,7 +148,7 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">Opportunity</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
@@ -165,7 +165,7 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">OppoortunityLineItem</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
@@ -182,7 +182,7 @@
 
                   <td class="attribute-description">If true, exit <code class="code-inline">Quote</code> trigger handler</td>
                 </tr>
-                <tr class="property public">
+                <tr class="property">
                   <td class="attribute-name">
                     <a
                       target="_blank"
