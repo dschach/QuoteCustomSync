@@ -37,3 +37,12 @@
 ### Merging Pull Requests
 
 - Pull request merging is restricted to squash & merge only, unless we use Gearset
+
+## On New Release
+
+When a new package is created by merging the Release-Please Pull Request, open VSCode and run the following (in `main`):
+
+- `. doc-assets/setupApexDox.sh`
+- `ApexDox: Run` (extension command)
+- `npm run prettier:docs`
+- `git commit -m "docs(ApexDox): update ApexDox" -m "Update ApexDox"`
