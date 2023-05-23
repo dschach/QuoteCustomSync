@@ -12,7 +12,7 @@
  */
 public class QuoteSyncUtil {
 	/**
-	 * Set of all new Quote Ids, maintained for the trigger handler
+	 * Set of all new `Quote` Ids, maintained for the trigger handler
 	 */
 	private static Set<Id> newQuoteIds {
 		get {
@@ -24,6 +24,9 @@ public class QuoteSyncUtil {
 		set;
 	}
 
+	/**
+	 * Standard fields are not synced by this app - Salesforce does that automatically
+	 */
 	//prettier-ignore
 	public static Set<String> standardQuoteFields = new Set<String>{ 
 		'IsSyncing',
@@ -31,6 +34,9 @@ public class QuoteSyncUtil {
 		'OpportunityId',
 		'Pricebook2Id'
 	};
+	/**
+	 * Standard fields are not synced by this app - Salesforce does that automatically
+	 */
 	//prettier-ignore
 	public static Set<String> standardOppFields = new Set<String>{ 
 		'HasOpportunityLineItem', 
@@ -38,6 +44,9 @@ public class QuoteSyncUtil {
 		'Pricebook2Id',
 		'SyncedQuoteId'
 	};
+	/**
+	 * Standard fields are not synced by this app - Salesforce does that automatically
+	 */
 	//prettier-ignore
 	public static Set<String> standardQuoteLineItemFields = new Set<String>{
 		'Discount',
@@ -49,6 +58,9 @@ public class QuoteSyncUtil {
 		'SortOrder',
 		'UnitPrice'
 	};
+	/**
+	 * Standard fields are not synced by this app - Salesforce does that automatically
+	 */
 	//prettier-ignore
 	public static Set<String> standardOppLineItemFields = new Set<String>{ 
 		'Discount',
@@ -406,7 +418,7 @@ public class QuoteSyncUtil {
 	/**
 	 * @description Create a value for each custom field we are not syncing
 	 *
-	 * @param sobj  Sobject record - Quote, Opportunity, QuoteLineItem, or OpportunityLineItem
+	 * @param sobj  Sobject record - `Quote`, `Opportunity`, `QuoteLineItem`, or `OpportunityLineItem`
 	 */
 	public static void populateRequiredFields(SObject sobj) {
 		String entity = sobj.getSObjectType().getDescribe().getName();
@@ -450,7 +462,7 @@ public class QuoteSyncUtil {
 	 * @param field          Field Name
 	 * @param result         Passed DescribeFieldResult
 	 * @param setNullOrFalse If true, set field to null (or Boolean to false)
-	 * @return               `Object`
+	 * @return               `Object` Object with fields filled
 	 */
 	public static Object createValue(SObject sobj, String entity, String field, Schema.DescribeFieldResult result, Boolean setNullOrFalse) {
 		Object value = null;

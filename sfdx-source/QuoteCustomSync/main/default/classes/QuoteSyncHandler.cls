@@ -10,7 +10,7 @@
  *
  * @author {@link [David Schach](https://github.com/dschach)}
  * @since 2022-08 New trigger handler framework
- * @since 2022-10 Converted to Custom Metadata
+ * @since 2022-10 Converted to Custom Metadata Types (from Custom Settings)
  * @since 2022-10 Change SOQL to use IN collection, not comma-separated Ids
  * @since 2023-04 Refine Quote Sync with new Quote fields
  * @since 2023-04 Remove trigger framework, move stoppers into this class
