@@ -45,4 +45,6 @@ When a new package is created by merging the Release-Please Pull Request, open V
 - `. doc-assets/setupApexDox.sh`
 - `ApexDox: Run` (extension command)
 - `npm run prettier:docs`
+- `git add .`
 - `git commit -m "docs(ApexDox): update ApexDox" -m "Update ApexDox"`
+- sync changes from VSCode if it doesn't do so automatically
