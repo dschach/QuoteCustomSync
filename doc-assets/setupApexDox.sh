@@ -30,3 +30,9 @@ npx marked -i INSTALLATION.md --gfm >> "doc-assets/files/installation.html"
 sed -i "" "s|INSTALLATION.md|installation.html|" "doc-assets/main.html"
 
 npm run updateHighlight
+
+#cp doc-assets/files/changelog.html docs/changelog.html
+#cp doc-assets/main.html docs/index.html
+#cp doc-assets/files/installation.html docs/installation.html
+
+#npm run prettier:docs
