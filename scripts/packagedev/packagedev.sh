@@ -15,11 +15,11 @@ sf project deploy start --source-dir sfdx-source/QuoteCustomSync
 sf project deploy start --source-dir sfdx-source/unpackaged
 
 #echo "Assigning permission set"
-#sf org assign permset --name QuoteSyncTester
+sf org assign permset --name QuoteSyncTester
 
-# To install sample action plan template
+# To install sample data
 echo "Loading sample data"
-sf apex run --file ./data/sample-data.apex
+sf data import tree --plan ./data/data-plan.json
 
 echo "opening org"
 sf org open --target-org QuoteSyncOrg
