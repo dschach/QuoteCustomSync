@@ -28,7 +28,7 @@
 		"marked": "^5.1.1",
 		"prettier": "^3.0.0",
 		"prettier-plugin-apex": "^2.0.1",
-		"release-please": "^15.11.0"
+		"release-please": "^15.11.2"
 	},
 	"lint-staged": {
 		"sfdx-source/**/*.{cls,cmp,component,css,js,json,md,page,trigger,yaml,yml}": [
