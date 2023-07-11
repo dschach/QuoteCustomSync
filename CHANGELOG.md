@@ -1,5 +1,57 @@
 # Changelog
 
+## [1.0.2](https://github.com/dschach/QuoteCustomSync/compare/v1.0.1...v1.0.2) (2023-07-11)
+
+
+### Bug Fixes
+
+* Restore sfdx-project ([#36](https://github.com/dschach/QuoteCustomSync/issues/36)) ([9690c7e](https://github.com/dschach/QuoteCustomSync/commit/9690c7e83aeb17ea7fbd5efa077e4674567880f8))
+
+
+### Styles
+
+* **prettier:** Config file formatting ([#35](https://github.com/dschach/QuoteCustomSync/issues/35)) ([7c43c50](https://github.com/dschach/QuoteCustomSync/commit/7c43c50249346113f64d04b865639bb448292c29))
+
+
+### Documentation
+
+* **ApexDox:** Update ApexDox ([#39](https://github.com/dschach/QuoteCustomSync/issues/39)) ([264bbc8](https://github.com/dschach/QuoteCustomSync/commit/264bbc8671aeba2f556cec86e4e35da21870335a))
+* **ApexDox:** Update docs and instructions ([#38](https://github.com/dschach/QuoteCustomSync/issues/38)) ([e1566b8](https://github.com/dschach/QuoteCustomSync/commit/e1566b8cbc130282d8e8b151a20b0f2b215a7eff))
+
+
+### Continuous Integration
+
+* **deps:** Bump mitchspano/sfdx-scan-pull-request from 0.1.10 to 0.1.11 ([#37](https://github.com/dschach/QuoteCustomSync/issues/37)) ([ed36231](https://github.com/dschach/QuoteCustomSync/commit/ed3623199a594364bd7de87249341c42f1e8cae4))
+* **deps:** Bump mitchspano/sfdx-scan-pull-request from 0.1.11 to 0.1.13 ([#42](https://github.com/dschach/QuoteCustomSync/issues/42)) ([8ba32d5](https://github.com/dschach/QuoteCustomSync/commit/8ba32d536dc717d2bd84ceefcf845a5746551da7))
+* **deps:** Bump mitchspano/sfdx-scan-pull-request from 0.1.13 to 0.1.14 ([#43](https://github.com/dschach/QuoteCustomSync/issues/43)) ([fff0337](https://github.com/dschach/QuoteCustomSync/commit/fff0337122c523df6def63f313102c33c2935871))
+* **pmd:** Update to PMD v7 ([8402308](https://github.com/dschach/QuoteCustomSync/commit/8402308cb65eed51a9b25988d60abadd37aac105))
+
+
+### Miscellaneous Chores
+
+* Create BSD 3 license ([#47](https://github.com/dschach/QuoteCustomSync/issues/47)) ([f1436de](https://github.com/dschach/QuoteCustomSync/commit/f1436dedfa43fd7a959f7c3cdd810de317756670))
+* **linguist:** Exclude vendor js files ([#46](https://github.com/dschach/QuoteCustomSync/issues/46)) ([4253d2e](https://github.com/dschach/QuoteCustomSync/commit/4253d2eaedc777b57e602ac02d48f055fe1f4bad))
+* Release package 1.0.2 ([#29](https://github.com/dschach/QuoteCustomSync/issues/29)) ([c326eec](https://github.com/dschach/QuoteCustomSync/commit/c326eec712e0cd4b0bbd73fcb3ff889cf6990304))
+
+
+### Build System
+
+* **deps-dev:** Bump @prettier/plugin-xml from 2.2.0 to 3.1.0 ([#53](https://github.com/dschach/QuoteCustomSync/issues/53)) ([f1ae997](https://github.com/dschach/QuoteCustomSync/commit/f1ae997f2526f7a97edb35d3882f7bca7fde62c5))
+* **deps-dev:** Bump lint-staged from 13.2.2 to 13.2.3 ([#50](https://github.com/dschach/QuoteCustomSync/issues/50)) ([748cd6a](https://github.com/dschach/QuoteCustomSync/commit/748cd6aa5f799c02e0d33011319e754b9816d39c))
+* **deps-dev:** Bump marked from 4.3.0 to 5.0.1 ([#28](https://github.com/dschach/QuoteCustomSync/issues/28)) ([e4efdf8](https://github.com/dschach/QuoteCustomSync/commit/e4efdf84dc0373ba5d0a09621d29d7ea6f7fecdf))
+* **deps-dev:** Bump marked from 5.0.1 to 5.0.2 ([#31](https://github.com/dschach/QuoteCustomSync/issues/31)) ([a751d43](https://github.com/dschach/QuoteCustomSync/commit/a751d43b4b39b97bc751b8ad61ed2a2cdddd8866))
+* **deps-dev:** Bump marked from 5.0.2 to 5.0.3 ([#40](https://github.com/dschach/QuoteCustomSync/issues/40)) ([262207b](https://github.com/dschach/QuoteCustomSync/commit/262207b865744a22a4f70e68912016474f8d1462))
+* **deps-dev:** Bump marked from 5.0.3 to 5.0.4 ([#44](https://github.com/dschach/QuoteCustomSync/issues/44)) ([c61a8cb](https://github.com/dschach/QuoteCustomSync/commit/c61a8cb7a16e8df86a6cfad5f3808a75b981d562))
+* **deps-dev:** Bump marked from 5.0.4 to 5.0.5 ([#48](https://github.com/dschach/QuoteCustomSync/issues/48)) ([ccd320f](https://github.com/dschach/QuoteCustomSync/commit/ccd320fa77f8a14a1a257e3ad5def5f84e80b3d2))
+* **deps-dev:** Bump marked from 5.0.5 to 5.1.0 ([#49](https://github.com/dschach/QuoteCustomSync/issues/49)) ([1b99d5b](https://github.com/dschach/QuoteCustomSync/commit/1b99d5b9b0224c8d655cc186d459ae3238843416))
+* **deps-dev:** Bump marked from 5.1.0 to 5.1.1 ([#54](https://github.com/dschach/QuoteCustomSync/issues/54)) ([be689ea](https://github.com/dschach/QuoteCustomSync/commit/be689eafce1d78ccc613e45695a1c98ca8343c49))
+* **deps-dev:** Bump prettier and prettier-plugin-apex ([#51](https://github.com/dschach/QuoteCustomSync/issues/51)) ([c6df670](https://github.com/dschach/QuoteCustomSync/commit/c6df6707a9654aeb5f814caf1082e2eba44610d9))
+* **deps-dev:** Bump release-please from 15.10.4 to 15.10.5 ([#41](https://github.com/dschach/QuoteCustomSync/issues/41)) ([b6f2590](https://github.com/dschach/QuoteCustomSync/commit/b6f2590b38785dad57a50e0bdf997a542b1d6b2f))
+* **deps-dev:** Bump release-please from 15.10.5 to 15.11.0 ([#45](https://github.com/dschach/QuoteCustomSync/issues/45)) ([249a013](https://github.com/dschach/QuoteCustomSync/commit/249a013438a80ef6c2a340ee04e312d1f34c904a))
+* **deps-dev:** Bump release-please from 15.11.0 to 15.11.2 ([#55](https://github.com/dschach/QuoteCustomSync/issues/55)) ([2217c4a](https://github.com/dschach/QuoteCustomSync/commit/2217c4a4a4d3668795a8f32f8eda72cc14a1f96f))
+* Scratchorg script ([5a3e440](https://github.com/dschach/QuoteCustomSync/commit/5a3e4402d20799fc08ae42bcd3799583ff37e2c5))
+* **sfdx:** Consolidate metadata directories ([#34](https://github.com/dschach/QuoteCustomSync/issues/34)) ([0236002](https://github.com/dschach/QuoteCustomSync/commit/023600212f644ef01eff28ab19b04bc178fa779c))
+
 ## [1.0.1](https://github.com/dschach/QuoteCustomSync/compare/v1.0.0...v1.0.1) (2023-04-29)
 
 
